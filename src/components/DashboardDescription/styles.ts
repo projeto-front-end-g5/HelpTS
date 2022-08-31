@@ -24,7 +24,7 @@ export const Container = styled.div`
       display: flex;
       flex-direction: column;
       gap: 9px;
-      font-family: 'Nunito';
+      font-family: 'Ubuntu', sans-serif;
 
       h2 {
         font-size: 25px;
