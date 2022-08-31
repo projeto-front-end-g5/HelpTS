@@ -1,20 +1,11 @@
-import Header from './components/Header';
-import DashboardDescription from './components/DashboardDescription';
-import SolutionCard from './components/SolutionCard';
-
 import Global from './styles/global';
+import RoutesMain from './routes';
 
 function App() {
   return (
     <div className='App'>
       <Global />
-      
-      <Header />
-
-      <DashboardDescription />
-      
-      <SolutionCard />
-
+      <RoutesMain />
     </div>
   );
 }
