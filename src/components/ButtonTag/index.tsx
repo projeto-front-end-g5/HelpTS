@@ -23,5 +23,3 @@ const Button = ({text, height, onClick, width}: ButtonProps) => (
 )
 
 export default Button
-
-
