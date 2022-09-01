@@ -9,7 +9,7 @@ export const Container = styled.div`
   height: 18.75rem;
 
   background-color: var(--blue);
-  box-shadow: 0 0 20px 0 var(--black);
+  box-shadow: 0px 24px 19px -7px rgba(0, 0, 0, 0.3);
 
   .container_description {
     display: flex;
