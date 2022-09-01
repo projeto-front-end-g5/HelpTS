@@ -1,3 +1,5 @@
-const Login = () => <p>teste login</p>;
+import ContainerBlue from '../../components/ContainerBlue';
+
+const Login = () => <ContainerBlue />;
 
 export default Login;
