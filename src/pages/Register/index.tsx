@@ -1,3 +1,5 @@
-const Register = () => <p>teste register</p>;
+import FormRegister from '../../components/FormRegister';
+
+const Register = () => <FormRegister />;
 
 export default Register;
