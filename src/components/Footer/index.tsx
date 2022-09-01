@@ -1,91 +1,121 @@
+
+import React from "react"; 
+import { TiSocialLinkedin, TiSocialInstagram, TiSocialGithubCircular} from "react-icons/ti"
 import { Container } from "./style";
+
+
 
 const devsData = [
     {
         'nome':'Sara Lins',
         'linkedin':'https://www.linkedin.com/in/sara-lins-75803a217/',
-        'intagram': '',
-        'github':'',
-        'picture':''
+        'intagram': 'https://www.instagram.com/saralins_/',
+        'github':'https://github.com/sara-lins',
+        'picture':'https://avatars.githubusercontent.com/u/87839256?v=4'
     },
     {
         'nome':'Daniel Matuoka',
         'linkedin':'https://www.linkedin.com/in/danielmatuoka/',
-        'intagram': '',
+        'intagram': 'https://www.instagram.com/dan_mtk_/',
         'github':'https://github.com/danmatuoka',
         'picture':'https://avatars.githubusercontent.com/u/98976279?v=4'
     },
     {
         'nome':'Natália Cavicchioli',
         'linkedin':'https://www.linkedin.com/in/natalia-cavicchioli/',
-        'intagram': '',
+        'intagram': 'https://www.instagram.com/nataliacavicchioli/',
         'github':'https://github.com/NataliaCavicchioli',
         'picture':'https://avatars.githubusercontent.com/u/103126226?v=4'
     },
     {
         'nome':'Patrick Santos',
-        'linkedin':'',
+        'linkedin':'https://www.linkedin.com/in/patrick-santos-91489314a/',
         'intagram': '',
-        'github':'',
-        'picture':''
+        'github':'https://github.com/PatrickHAS',
+        'picture':'https://ca.slack-edge.com/TQZR39SET-U035HQH78AW-d6b67a425073-512'
     },
     {
         'nome':'Sofia Alexandrino',
         'linkedin':'https://www.linkedin.com/in/sofiaalexandrino/',
         'intagram': '',
-        'github':'',
+        'github':'https://github.com/sofiaalage',
         'picture':'https://avatars.githubusercontent.com/u/86122263?v=4'
     }
 ]
 
-const Footer = () => 
+interface FooterProps {
+    targetType: string;
+  }
+  
+
+const Footer = ({targetType}: FooterProps) => 
 <Container>
-    <div>
-      <h1>Aplicação desenvolvida para conclusão do módulo Front-End</h1>;  
+    <div className='div-one'>
+      <h1>Aplicação desenvolvida para conclusão do módulo Front-End</h1>  
     </div>
-    <div>
-        <section>
-            <h2> Sobre nós</h2>
-            <p>
+    <div className='div-two'>
+        <section className='section-one'>
+            <div className='divTitle'>
+                <h2 className='title'> Sobre nós</h2>
+            </div>
+
+            <div className='divbottom'>
+               <p className='text'>
             O HelpTS foi desenvolvido com o objetivo de centralizar todas as soluções em
             TypeScript em um só lugar, de forma clara, rápida e objetiva para que o 
             desenvolvedor perca o menor tempo possível na busca da solução para o seu problema.
-            </p>
+            </p> 
+            </div>
+
+            
         </section>
 
-        <section>
-            <h2>Links</h2>
-            <ul>
+        <section className='section-two'>
+            <div className='divTitle'>
+                <h2 className='title'>Links</h2>
+            </div>
+            
+            <div className='divbottom'>
+                  <ul>
                 {devsData.map((dev) => 
-                    <li>
-                    <a href={dev.linkedin}>
-                        <img src='https://www.flaticon.com/br/icone-gratis/linkedin_174857' alt='ícone linkedin'/>
+                    <li className='liLinks'> 
+                    <a target={targetType} href={dev.linkedin} >
+                    <TiSocialLinkedin className='icon'/>
                     </a>
-                    <a href={dev.intagram}>
-                    <img src='https://www.flaticon.com/br/icone-gratis/linkedin_174857' alt='ícone instagran'/>
+                    <a target={targetType}  href={dev.intagram} >
+                    <TiSocialInstagram className='icon'/>
                     </a>
-                    <a href={dev.github}>
-                    <img src='https://www.flaticon.com/br/icone-gratis/linkedin_174857' alt='ícone gitHub'/>
+                    <a target={targetType} href={dev.github} >
+                    <TiSocialGithubCircular className='icon'/>
                     </a>
-                    <h3>{dev.nome}</h3>
+                    <h3 className='text'>{dev.nome}</h3>
                 </li>
                 
                 )}
                 
             </ul>
+
+            </div>
+          
         </section>
          
-        <section>
-            <h2>Team de Desenvolvedores</h2>
-             <ul>
+        <section className='section-three'>
+            <div className='divTitle'>
+                <h2 className='title'>Team de Desenvolvedores</h2>
+            </div>
+            
+            <div className='divbottom'>
+                <ul className='ulPhotos'>
              {devsData.map((dev) => 
                     <li>
-                    <img src={dev.picture} alt='imagens dos desenvolvedores'/>
+                        <img className='dev-photos' src={dev.picture} alt='devs'/>
                 </li>
                 
                 )}
              </ul>
       
+            </div>
+             
         </section>
     </div>
 </Container>;
