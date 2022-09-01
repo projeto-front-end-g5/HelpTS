@@ -1,1 +1,123 @@
-const Footer = () => <h1>Este é um footer</h1>;
+
+import React from "react"; 
+import { TiSocialLinkedin, TiSocialInstagram, TiSocialGithubCircular} from "react-icons/ti"
+import { Container } from "./style";
+
+
+
+const devsData = [
+    {
+        'nome':'Sara Lins',
+        'linkedin':'https://www.linkedin.com/in/sara-lins-75803a217/',
+        'intagram': 'https://www.instagram.com/saralins_/',
+        'github':'https://github.com/sara-lins',
+        'picture':'https://avatars.githubusercontent.com/u/87839256?v=4'
+    },
+    {
+        'nome':'Daniel Matuoka',
+        'linkedin':'https://www.linkedin.com/in/danielmatuoka/',
+        'intagram': 'https://www.instagram.com/dan_mtk_/',
+        'github':'https://github.com/danmatuoka',
+        'picture':'https://avatars.githubusercontent.com/u/98976279?v=4'
+    },
+    {
+        'nome':'Natália Cavicchioli',
+        'linkedin':'https://www.linkedin.com/in/natalia-cavicchioli/',
+        'intagram': 'https://www.instagram.com/nataliacavicchioli/',
+        'github':'https://github.com/NataliaCavicchioli',
+        'picture':'https://avatars.githubusercontent.com/u/103126226?v=4'
+    },
+    {
+        'nome':'Patrick Santos',
+        'linkedin':'https://www.linkedin.com/in/patrick-santos-91489314a/',
+        'intagram': '',
+        'github':'https://github.com/PatrickHAS',
+        'picture':'https://ca.slack-edge.com/TQZR39SET-U035HQH78AW-d6b67a425073-512'
+    },
+    {
+        'nome':'Sofia Alexandrino',
+        'linkedin':'https://www.linkedin.com/in/sofiaalexandrino/',
+        'intagram': '',
+        'github':'https://github.com/sofiaalage',
+        'picture':'https://avatars.githubusercontent.com/u/86122263?v=4'
+    }
+]
+
+interface FooterProps {
+    targetType: string;
+  }
+  
+
+const Footer = ({targetType}: FooterProps) => 
+<Container>
+    <div className='div-one'>
+      <h1>Aplicação desenvolvida para conclusão do módulo Front-End</h1>  
+    </div>
+    <div className='div-two'>
+        <section className='section-one'>
+            <div className='divTitle'>
+                <h2 className='title'> Sobre nós</h2>
+            </div>
+
+            <div className='divbottom'>
+               <p className='text'>
+            O HelpTS foi desenvolvido com o objetivo de centralizar todas as soluções em
+            TypeScript em um só lugar, de forma clara, rápida e objetiva para que o 
+            desenvolvedor perca o menor tempo possível na busca da solução para o seu problema.
+            </p> 
+            </div>
+
+            
+        </section>
+
+        <section className='section-two'>
+            <div className='divTitle'>
+                <h2 className='title'>Links</h2>
+            </div>
+            
+            <div className='divbottom'>
+                  <ul>
+                {devsData.map((dev) => 
+                    <li className='liLinks'> 
+                    <a target={targetType} href={dev.linkedin} >
+                    <TiSocialLinkedin className='icon'/>
+                    </a>
+                    <a target={targetType}  href={dev.intagram} >
+                    <TiSocialInstagram className='icon'/>
+                    </a>
+                    <a target={targetType} href={dev.github} >
+                    <TiSocialGithubCircular className='icon'/>
+                    </a>
+                    <h3 className='text'>{dev.nome}</h3>
+                </li>
+                
+                )}
+                
+            </ul>
+
+            </div>
+          
+        </section>
+         
+        <section className='section-three'>
+            <div className='divTitle'>
+                <h2 className='title'>Team de Desenvolvedores</h2>
+            </div>
+            
+            <div className='divbottom'>
+                <ul className='ulPhotos'>
+             {devsData.map((dev) => 
+                    <li>
+                        <img className='dev-photos' src={dev.picture} alt='devs'/>
+                </li>
+                
+                )}
+             </ul>
+      
+            </div>
+             
+        </section>
+    </div>
+</Container>;
+
+export default Footer

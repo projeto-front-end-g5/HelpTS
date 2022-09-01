@@ -1,11 +1,11 @@
-import DashboardDescription from './components/DashboardDescription';
 import Global from './styles/global';
+import RoutesMain from './routes';
 
 function App() {
   return (
     <div className='App'>
       <Global />
-      <DashboardDescription />
+      <RoutesMain />
     </div>
   );
 }

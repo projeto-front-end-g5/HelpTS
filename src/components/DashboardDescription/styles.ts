@@ -5,40 +5,117 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
 
+  width: 100%;
   height: 18.75rem;
-  padding-top: 3.125rem;
+
   background-color: var(--blue);
+  box-shadow: 0px 24px 19px -7px rgba(0, 0, 0, 0.3);
 
   .container_description {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 0.9375rem;
+
+    width: 90%;
 
     img {
-      width: 9rem;
-      height: 9rem;
+      width: 5.625rem;
+      height: 5.625rem;
+    }
+
+    @media (min-width: 500px) {
+      img {
+        width: 6.25rem;
+        height: 6.25rem;
+      }
+    }
+
+    @media (min-width: 600px) {
+      flex-direction: row;
+      justify-content: flex-end;
+      align-items: center;
+
+      width: 60%;
+
+      img {
+        width: 9.375rem;
+        height: 9.375rem;
+      }
+    }
+
+    @media (min-width: 800px) {
+      width: 55%;
+    }
+
+    @media (min-width: 1200px) {
+      width: 40%;
+    }
+
+    @media (min-width: 1800px) {
+      width: 30%;
     }
 
     .container_text {
-      width: 18.75rem;
-      margin-left: 1rem;
-      color: white;
       display: flex;
       flex-direction: column;
-      gap: 9px;
-      font-family: 'Nunito';
+
+      width: 100%;
+
+      gap: 0.3125rem;
+
+      font-family: 'Ubuntu', sans-serif;
+
+      color: white;
 
       h2 {
-        font-size: 25px;
+        font-size: 1.25rem;
         font-weight: 700;
       }
 
       h3 {
-        font-size: 19px;
+        font-size: 0.9375rem;
         font-weight: 700;
       }
 
       p {
-        font-size: 14px;
-        padding-top: 17px;
+        font-size: 0.75rem;
+        padding-top: 0.6875rem;
+      }
+
+      @media (min-width: 600px) {
+        margin-left: 0.9375rem;
+        margin-top: 0;
+
+        h2 {
+          font-size: 1.5625rem;
+        }
+
+        h3 {
+          font-size: 1.125rem;
+        }
+
+        p {
+          font-size: 0.8125rem;
+          padding-top: 0.5rem;
+        }
+      }
+
+      @media (min-width: 800px) {
+        h2 {
+          font-size: 1.875rem;
+        }
+
+        h3 {
+          font-size: 1.25rem;
+        }
+
+        p {
+          font-size: 0.9375rem;
+          padding-top: 0.625rem;
+        }
       }
     }
   }
