@@ -8,8 +8,12 @@ interface IDashboardData {
   tags: string[];
   darkMode: boolean;
   user: boolean;
+  counter: number;
   DarkLight(): void;
   UserExists(): void;
+  increase(): void;
+  decrease(): void;
+  setCounter: React.Dispatch<React.SetStateAction<number>>;
   setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
   setUser: React.Dispatch<React.SetStateAction<boolean>>;
   setTags: React.Dispatch<React.SetStateAction<string[]>>;
@@ -18,6 +22,9 @@ interface IDashboardData {
 const DashboardContext = createContext<IDashboardData>({} as IDashboardData);
 
 const DashboardProvider = ({ children }: IDashboardProps) => {
+  const [darkMode, setDarkMode] = useState(false);
+  const [user, setUser] = useState(false);
+  const [counter, setCounter] = useState(1);
   const [tags, setTags] = useState<string[]>([
     'state',
     'function',
@@ -28,8 +35,14 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
     'props',
     'parameter',
   ]);
-  const [darkMode, setDarkMode] = useState(false);
-  const [user, setUser] = useState(false);
+
+  function increase() {
+    return counter < 5 ? setCounter(counter + 1) : setCounter(counter);
+  }
+
+  function decrease() {
+    return counter === 1 ? setCounter(counter) : setCounter(counter - 1);
+  }
 
   function DarkLight() {
     return darkMode ? setDarkMode(false) : setDarkMode(true);
@@ -50,6 +63,10 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
         UserExists,
         tags,
         setTags,
+        counter,
+        setCounter,
+        increase,
+        decrease,
       }}
     >
       {children}
