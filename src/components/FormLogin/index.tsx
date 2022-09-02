@@ -2,6 +2,7 @@
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 import { formLoginSchema } from '../../validator/schema';
 import { useLoginContext } from '../../contexts/login/login';
 
@@ -15,7 +16,11 @@ interface IUserLogin {
 const FormLogin = () => {
   const { openEye, submitLogin } = useLoginContext();
 
-  const { register, handleSubmit } = useForm<IUserLogin>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IUserLogin>({
     resolver: yupResolver(formLoginSchema),
   });
 
@@ -29,6 +34,7 @@ const FormLogin = () => {
           placeholder='Email'
           {...register('email')}
         />
+        {errors && <p>{errors.email?.message}</p>}
         <label htmlFor='password'>Senha</label>
         <span className='ContainerPassword'>
           <input
@@ -37,6 +43,7 @@ const FormLogin = () => {
             placeholder='Senha'
             {...register('password')}
           />
+          {errors && <p>{errors.password?.message}</p>}
           <button type='button' onClick={() => submitLogin}>
             {openEye ? <FaEye /> : <FaEyeSlash />}
           </button>
@@ -44,7 +51,9 @@ const FormLogin = () => {
         <button type='submit'>Entrar</button>
       </Form>
       <div className='ContainerLinkResgister'>
-        <p>Não possui cadastro? Registre-se aqui!</p>
+        <p>
+          Não possui cadastro? Registre-se <Link to='/register'>aqui!</Link>
+        </p>
       </div>
     </ContainerFormLogin>
   );
