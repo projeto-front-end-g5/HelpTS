@@ -6,7 +6,7 @@ interface IFormRegister {
   contact: string;
   github: string;
   password: string;
-  confirmPassword: string;
+  passwordConfirm: string;
 }
 
 interface IRegisterProps {
