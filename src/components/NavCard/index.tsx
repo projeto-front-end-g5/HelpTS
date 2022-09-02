@@ -10,9 +10,13 @@ function NavCard() {
         <IoMdAdd />
       </div>
       <div className='nav--params'>
-        <IoIosArrowBack onClick={() => decrease()} />
-        <IoIosArrowForward onClick={() => increase()} />
-        <p>{counter}</p>
+        <p>
+          <IoIosArrowBack onClick={() => decrease()} />
+        </p>
+        <p>
+          <IoIosArrowForward onClick={() => increase()} />
+        </p>
+        <h6>{counter}</h6>
         <span>...</span>
       </div>
     </NavTypesContainer>

@@ -5,6 +5,8 @@ export const NavTypesContainer = styled.div`
   justify-content: space-between;
   align-items: center;
 
+  font-family: 'ubuntu';
+
   margin-top: 30px;
 
   width: 90%;
@@ -31,6 +33,10 @@ export const NavTypesContainer = styled.div`
       font-size: 30px;
       font-weight: 800;
     }
+
+    :hover {
+      cursor: pointer;
+    }
   }
 
   .nav--params {
@@ -40,6 +46,10 @@ export const NavTypesContainer = styled.div`
 
     @media (min-width: 600px) {
       font-size: 22px;
+    }
+
+    :hover {
+      cursor: pointer;
     }
   }
 `;
