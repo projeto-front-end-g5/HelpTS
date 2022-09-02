@@ -5,4 +5,5 @@ export const ContainerListComments = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    background: var(--grey-light);
 `

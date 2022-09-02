@@ -28,6 +28,7 @@ export const ContainerCommentTitle = styled.div`
 
     span {
             font-weight: 300;
+            font-size: 14px;
         }
 
     .cardComment--name{
