@@ -13,7 +13,8 @@ interface IUserLogin {
 }
 
 const FormLogin = () => {
-  const { openEye, submitLogin } = useLoginContext();
+  const { openEye, submitLogin, typeInput, changeStateOpenEyes } =
+    useLoginContext();
 
   const { register, handleSubmit } = useForm<IUserLogin>({
     resolver: yupResolver(formLoginSchema),
@@ -33,11 +34,11 @@ const FormLogin = () => {
         <span className='ContainerPassword'>
           <input
             id='password'
-            type='password'
+            type={typeInput}
             placeholder='Senha'
             {...register('password')}
           />
-          <button type='button' onClick={() => submitLogin}>
+          <button type='button' onClick={() => changeStateOpenEyes()}>
             {openEye ? <FaEye /> : <FaEyeSlash />}
           </button>
         </span>
