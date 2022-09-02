@@ -1,12 +1,13 @@
-import CardComment from "../../components/CardComment";
+import ContainerBlue from '../../components/ContainerBlue';
+import Header from '../../components/Header';
 import CardCommentList from "../../components/CardCommentList";
-import Header from "../../components/Header";
 
 const Comments = () => (
-    <>
-        <Header />
-        <CardCommentList />
-    </>
-)
+  <>
+    <Header />
+    <ContainerBlue />
+    <CardCommentList />
+  </>
+);
 
 export default Comments;
