@@ -2,8 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
-import HeaderProvider from './contexts/HeaderContext';
-import TagListProvidder from './contexts/TagListContext';
+import Provider from './contexts/provider';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(
@@ -12,11 +11,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <HeaderProvider>
-        <TagListProvidder>
+      <Provider>
         <App />
-        </TagListProvidder>
-      </HeaderProvider>
+      </Provider>
     </BrowserRouter>
   </React.StrictMode>
 );

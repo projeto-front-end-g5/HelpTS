@@ -8,9 +8,8 @@ export const FormReg = styled.form`
   text-align: start;
   margin: 0 auto;
   box-sizing: border-box;
-  min-width: 290px;
+  min-width: 230px;
   max-width: 500px;
-  padding: 1rem;
 
   .label--register {
     width: 100%;
