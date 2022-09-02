@@ -1,6 +1,12 @@
 import { Container } from './styles';
 import pc from '../../assets/pc.svg';
 import InputSearch from '../InputSearch';
+import TagList from '../TagList';
+
+
+
+
+
 
 const DashboardDescription = () => (
   <Container>
@@ -16,6 +22,7 @@ const DashboardDescription = () => (
       </div>
     </div>
     <InputSearch />
+    <TagList/>
   </Container>
 );
 
