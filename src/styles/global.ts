@@ -3,17 +3,18 @@ import { createGlobalStyle } from 'styled-components';
 export default createGlobalStyle`
 
 :root {
-        --blue: #4087D7;
-        --grey-light: #E4E4C8;
-        --grey-dark: #4F4F4F;
-        --grey-card: #D6D6C6;
-        --grey-darkmode: #1C1C1C;
-        --yellow: #EEB73F;
-        --blue-dark: #00207C;
-        --green: #32CD32;
-        --white: #FFFFFF;
-        --black: #000000;
-    }
+--blue: #4087D7;
+--grey-light: #E4E4C8;
+--grey-dark: #4F4F4F;
+--grey-card: #D6D6C6;
+--grey-darkmode: #1C1C1C;
+--yellow: #EEB73F;
+--blue-dark: #00207C;
+--green: #32CD32;
+--white: #FFFFFF;
+--black: #000000;
+}
+
 
 
 html, body, div, span, object, iframe,
@@ -49,6 +50,8 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+	background-color: var( --grey-light);
+	
 }
 ol, ul {
 	list-style: none;
