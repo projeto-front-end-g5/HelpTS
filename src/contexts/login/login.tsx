@@ -4,19 +4,38 @@ interface ILoginProps {
   children: ReactNode;
 }
 
+interface ISubmitLogin {
+  email: string;
+  password: string;
+}
+
 interface ILoginData {
-  deleteA: () => void;
+  openEye: boolean;
+  submitLogin: (data: ISubmitLogin) => void;
+  changeStateOpenEyes: () => void;
 }
 
 const LoginContex = createContext<ILoginData>({} as ILoginData);
 
 const LoginProvider = ({ children }: ILoginProps) => {
-  const deleteA = () => {
-    const b = 'oi';
+  const [openEye, setOpenEye] = useState(false);
+
+  const submitLogin = (data: ISubmitLogin) => {
+    console.log(data);
+  };
+
+  const changeStateOpenEyes = () => {
+    if (openEye) {
+      setOpenEye(false);
+    } else {
+      setOpenEye(true);
+    }
   };
 
   return (
-    <LoginContex.Provider value={{ deleteA }}>{children}</LoginContex.Provider>
+    <LoginContex.Provider value={{ openEye, submitLogin, changeStateOpenEyes }}>
+      {children}
+    </LoginContex.Provider>
   );
 };
 
