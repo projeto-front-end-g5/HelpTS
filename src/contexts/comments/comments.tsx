@@ -5,18 +5,20 @@ interface ICommentsProps {
 }
 
 interface ICommentsData {
-  deleteSolution: () => void;
+  deleteComment: () => void;
 }
 
 const CommentsContext = createContext<ICommentsData>({} as ICommentsData);
 
 const CommentsProvider = ({ children }: ICommentsProps) => {
-  const deleteSolution = () => {
+  const [listComments, setListComments] = useState('')
+
+  const deleteComment = () => {
     const a = 'oi';
   };
 
   return (
-    <CommentsContext.Provider value={{ deleteSolution }}>
+    <CommentsContext.Provider value={{ deleteComment, listComments }}>
       {children}
     </CommentsContext.Provider>
   );
