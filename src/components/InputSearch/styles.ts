@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  margin-top: 1.25rem;
+  margin-top: 15px;
   border: none;
   border-radius: 1.3125rem;
   box-shadow: 0.125rem 0.125rem 0.3125rem 0.0625rem #544848;
@@ -38,6 +38,10 @@ export const Container = styled.div`
 
   @media (min-width: 450px) {
     width: 20rem;
+  }
+
+  @media (min-width: 500px) {
+    margin-top: 20px;
   }
 
   @media (min-width: 600px) {
