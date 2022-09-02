@@ -11,6 +11,7 @@ interface ISubmitLogin {
 
 interface ILoginData {
   openEye: boolean;
+  typeInput: string;
   submitLogin: (data: ISubmitLogin) => void;
   changeStateOpenEyes: () => void;
 }
@@ -19,21 +20,24 @@ const LoginContex = createContext<ILoginData>({} as ILoginData);
 
 const LoginProvider = ({ children }: ILoginProps) => {
   const [openEye, setOpenEye] = useState(false);
-
+  const [typeInput, setTypeInput] = useState('password');
   const submitLogin = (data: ISubmitLogin) => {
     console.log(data);
   };
 
   const changeStateOpenEyes = () => {
-    if (openEye) {
-      setOpenEye(false);
+    setOpenEye(!openEye);
+    if (typeInput === 'password') {
+      setTypeInput('text');
     } else {
-      setOpenEye(true);
+      setTypeInput('password');
     }
   };
 
   return (
-    <LoginContex.Provider value={{ openEye, submitLogin, changeStateOpenEyes }}>
+    <LoginContex.Provider
+      value={{ openEye, submitLogin, changeStateOpenEyes, typeInput }}
+    >
       {children}
     </LoginContex.Provider>
   );
