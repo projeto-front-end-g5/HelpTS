@@ -1,22 +1,31 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
 
+interface IFormRegister {
+  name: string;
+  email: string;
+  contact: string;
+  github: string;
+  password: string;
+  confirmPassword: string;
+}
+
 interface IRegisterProps {
   children: ReactNode;
 }
 
 interface IRegisterData {
-  name: () => void;
+  submitFormRegister: (data: IFormRegister) => void;
 }
 
 const RegisterContext = createContext<IRegisterData>({} as IRegisterData);
 
 const RegisterProvider = ({ children }: IRegisterProps) => {
-  const name = () => {
-    const a = '';
+  const submitFormRegister = (data: IFormRegister) => {
+    console.log(data);
   };
 
   return (
-    <RegisterContext.Provider value={{ name }}>
+    <RegisterContext.Provider value={{ submitFormRegister }}>
       {children}
     </RegisterContext.Provider>
   );
