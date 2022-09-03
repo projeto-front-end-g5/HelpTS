@@ -1,6 +1,11 @@
 import styled from 'styled-components';
+import { FormHTMLAttributes, ReactNode } from 'react';
 
-export const FormReg = styled.form`
+interface IFormProps extends FormHTMLAttributes<HTMLFormElement> {
+  children: ReactNode;
+}
+
+export const FormReg = styled.form<IFormProps>`
   width: 100%;
   display: flex;
   flex-direction: column;

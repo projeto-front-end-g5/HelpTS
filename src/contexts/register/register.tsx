@@ -3,6 +3,15 @@ import axios from "axios"
 import { useNavigate } from "react-router-dom"
 
 
+interface IFormRegister {
+  name: string;
+  email: string;
+  contact: string;
+  github: string;
+  password: string;
+  passwordConfirm: string;
+}
+
 interface IRegisterProps {
   children: ReactNode;
   data : any;
@@ -10,16 +19,16 @@ interface IRegisterProps {
 
 interface IRegisterData {
   submitRegister: () => void;
-  
+  submitFormRegister: (data: IFormRegister) => void;
 }
 
 const RegisterContext = createContext<IRegisterData>({} as IRegisterData);
 
-
-
-const RegisterProvider = ({ data , children }: IRegisterProps) => {
-  
-  const navigate = useNavigate();
+const RegisterProvider = ({ data, children }: IRegisterProps) => {
+  const submitFormRegister = (data: IFormRegister) => {
+    console.log(data);
+  };
+    const navigate = useNavigate();
 
   const submitRegister = () => {
     axios.post('hhttps://json-server-project-help-ts.herokuapp.com/register', data)
@@ -28,7 +37,7 @@ const RegisterProvider = ({ data , children }: IRegisterProps) => {
    }
 
   return (
-    <RegisterContext.Provider value={{ submitRegister }}>
+    <RegisterContext.Provider value={{ submitFormRegister, submitRegister }}>
       {children}
     </RegisterContext.Provider>
   );

@@ -1,5 +1,5 @@
 import React from "react";
-import { Container } from './styles';
+import { Button } from './styles';
 
 
 
@@ -11,15 +11,15 @@ interface ButtonProps {
 }
 
 
-const Button = ({text, height, onClick, width}: ButtonProps) => (
-  <Container >
+const ButtonTag = ({text, height, onClick, width}: ButtonProps) => (
+  <Button >
       <button 
         type='button' 
         style={{ height, width }}
         onClick={onClick}>
           {text}
       </button>
-  </Container>
+  </Button>
 )
 
-export default Button
+export default ButtonTag
