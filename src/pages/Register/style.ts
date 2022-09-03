@@ -3,11 +3,14 @@ import styled from 'styled-components';
 export const ContainerPageRegister = styled.div`
   width: 100vw;
   height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const DivPageRegister = styled.div`
-  width: 100%;
-  height: 100vh;
+  width: 70%;
+  height: 70%;
   display: flex;
   background-color: var(--grey-card);
   flex-wrap: wrap;
