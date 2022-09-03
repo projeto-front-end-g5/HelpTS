@@ -43,6 +43,11 @@ a {
 	text-decoration: none;
 	cursor: pointer;
 }
+
+.App {
+	width: 100vw;
+    height: 100vh;
+}
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
