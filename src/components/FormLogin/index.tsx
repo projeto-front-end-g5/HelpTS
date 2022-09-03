@@ -1,4 +1,3 @@
-/* import { Link } from 'react-router-dom'; */
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
@@ -30,6 +29,7 @@ const FormLogin = () => {
       <Form onSubmit={handleSubmit(submitLogin)}>
         <label htmlFor='email'>Email </label>
         <input
+          className='email--login'
           id='email'
           type='text'
           placeholder='Email'
@@ -39,23 +39,35 @@ const FormLogin = () => {
         <label htmlFor='password'>Senha</label>
         <span className='ContainerPassword'>
           <input
+            className='input--password'
             id='password'
             type={typeInput}
             placeholder='Senha'
             {...register('password')}
           />
-
-          <button type='button' onClick={() => changeStateOpenEyes()}>
-    
-            {openEye ? <FaEye /> : <FaEyeSlash />}
+          <button
+            className='btn--password'
+            type='button'
+            onClick={() => changeStateOpenEyes()}
+          >
+            {openEye ? (
+              <FaEye className='iconLogin' />
+            ) : (
+              <FaEyeSlash className='iconLogin' />
+            )}
           </button>
         </span>
         {errors && <p>{errors.password?.message}</p>}
-        <button type='submit'>Entrar</button>
+        <button className='btn--login' type='submit'>
+          Entrar
+        </button>
       </Form>
       <div className='ContainerLinkResgister'>
-        <p>
-          Não possui cadastro? Registre-se <Link to='/register'>aqui!</Link>
+        <p className='textlink--login'>
+          Não possui cadastro? Registre-se{' '}
+          <Link className='clique' to='/register'>
+            aqui!
+          </Link>
         </p>
       </div>
     </ContainerFormLogin>
