@@ -2,6 +2,7 @@ import { createContext, useContext, useState, ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../../services/api';
 
+
 interface IFormRegister {
   name: string;
   email: string;
@@ -13,24 +14,23 @@ interface IFormRegister {
 
 interface IRegisterProps {
   children: ReactNode;
-  data: any;
 }
 
 interface IRegisterData {
-  submitRegister: () => void;
-  submitFormRegister: (data: IFormRegister) => void;
+  submitRegister: (data: IFormRegister) => void;
+  submitFormRegister: (dataRegister: IFormRegister) => void;
 }
 
 const RegisterContext = createContext<IRegisterData>({} as IRegisterData);
 
-const RegisterProvider = ({ data, children }: IRegisterProps) => {
+const RegisterProvider = ({ children }: IRegisterProps) => {
   const submitFormRegister = (data: IFormRegister) => {
     console.log(data);
   };
   const navigate = useNavigate();
 
-  const submitRegister = () => {
-    api
+  const submitRegister = (data: IFormRegister) => {
+    axios
       .post('/register', data)
       .then((response) => navigate('/login', { replace: true }))
       .catch((err) => console.log(err.response.data.message));

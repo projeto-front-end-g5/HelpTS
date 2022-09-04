@@ -1,11 +1,9 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { string } from 'yup';
 import api from '../../services/api';
 
 interface ILoginProps {
   children: ReactNode;
-  data: any;
 }
 
 interface ISubmitLogin {
@@ -14,23 +12,23 @@ interface ISubmitLogin {
 }
 
 interface ILoginData {
-  postLogin: () => void;
+  postLogin: (data: ISubmitLogin) => void;
   openEye: boolean;
   typeInput: string;
-  submitLogin: (data: ISubmitLogin) => void;
+  submitLogin: (dataSubmit: ISubmitLogin) => void;
   changeStateOpenEyes: () => void;
 }
 
 const LoginContex = createContext<ILoginData>({} as ILoginData);
 
-const LoginProvider = ({ data, children }: ILoginProps) => {
+const LoginProvider = ({ children }: ILoginProps) => {
   const [openEye, setOpenEye] = useState(false);
   const [typeInput, setTypeInput] = useState('password');
 
   const navigate = useNavigate();
 
-  const postLogin = () => {
-    api
+  const postLogin = (data: ISubmitLogin) => {
+    axios
       .post('/login', data)
       .then((response) => {
         localStorage.setItem('token', response.data.accessToken);
@@ -39,8 +37,9 @@ const LoginProvider = ({ data, children }: ILoginProps) => {
       })
       .catch((err) => console.log(err.response.data.message));
   };
-  const submitLogin = (data: ISubmitLogin) => {
-    console.log(data);
+
+  const submitLogin = (dataSubmit: ISubmitLogin) => {
+    console.log(dataSubmit);
   };
 
   const changeStateOpenEyes = () => {

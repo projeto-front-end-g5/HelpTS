@@ -1,25 +1,44 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
-import api from '../../services/api';
+import axios from 'axios';
 
 interface ISolutionsProps {
   children: ReactNode;
-  data: any;
+}
+
+interface ISolutionContent {
+  code: string;
+  text: string;
+}
+
+interface ISolution {
+  title: string;
+  content: ISolutionContent[];
+  created_at?: string;
+  updated_at?: string;
+  tags: string[];
+  userId: number;
+  id: number;
+  likes: 0;
 }
 
 interface ISolutionsData {
-  createSolution: () => void;
+  createSolution: (data: ISolution) => void;
   getSolution: () => void;
 }
 const SolutionsContext = createContext<ISolutionsData>({} as ISolutionsData);
 
-const SolutionsProvider = ({ children, data }: ISolutionsProps) => {
+const SolutionsProvider = ({ children }: ISolutionsProps) => {
   const token = localStorage.getItem('token');
 
-  const createSolution = () => {
-    api
-      .post('/solutions', data, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+  const createSolution = (data: ISolution) => {
+    axios
+      .post(
+        'https://json-server-project-help-ts.herokuapp.com/solutions ',
+        data,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
       .then((response) => {
         console.log('Solução criada');
       })
