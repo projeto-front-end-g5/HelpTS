@@ -34,15 +34,15 @@ export const FormReg = styled.form<IFormProps>`
     border-radius: 3px;
     background-color: var(--grey-card);
     box-sizing: border-box;
-  }
 
-  .input--register::placeholder {
-    font-family: ubuntu;
-    font-size: 0.7rem;
-  }
+    :focus {
+      outline: 1px solid var(--blue-dark);
+    }
 
-  .input--register:focus {
-    outline: none;
+    ::placeholder {
+      font-family: ubuntu;
+      font-size: 0.7rem;
+    }
   }
 
   .btn--register {
@@ -53,5 +53,10 @@ export const FormReg = styled.form<IFormProps>`
     color: var(--white);
     border: none;
     font-family: ubuntu;
+
+    :hover {
+      opacity: 0.8;
+      transition: 0.5s;
+    }
   }
 `;

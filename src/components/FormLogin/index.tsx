@@ -1,7 +1,7 @@
-/* import { Link } from 'react-router-dom'; */
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 import { formLoginSchema } from '../../validator/schema';
 import { useLoginContext } from '../../contexts/login/login';
 
@@ -13,9 +13,14 @@ interface IUserLogin {
 }
 
 const FormLogin = () => {
-  const { openEye, submitLogin } = useLoginContext();
+  const { openEye, submitLogin, typeInput, changeStateOpenEyes } =
+    useLoginContext();
 
-  const { register, handleSubmit } = useForm<IUserLogin>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IUserLogin>({
     resolver: yupResolver(formLoginSchema),
   });
 
@@ -24,27 +29,46 @@ const FormLogin = () => {
       <Form onSubmit={handleSubmit(submitLogin)}>
         <label htmlFor='email'>Email </label>
         <input
+          className='email--login'
           id='email'
           type='text'
           placeholder='Email'
           {...register('email')}
         />
+        {errors && <p>{errors.email?.message}</p>}
         <label htmlFor='password'>Senha</label>
         <span className='ContainerPassword'>
           <input
+            className='input--password'
             id='password'
-            type='password'
+            type={typeInput}
             placeholder='Senha'
             {...register('password')}
           />
-          <button type='button' onClick={() => submitLogin}>
-            {openEye ? <FaEye /> : <FaEyeSlash />}
+          <button
+            className='btn--password'
+            type='button'
+            onClick={() => changeStateOpenEyes()}
+          >
+            {openEye ? (
+              <FaEye className='iconLogin' />
+            ) : (
+              <FaEyeSlash className='iconLogin' />
+            )}
           </button>
         </span>
-        <button type='submit'>Entrar</button>
+        {errors && <p>{errors.password?.message}</p>}
+        <button className='btn--login' type='submit'>
+          Entrar
+        </button>
       </Form>
       <div className='ContainerLinkResgister'>
-        <p>Não possui cadastro? Registre-se aqui!</p>
+        <p className='textlink--login'>
+          Não possui cadastro? Registre-se{' '}
+          <Link className='clique' to='/register'>
+            aqui!
+          </Link>
+        </p>
       </div>
     </ContainerFormLogin>
   );

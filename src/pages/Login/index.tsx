@@ -9,7 +9,7 @@ const Login = () => (
         <LogoRegisterLogin />
       </div>
       <div className='container--formRegister'>
-        <FormLogin />;
+        <FormLogin />
       </div>
     </DivPageRegister>
   </ContainerPageRegister>

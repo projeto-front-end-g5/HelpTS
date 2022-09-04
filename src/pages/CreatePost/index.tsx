@@ -1,3 +1,5 @@
-const CreatePost = () => <p>create post</p>;
+import CreatePostCard from '../../components/CreatePostCard';
+
+const CreatePost = () => <CreatePostCard />;
 
 export default CreatePost;

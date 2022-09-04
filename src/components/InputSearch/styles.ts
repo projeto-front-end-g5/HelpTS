@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
-  margin-top: 15px;
+
+export const InputSearchContainer = styled.div`
+  margin-top: 1.25rem;
   border: none;
   border-radius: 1.3125rem;
   box-shadow: 0.125rem 0.125rem 0.3125rem 0.0625rem #544848;
@@ -20,6 +21,9 @@ export const Container = styled.div`
     background-color: transparent;
     font-size: 0.8125rem;
     border: none;
+
+    width: 100%;
+    height: 100%;
   }
 
   input:focus {
@@ -27,6 +31,8 @@ export const Container = styled.div`
   }
 
   button {
+    display: flex;
+    align-items: center;
     background-color: transparent;
     border: none;
     font-size: 1rem;
