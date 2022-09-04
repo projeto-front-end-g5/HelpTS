@@ -13,31 +13,49 @@ interface IFormRegister {
 
 interface IRegisterProps {
   children: ReactNode;
-  data: any;
+<<<<<<< HEAD
+ 
 }
 
 interface IRegisterData {
-  submitRegister: () => void;
+  
   submitFormRegister: (data: IFormRegister) => void;
+=======
+}
+
+interface IRegisterData {
+  submitRegister: (data: IFormRegister) => void;
+  submitFormRegister: (dataRegister: IFormRegister) => void;
+>>>>>>> develop
 }
 
 const RegisterContext = createContext<IRegisterData>({} as IRegisterData);
 
-const RegisterProvider = ({ data, children }: IRegisterProps) => {
+const RegisterProvider = ({ children }: IRegisterProps) => {
+<<<<<<< HEAD
+  
+   const navigate = useNavigate();
+  const submitFormRegister = (data: IFormRegister) => {
+=======
   const submitFormRegister = (data: IFormRegister) => {
     console.log(data);
   };
   const navigate = useNavigate();
 
-  const submitRegister = () => {
+  const submitRegister = (data: IFormRegister) => {
+>>>>>>> develop
     api
-      .post('/register', data)
-      .then((response) => navigate('/login', { replace: true }))
-      .catch((err) => console.log(err.response.data.message));
-  };
+    .post('/register', data)
+    .then((response) => navigate('/login', { replace: true }))
+    .catch((err) => console.log(err.response.data.message));
+};
+  
+ 
+
+   
 
   return (
-    <RegisterContext.Provider value={{ submitFormRegister, submitRegister }}>
+    <RegisterContext.Provider value={{ submitFormRegister }}>
       {children}
     </RegisterContext.Provider>
   );

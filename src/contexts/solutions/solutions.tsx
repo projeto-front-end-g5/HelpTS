@@ -1,25 +1,49 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import internal from 'stream';
 import api from '../../services/api';
 
 interface ISolutionsProps {
   children: ReactNode;
-  data: any;
+ 
 }
 
+type ContentType = {
+  text: string;
+  code: string;
+};
+
+type SolutionType = {
+  title: string;
+  content: ContentType;
+  created_at: string;
+  updated_at: string;
+  tags: string[];
+  likes: number;
+  userId: number;
+  id: number;
+};
+
 interface ISolutionsData {
-  createSolution: () => void;
-  getSolution: () => void;
+  createSolution: (data: ISolutionsData) => void;
+  getSolution: (data: ISolutionsData) => void;
+  solutions: SolutionType[];
 }
 const SolutionsContext = createContext<ISolutionsData>({} as ISolutionsData);
 
-const SolutionsProvider = ({ children, data }: ISolutionsProps) => {
+const SolutionsProvider = ({ children }: ISolutionsProps) => {
   const token = localStorage.getItem('token');
 
-  const createSolution = () => {
+  const [solutions, setSolutions] = useState([]);
+
+  const createSolution = (data: ISolutionsData) => {
     api
-      .post('/solutions', data, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .post(
+        'https://json-server-project-help-ts.herokuapp.com/solutions ',
+        data,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
       .then((response) => {
         console.log('Solução criada');
       })
@@ -28,19 +52,34 @@ const SolutionsProvider = ({ children, data }: ISolutionsProps) => {
 
   const getSolution = () => {
     api
-      .get('/solutions', data)
+      .get('/solutions')
       .then((response) => {
         console.log(response);
       })
       .catch((err) => console.log(err.response.data.message));
   };
 
+
+
+  useEffect(() => {
+    api
+        .get('/solutions')
+        .then((response) => {
+          setSolutions(response.data);
+        })
+        .catch((err) => console.log(err.response.data.message));
+  }, []);
+  
+
   return (
-    <SolutionsContext.Provider value={{ createSolution, getSolution }}>
+    <SolutionsContext.Provider value={{ createSolution, getSolution, solutions }}>
       {children}
     </SolutionsContext.Provider>
   );
 };
+
+
+
 
 const useSolutionsContext = () => useContext(SolutionsContext);
 
