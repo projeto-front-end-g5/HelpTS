@@ -26,7 +26,9 @@ const LoginProvider = ({ children }: ILoginProps) => {
 
   const navigate = useNavigate();
 
-  const postLogin = () => {
+
+
+  const submitLogin = (data: ISubmitLogin) => {
     api
       .post('/login', data)
       .then((response) => {

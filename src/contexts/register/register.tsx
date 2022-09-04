@@ -13,7 +13,6 @@ interface IFormRegister {
 
 interface IRegisterProps {
   children: ReactNode;
-<<<<<<< HEAD
  
 }
 
@@ -32,18 +31,9 @@ interface IRegisterData {
 const RegisterContext = createContext<IRegisterData>({} as IRegisterData);
 
 const RegisterProvider = ({ children }: IRegisterProps) => {
-<<<<<<< HEAD
   
    const navigate = useNavigate();
   const submitFormRegister = (data: IFormRegister) => {
-=======
-  const submitFormRegister = (data: IFormRegister) => {
-    console.log(data);
-  };
-  const navigate = useNavigate();
-
-  const submitRegister = (data: IFormRegister) => {
->>>>>>> develop
     api
     .post('/register', data)
     .then((response) => navigate('/login', { replace: true }))
