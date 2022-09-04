@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
+import { toast } from 'react-toastify';
 
 interface IFormRegister {
   name: string;
@@ -22,6 +23,16 @@ const RegisterContext = createContext<IRegisterData>({} as IRegisterData);
 const RegisterProvider = ({ children }: IRegisterProps) => {
   const submitFormRegister = (data: IFormRegister) => {
     console.log(data);
+
+    return toast('Registro concluído com sucesso!', {
+      position: 'top-right',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   };
 
   return (

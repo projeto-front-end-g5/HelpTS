@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
+import { toast } from 'react-toastify';
 
 interface ILoginProps {
   children: ReactNode;
@@ -22,6 +23,16 @@ const LoginProvider = ({ children }: ILoginProps) => {
 
   const submitLogin = (data: ISubmitLogin) => {
     console.log(data);
+
+    return toast('Login realizado com sucesso!', {
+      position: 'top-right',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   };
 
   const changeStateOpenEyes = () => {
