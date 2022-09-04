@@ -13,9 +13,20 @@ export default createGlobalStyle`
 --green: #32CD32;
 --white: #FFFFFF;
 --black: #000000;
+--toastify-color-light: #fff;
+--toastify-text-color-light: #00207C;
+--toastify-color-progress-light: linear-gradient(
+    to right,
+    #5ac8fa,
+    #34aadc,
+    #007aff,
+	#4087D7,
+    #5856d6,
+    #00207C
+  );
 }
 
-
+/* #1d6e05 */
 
 html, body, div, span, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote,
@@ -72,4 +83,6 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
-}`;
+}
+
+`;

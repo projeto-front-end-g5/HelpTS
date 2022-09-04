@@ -32,13 +32,9 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
 
   const createSolution = (data: ISolution) => {
     api
-      .post(
-        'https://json-server-project-help-ts.herokuapp.com/solutions ',
-        data,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      )
+      .post('/solutions', data, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => {
         console.log('Solução criada');
       })
