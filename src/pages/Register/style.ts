@@ -17,15 +17,14 @@ export const DivPageRegister = styled.div`
   justify-content: center;
 
   .logo--pageRegister {
-    width: 40%;
+    width: 300px;
     min-width: 200px;
     display: flex;
-    justify-content: center;
     align-items: center;
   }
 
   .container--formRegister {
-    width: 60%;
+    width: 33%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -44,21 +43,53 @@ export const DivPageRegister = styled.div`
       font-size: 0.7rem;
       padding-bottom: 1rem;
     }
+
+    .textlink--login {
+      font-size: 0.9rem;
+
+      .clique {
+        text-decoration: underline;
+        color: var(--blue-dark);
+
+        :hover {
+          color: var(--blue);
+        }
+      }
+    }
   }
 
-  @media only screen and (max-width: 500px) {
+  @media only screen and (max-width: 779px) {
+    & {
+      align-items: center;
+      align-content: center;
+    }
+
     svg {
-      height: 100px;
+      height: 120px;
     }
 
     .logo--pageRegister {
-      min-width: 100px;
-      min-height: 100px;
+      min-width: 120px;
+      align-items: flex-end;
+      margin-top: 16px;
     }
 
     .container--formRegister {
       width: 100%;
+      align-items: flex-start;
       padding: 1rem;
+    }
+
+    .title--formRegister {
+      align-self: center;
+    }
+
+    .text--formRegister {
+      align-self: center;
+    }
+
+    .textlink--login {
+      font-size: 0.8rem;
     }
   }
 `;

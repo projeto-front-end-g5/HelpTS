@@ -7,7 +7,16 @@ export const DashboardContainer = styled.div`
   align-items: center;
 
   width: 100%;
-  height: 100%;
+
+  .main--dashboard {
+    width: 70%;
+    min-width: 290px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
 `;
 
 export const ButtonAll = styled.button`
@@ -18,4 +27,14 @@ export const ButtonAll = styled.button`
   border-radius: 5px;
   font-family: 'Tajawal';
   align-self: center;
+`;
+
+export const DivCardDash = styled.div`
+  width: 100%;
+  min-width: 290px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
 `;

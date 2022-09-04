@@ -1,4 +1,7 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import api from '../../services/api';
 
 interface IFormRegister {
   name: string;
@@ -14,18 +17,48 @@ interface IRegisterProps {
 }
 
 interface IRegisterData {
-  submitFormRegister: (data: IFormRegister) => void;
+  submitRegister: (data: IFormRegister) => void;
 }
 
 const RegisterContext = createContext<IRegisterData>({} as IRegisterData);
 
 const RegisterProvider = ({ children }: IRegisterProps) => {
-  const submitFormRegister = (data: IFormRegister) => {
-    console.log(data);
+  const navigate = useNavigate();
+
+  const submitRegister = (data: IFormRegister) => {
+    api
+      .post('/register', data)
+      .then((response) => {
+        console.log(response);
+        navigate('/login', { replace: true });
+
+        return toast('✅ Registro concluído com sucesso!', {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      })
+      .catch((err) => {
+        console.log(err.response.data.message);
+
+        return toast('❌ Tente novamente!', {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      });
   };
 
   return (
-    <RegisterContext.Provider value={{ submitFormRegister }}>
+    <RegisterContext.Provider value={{ submitRegister }}>
       {children}
     </RegisterContext.Provider>
   );

@@ -13,6 +13,17 @@ export default createGlobalStyle`
 --green: #32CD32;
 --white: #FFFFFF;
 --black: #000000;
+--toastify-color-light: #fff;
+--toastify-text-color-light: #00207C;
+--toastify-color-progress-light: linear-gradient(
+    to right,
+    #5ac8fa,
+    #34aadc,
+    #007aff,
+	#4087D7,
+    #5856d6,
+    #00207C
+  );
 }
 
 html, body, div, span, object, iframe,
@@ -41,6 +52,11 @@ a {
 	text-decoration: none;
 	cursor: pointer;
 }
+
+.App {
+	width: 100vw;
+    height: 100vh;
+}
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
@@ -65,4 +81,6 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
-}`;
+}
+
+`;
