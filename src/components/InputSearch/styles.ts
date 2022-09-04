@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+
 export const InputSearchContainer = styled.div`
   margin-top: 1.25rem;
   border: none;
@@ -43,6 +44,10 @@ export const InputSearchContainer = styled.div`
 
   @media (min-width: 450px) {
     width: 20rem;
+  }
+
+  @media (min-width: 500px) {
+    margin-top: 20px;
   }
 
   @media (min-width: 600px) {

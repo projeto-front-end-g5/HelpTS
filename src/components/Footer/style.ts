@@ -1,166 +1,197 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
-        display: flex;
-        flex-direction: column;
+export const FootContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-        position: absolute;
-        bottom: 0rem;
-        height: 14rem;
-        
-    .div-one{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height:2.5rem;
-        border: none;
-        background-color: var(--grey-card);
+  font-family: 'ubuntu';
+  font-style: normal;
 
-        > h1{
-            color: var(--blue-dark);
-            font-size: 0.85rem;
-            font-family: 'Ubuntu';
-        }
-    }
+  width: 100%;
 
-    .div-two{
-        display: flex;
-        align-items: center;
-        height: 11.5rem;
-        background-color: var(--blue);
-        justify-content: space-around;
-    }
+  background-color: var(--blue);
 
-    .section-one{
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        width: 28%;
-        height: 100%;
-       
+  position: relative;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  .div-one {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 11px;
+
+    width: 100%;
+    min-height: 30px;
+
+    background-color: var(--grey-card);
+
+    @media (min-width: 500px) {
+      min-height: 40px;
+      font-size: 13px;
     }
 
-    .section-two{
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        width: 28%;
-        height: 100%;
-       
-        >ul{
-            >li{
-                display: flex;
-                 >a >img{
-                    width: 1.25rem;
-                    color: var(--grey-light);
-                }
-               
-            }
-        }
-        
+    @media (min-width: 1000px) {
+      min-height: 50px;
+      font-size: 16px;
+    }
+  }
+
+  .div-two {
+    display: flex;
+    flex-direction: column;
+
+    font-family: 'tajawal';
+
+    width: 90%;
+
+    color: var(--white);
+
+    @media (min-width: 600px) {
+      flex-direction: row;
+      align-items: center;
+
+      height: 200px;
     }
 
-    .section-three{
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        width: 28%;
-        height: 100%;
-        
-        >ul{
-            display: flex;
-            >li{
-            
-            }
-        }
-    }
-        color:(--black);
+    .divSection {
+      display: flex;
+      flex-direction: column;
 
-    .title{
-        color: var(--grey-light);
-        font-size: 1.25rem;
-        font-weight: 600;
-        font-family: 'Ubuntu';
-        
-    }
-    .text{
-        color: var(--grey-light);
-        font-size: 0.8rem;
-        font-family: 'Ubuntu';
-    }
-  
-    .icon{
-        font-size: 1.2rem;
-        border: none;
-        color: var(--grey-light);
-    }
-    .dev-photos{
-        width: 3.5rem;
-        color: var(--grey-light);
-    }
+      width: 100%;
 
-    .divTitle{
-        height: 30%;
-        width: 100%;
-        display: flex;
+      h2 {
+        font-weight: 800;
+      }
+
+      @media (min-width: 600px) {
         flex-direction: row;
+        justify-content: space-between;
+      }
+
+      @media (min-width: 1000px) {
+        h2 {
+          font-size: 20px;
+        }
+      }
+    }
+
+    .section-one {
+      margin-top: 10px;
+
+      @media (min-width: 600px) {
+        width: 25%;
+        margin-top: 0;
+      }
+
+      @media (min-width: 1300px) {
+        width: 20%;
+      }
+
+      .divbottom {
+        margin-top: 5px;
+        font-size: 10px;
+
+        .text {
+          font-size: 12px;
+
+          @media (min-width: 1000px) {
+            font-size: 14px;
+          }
+
+          @media (min-width: 1200px) {
+            font-size: 16px;
+          }
+        }
+
+        @media (min-width: 600px) {
+          margin-top: 10px;
+        }
+      }
+    }
+
+    .section-two {
+      margin-top: 5px;
+
+      .divbottom h3 {
+        display: flex;
         align-items: center;
-    }
-    .divbottom{
-        height: 70%;
-        width: 100%;
+      }
+
+      .divbottom ul {
+        margin-top: 10px;
+      }
+
+      .divbottom ul li {
         display: flex;
-        flex-direction: row;
-    }
-    .ulPhotos{
-        display:flex;
-    }
-    .liLinks{
+      }
+
+      .divbottom ul li h3 {
+        font-size: 14px;
+
+        @media (min-width: 1000px) {
+          font-size: 16px;
+        }
+      }
+
+      .icon {
+        color: var(--white);
+        margin-right: 5px;
+
+        @media (min-width: 1000px) {
+          font-size: 22px;
+        }
+      }
+
+      @media (min-width: 500px) {
+        flex-direction: column;
         display: flex;
-    }
-   @media (max-width: 610px) {
-        .div-two{
-            width: 100%;
-            height: auto;
-            flex-direction: column;
-        }
+      }
 
-        .ulPhotos{
-            flex-wrap:wrap;
-        }
-        .section-one{
-            width: 90%;
-        }
-        .section-two{
-            width: 90%;
-        }
-        .section-three{
-            width: 90%;
-        }
-        .divTitle{
-            width: 100%;
-        }
-        .divbottom{
-            width: 100%;
-        }
-        .title{
-            font-size: 1rem;  
-        }
-        .text{
-            font-size: 0.6rem;
-        }
-        .dev-photos{
-        width: 2.5rem;
-        
+      @media (min-width: 600px) {
+        margin-top: 0;
+      }
     }
 
-    }
-    @media ( max-width: 940px) {
-        .ulPhotos{
-            flex-wrap:wrap;
-        }
-    }
+    .section-three {
+      margin-top: 5px;
 
-   
- 
+      .divbottom ul {
+        display: flex;
+
+        margin-top: 5px;
+      }
+
+      .dev-photos {
+        width: 40px;
+        height: 40px;
+
+        @media (min-width: 1000px) {
+          width: 50px;
+          height: 50px;
+        }
+
+        @media (min-width: 1700px) {
+          width: 60px;
+          height: 60px;
+        }
+
+        @media (min-width: 1900px) {
+          width: 70px;
+          height: 70px;
+        }
+      }
+
+      @media (min-width: 600px) {
+        margin-top: 0;
+
+        .divbottom {
+          margin-top: 10px;
+        }
+      }
+    }
+  }
 `;

@@ -1,6 +1,6 @@
 import { MdOutlineDarkMode } from 'react-icons/md';
 import { BiSun } from 'react-icons/bi';
-import { useHeaderContext } from '../../contexts/HeaderContext';
+
 
 import {
   ButtonLogout,
@@ -10,9 +10,10 @@ import {
   HeaderContainer,
   UserImage,
 } from './style';
+import { useDashboardContext } from '../../contexts/dashboard/dashboard';
 
 function Header() {
-  const { darkMode, user, DarkLight, UserExists } = useHeaderContext();
+  const { darkMode, user, DarkLight, UserExists } = useDashboardContext();
 
   return (
     <HeaderContainer>

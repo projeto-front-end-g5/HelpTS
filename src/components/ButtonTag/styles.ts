@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const Button = styled.div`
   
-     >button{
+    >button{
         text-align: center;
 
         background-color: var(--grey-light);
@@ -15,7 +15,7 @@ export const Container = styled.div`
         font-family: 'Tajawal';
         font-size: 0.625rem;
         
-  }
+    }
   
   
 `;

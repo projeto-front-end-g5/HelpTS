@@ -1,6 +1,11 @@
 import styled from 'styled-components';
+import { FormHTMLAttributes, ReactNode } from 'react';
 
-export const FormReg = styled.form`
+interface IFormProps extends FormHTMLAttributes<HTMLFormElement> {
+  children: ReactNode;
+}
+
+export const FormReg = styled.form<IFormProps>`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -8,9 +13,8 @@ export const FormReg = styled.form`
   text-align: start;
   margin: 0 auto;
   box-sizing: border-box;
-  min-width: 290px;
+  min-width: 230px;
   max-width: 500px;
-  padding: 1rem;
 
   .label--register {
     width: 100%;
@@ -30,15 +34,15 @@ export const FormReg = styled.form`
     border-radius: 3px;
     background-color: var(--grey-card);
     box-sizing: border-box;
-  }
 
-  .input--register::placeholder {
-    font-family: ubuntu;
-    font-size: 0.7rem;
-  }
+    :focus {
+      outline: 1px solid var(--blue-dark);
+    }
 
-  .input--register:focus {
-    outline: none;
+    ::placeholder {
+      font-family: ubuntu;
+      font-size: 0.7rem;
+    }
   }
 
   .btn--register {
@@ -49,5 +53,10 @@ export const FormReg = styled.form`
     color: var(--white);
     border: none;
     font-family: ubuntu;
+
+    :hover {
+      opacity: 0.8;
+      transition: 0.5s;
+    }
   }
 `;
