@@ -28,7 +28,7 @@ const LoginProvider = ({ children }: ILoginProps) => {
   const navigate = useNavigate();
 
   const postLogin = (data: ISubmitLogin) => {
-    axios
+    api
       .post('/login', data)
       .then((response) => {
         localStorage.setItem('token', response.data.accessToken);

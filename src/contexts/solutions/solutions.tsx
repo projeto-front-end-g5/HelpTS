@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
-import axios from 'axios';
+import api from '../../services/api';
 
 interface ISolutionsProps {
   children: ReactNode;
@@ -31,7 +31,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
   const token = localStorage.getItem('token');
 
   const createSolution = (data: ISolution) => {
-    axios
+    api
       .post(
         'https://json-server-project-help-ts.herokuapp.com/solutions ',
         data,
@@ -47,7 +47,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
 
   const getSolution = () => {
     api
-      .get('/solutions', data)
+      .get('/solutions')
       .then((response) => {
         console.log(response);
       })
