@@ -1,14 +1,14 @@
 import { FaSearch } from 'react-icons/fa';
-import { Container } from './styles';
+import { InputSearchContainer } from './styles';
 
 const InputSearch = () => (
-  <Container>
+  <InputSearchContainer>
     <input placeholder='Digite aqui sua dúvida' />
     <button type='button'>
       {' '}
       <FaSearch />
     </button>
-  </Container>
+  </InputSearchContainer>
 );
 
 export default InputSearch;
