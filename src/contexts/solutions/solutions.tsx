@@ -17,7 +17,7 @@ const SolutionsProvider = ({ children, data }: ISolutionsProps) => {
 
   const createSolution = () => {
     api
-      .post('/solutions ', data, {
+      .post('/solutions', data, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
