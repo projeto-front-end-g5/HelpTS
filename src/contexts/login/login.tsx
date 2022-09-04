@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
+import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import api from '../../services/api';
 
@@ -26,17 +27,39 @@ const LoginProvider = ({ children }: ILoginProps) => {
 
   const navigate = useNavigate();
 
-
-
   const submitLogin = (data: ISubmitLogin) => {
+    console.log(data);
+
     api
       .post('/login', data)
       .then((response) => {
         localStorage.setItem('token', response.data.accessToken);
         localStorage.setItem('userId', response.data.user.id);
         navigate('/dashboard', { replace: true });
+
+        return toast('✅ Login realizado com sucesso!', {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       })
-      .catch((err) => console.log(err.response.data));
+      .catch((err) => {
+        console.log(err.response.data);
+
+        return toast('❌ Tente novamente!', {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      });
   };
 
   const changeStateOpenEyes = () => {

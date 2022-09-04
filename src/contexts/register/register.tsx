@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
+import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import api from '../../services/api';
 
@@ -13,39 +14,51 @@ interface IFormRegister {
 
 interface IRegisterProps {
   children: ReactNode;
- 
-}
-
-interface IRegisterData {
-  
-  submitFormRegister: (data: IFormRegister) => void;
-=======
 }
 
 interface IRegisterData {
   submitRegister: (data: IFormRegister) => void;
-  submitFormRegister: (dataRegister: IFormRegister) => void;
->>>>>>> develop
 }
 
 const RegisterContext = createContext<IRegisterData>({} as IRegisterData);
 
 const RegisterProvider = ({ children }: IRegisterProps) => {
-  
-   const navigate = useNavigate();
-  const submitFormRegister = (data: IFormRegister) => {
-    api
-    .post('/register', data)
-    .then((response) => navigate('/login', { replace: true }))
-    .catch((err) => console.log(err.response.data.message));
-};
-  
- 
+  const navigate = useNavigate();
 
-   
+  const submitRegister = (data: IFormRegister) => {
+    api
+      .post('/register', data)
+      .then((response) => {
+        console.log(response);
+        navigate('/login', { replace: true });
+
+        return toast('✅ Registro concluído com sucesso!', {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      })
+      .catch((err) => {
+        console.log(err.response.data.message);
+
+        return toast('❌ Tente novamente!', {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      });
+  };
 
   return (
-    <RegisterContext.Provider value={{ submitFormRegister }}>
+    <RegisterContext.Provider value={{ submitRegister }}>
       {children}
     </RegisterContext.Provider>
   );
