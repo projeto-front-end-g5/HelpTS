@@ -11,7 +11,7 @@ export const formLoginSchema = yup.object().shape({
     .min(8, 'No mínimo 8 digitos')
     .matches(
       /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/,
-      'Necessário ter 1 letra maiuscúla, 1 minuscúla, 1 número e 1 caracter especial!'
+      'Necessário ter 1 letra maiúscula, 1 minúscula, 1 número e 1 caracter especial!'
     ),
 });
 
@@ -36,7 +36,7 @@ export const formRegisterSchema = yup.object().shape({
     .min(8, 'No mínimo 8 digitos')
     .matches(
       /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/,
-      'Necessário ter 1 letra maiuscúla, 1 minuscúla, 1 número e 1 caracter especial!'
+      'Necessário ter 1 letra maiúscula, 1 minúscula, 1 número e 1 caracter especial!'
     ),
   passwordConfirm: yup
     .string()
