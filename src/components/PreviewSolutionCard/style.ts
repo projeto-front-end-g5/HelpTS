@@ -5,10 +5,10 @@ export const DivTextPreview = styled.div`
   padding: 15px;
   margin-top: 10px;
   text-align: justify;
+
+  p {
+    color: var(--blue-dark);
+  }
 `;
 
-export const DivCodePreview = styled.div`
-  border: 0.125rem solid var(--grey-dark);
-  padding: 15px;
-  margin-top: 10px;
-`;
+export const DivCodePreview = styled.div``;
