@@ -14,41 +14,51 @@ interface IFormRegister {
 
 interface IRegisterProps {
   children: ReactNode;
-  data: any;
 }
 
 interface IRegisterData {
-  submitRegister: () => void;
-  submitFormRegister: (data: IFormRegister) => void;
+  submitRegister: (data: IFormRegister) => void;
 }
 
 const RegisterContext = createContext<IRegisterData>({} as IRegisterData);
 
-const RegisterProvider = ({ data, children }: IRegisterProps) => {
-  const submitFormRegister = (data: IFormRegister) => {
-    console.log(data);
-
-    return toast.success('Registro concluído com sucesso!', {
-      position: 'top-right',
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  };
+const RegisterProvider = ({ children }: IRegisterProps) => {
   const navigate = useNavigate();
 
-  const submitRegister = () => {
+  const submitRegister = (data: IFormRegister) => {
     api
       .post('/register', data)
-      .then((response) => navigate('/login', { replace: true }))
-      .catch((err) => console.log(err.response.data.message));
+      .then((response) => {
+        console.log(response);
+        navigate('/login', { replace: true });
+
+        return toast('✅ Registro concluído com sucesso!', {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      })
+      .catch((err) => {
+        console.log(err.response.data.message);
+
+        return toast('❌ Tente novamente!', {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      });
   };
 
   return (
-    <RegisterContext.Provider value={{ submitFormRegister, submitRegister }}>
+    <RegisterContext.Provider value={{ submitRegister }}>
       {children}
     </RegisterContext.Provider>
   );

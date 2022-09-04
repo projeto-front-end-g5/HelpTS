@@ -3,19 +3,34 @@ import api from '../../services/api';
 
 interface ISolutionsProps {
   children: ReactNode;
-  data: any;
+}
+
+interface ISolutionContent {
+  code: string;
+  text: string;
+}
+
+interface ISolution {
+  title: string;
+  content: ISolutionContent[];
+  created_at?: string;
+  updated_at?: string;
+  tags: string[];
+  userId: number;
+  id: number;
+  likes: 0;
 }
 
 interface ISolutionsData {
-  createSolution: () => void;
+  createSolution: (data: ISolution) => void;
   getSolution: () => void;
 }
 const SolutionsContext = createContext<ISolutionsData>({} as ISolutionsData);
 
-const SolutionsProvider = ({ children, data }: ISolutionsProps) => {
+const SolutionsProvider = ({ children }: ISolutionsProps) => {
   const token = localStorage.getItem('token');
 
-  const createSolution = () => {
+  const createSolution = (data: ISolution) => {
     api
       .post('/solutions', data, {
         headers: { Authorization: `Bearer ${token}` },
@@ -28,7 +43,7 @@ const SolutionsProvider = ({ children, data }: ISolutionsProps) => {
 
   const getSolution = () => {
     api
-      .get('/solutions', data)
+      .get('/solutions')
       .then((response) => {
         console.log(response);
       })

@@ -15,7 +15,7 @@ interface IFormRegister {
 }
 
 const FormRegister = () => {
-  const { submitFormRegister } = useRegisterContext();
+  const { submitRegister } = useRegisterContext();
   const {
     register,
     handleSubmit,
@@ -25,7 +25,7 @@ const FormRegister = () => {
   });
 
   return (
-    <FormReg onSubmit={handleSubmit(submitFormRegister)}>
+    <FormReg onSubmit={handleSubmit(submitRegister)}>
       <label className='label--register'>
         Nome
         <input
