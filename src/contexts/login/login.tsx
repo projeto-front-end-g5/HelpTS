@@ -5,7 +5,6 @@ import api from '../../services/api';
 
 interface ILoginProps {
   children: ReactNode;
-  data: any;
 }
 
 interface ISubmitLogin {
@@ -14,7 +13,6 @@ interface ISubmitLogin {
 }
 
 interface ILoginData {
-  postLogin: () => void;
   openEye: boolean;
   typeInput: string;
   submitLogin: (data: ISubmitLogin) => void;
@@ -23,13 +21,15 @@ interface ILoginData {
 
 const LoginContex = createContext<ILoginData>({} as ILoginData);
 
-const LoginProvider = ({ data, children }: ILoginProps) => {
+const LoginProvider = ({ children }: ILoginProps) => {
   const [openEye, setOpenEye] = useState(false);
   const [typeInput, setTypeInput] = useState('password');
 
   const navigate = useNavigate();
 
-  const postLogin = () => {
+
+
+  const submitLogin = (data: ISubmitLogin) => {
     api
       .post('/login', data)
       .then((response) => {
@@ -37,10 +37,7 @@ const LoginProvider = ({ data, children }: ILoginProps) => {
         localStorage.setItem('userId', response.data.user.id);
         navigate('/dashboard', { replace: true });
       })
-      .catch((err) => console.log(err.response.data.message));
-  };
-  const submitLogin = (data: ISubmitLogin) => {
-    console.log(data);
+      .catch((err) => console.log(err.response.data));
   };
 
   const changeStateOpenEyes = () => {
@@ -59,7 +56,6 @@ const LoginProvider = ({ data, children }: ILoginProps) => {
         submitLogin,
         changeStateOpenEyes,
         typeInput,
-        postLogin,
       }}
     >
       {children}
