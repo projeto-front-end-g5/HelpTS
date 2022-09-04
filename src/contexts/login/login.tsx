@@ -28,6 +28,7 @@ const LoginProvider = ({ children }: ILoginProps) => {
   const navigate = useNavigate();
 
   const submitLogin = (data: ISubmitLogin) => {
+    console.log(data);
     api
       .post('/login', data)
       .then((response) => {
@@ -46,7 +47,7 @@ const LoginProvider = ({ children }: ILoginProps) => {
         });
       })
       .catch((err) => {
-        console.log(err.response.data.message);
+        console.log(err.response.data);
 
         return toast('❌ Tente novamente!', {
           position: 'top-right',
