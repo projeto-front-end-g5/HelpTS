@@ -29,6 +29,7 @@ const LoginProvider = ({ children }: ILoginProps) => {
 
   const submitLogin = (data: ISubmitLogin) => {
     console.log(data);
+
     api
       .post('/login', data)
       .then((response) => {

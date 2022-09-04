@@ -1,36 +1,41 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import internal from 'stream';
 import api from '../../services/api';
 
 interface ISolutionsProps {
   children: ReactNode;
+ 
 }
 
-interface ISolutionContent {
-  code: string;
+type ContentType = {
   text: string;
-}
+  code: string;
+};
 
-interface ISolution {
+type SolutionType = {
   title: string;
-  content: ISolutionContent[];
-  created_at?: string;
-  updated_at?: string;
+  content: ContentType;
+  created_at: string;
+  updated_at: string;
   tags: string[];
+  likes: number;
   userId: number;
   id: number;
-  likes: 0;
-}
+};
 
 interface ISolutionsData {
-  createSolution: (data: ISolution) => void;
-  getSolution: () => void;
+  createSolution: (data: ISolutionsData) => void;
+  getSolution: (data: ISolutionsData) => void;
+  solutions: SolutionType[];
 }
 const SolutionsContext = createContext<ISolutionsData>({} as ISolutionsData);
 
 const SolutionsProvider = ({ children }: ISolutionsProps) => {
   const token = localStorage.getItem('token');
 
-  const createSolution = (data: ISolution) => {
+  const [solutions, setSolutions] = useState([]);
+
+  const createSolution = (data: ISolutionsData) => {
     api
       .post('/solutions', data, {
         headers: { Authorization: `Bearer ${token}` },
@@ -50,12 +55,27 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
       .catch((err) => console.log(err.response.data.message));
   };
 
+
+
+  useEffect(() => {
+    api
+        .get('/solutions')
+        .then((response) => {
+          setSolutions(response.data);
+        })
+        .catch((err) => console.log(err.response.data.message));
+  }, []);
+  
+
   return (
-    <SolutionsContext.Provider value={{ createSolution, getSolution }}>
+    <SolutionsContext.Provider value={{ createSolution, getSolution, solutions }}>
       {children}
     </SolutionsContext.Provider>
   );
 };
+
+
+
 
 const useSolutionsContext = () => useContext(SolutionsContext);
 
