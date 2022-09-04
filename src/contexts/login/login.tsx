@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import api from '../../services/api';
 
 interface ILoginProps {
   children: ReactNode;
@@ -29,7 +29,7 @@ const LoginProvider = ({ children }: ILoginProps) => {
 
   const postLogin = (data: ISubmitLogin) => {
     axios
-      .post('https://json-server-project-help-ts.herokuapp.com/login', data)
+      .post('/login', data)
       .then((response) => {
         localStorage.setItem('token', response.data.accessToken);
         localStorage.setItem('userId', response.data.user.id);

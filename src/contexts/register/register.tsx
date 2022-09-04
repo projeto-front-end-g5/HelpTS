@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import api from '../../services/api';
+
 
 interface IFormRegister {
   name: string;
@@ -30,7 +31,7 @@ const RegisterProvider = ({ children }: IRegisterProps) => {
 
   const submitRegister = (data: IFormRegister) => {
     axios
-      .post('https://json-server-project-help-ts.herokuapp.com/register', data)
+      .post('/register', data)
       .then((response) => navigate('/login', { replace: true }))
       .catch((err) => console.log(err.response.data.message));
   };

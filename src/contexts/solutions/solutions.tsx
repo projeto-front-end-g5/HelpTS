@@ -46,8 +46,8 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
   };
 
   const getSolution = () => {
-    axios
-      .get('https://json-server-project-help-ts.herokuapp.com/solutions')
+    api
+      .get('/solutions', data)
       .then((response) => {
         console.log(response);
       })
