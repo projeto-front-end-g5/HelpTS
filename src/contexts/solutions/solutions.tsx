@@ -4,6 +4,8 @@ import {
   useState,
   ReactNode,
   useEffect,
+  SetStateAction,
+  Dispatch,
 } from 'react';
 import api from '../../services/api';
 
@@ -29,8 +31,8 @@ export type SolutionType = {
 
 interface ISolutionsData {
   createSolution: (data: ISolutionsData) => void;
-  getSolution: (data: ISolutionsData) => void;
   solutions: SolutionType[];
+  setSolutions: Dispatch<SetStateAction<never[]>>;
 }
 const SolutionsContext = createContext<ISolutionsData>({} as ISolutionsData);
 
@@ -38,6 +40,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
   const token = localStorage.getItem('token');
 
   const [solutions, setSolutions] = useState([]);
+  const [backup, setBackup] = useState([]);
 
   const createSolution = (data: ISolutionsData) => {
     api
@@ -50,27 +53,19 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
       .catch((err) => console.log(err.response.data.message));
   };
 
-  const getSolution = () => {
-    api
-      .get('/solutions')
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => console.log(err.response.data.message));
-  };
-
   useEffect(() => {
     api
-      .get('/solutions')
+      .get('/solutions?_page=1&_limit=4')
       .then((response) => {
         setSolutions(response.data);
+        setBackup(response.data);
       })
       .catch((err) => console.log(err.response.data.message));
   }, []);
 
   return (
     <SolutionsContext.Provider
-      value={{ createSolution, getSolution, solutions }}
+      value={{ createSolution, solutions, setSolutions }}
     >
       {children}
     </SolutionsContext.Provider>

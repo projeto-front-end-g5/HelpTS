@@ -11,6 +11,11 @@ export const NavTypesContainer = styled.div`
 
   width: 90%;
 
+  .willDisable {
+    cursor: not-allowed;
+    color: pink;
+  }
+
   .create--type {
     display: flex;
     align-items: center;

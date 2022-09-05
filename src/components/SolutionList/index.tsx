@@ -3,7 +3,6 @@ import SolutionCard from '../SolutionCard';
 
 const SolutionList = () => {
   const { solutions } = useSolutionsContext();
-  console.log(solutions);
 
   return (
     <>
