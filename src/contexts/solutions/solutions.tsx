@@ -16,7 +16,7 @@ type ContentType = {
   code: string;
 };
 
-export type SolutionType = {
+export interface SolutionType {
   title: string;
   content: ContentType;
   created_at: string;
@@ -25,19 +25,28 @@ export type SolutionType = {
   likes: number;
   userId: number;
   id: number;
-};
+}
 
 interface ISolutionsData {
   createSolution: (data: ISolutionsData) => void;
   getSolution: (data: ISolutionsData) => void;
   solutions: SolutionType[];
+  search: string;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
+  searchSolution: () => void;
+  filteredSolutions: SolutionType[];
 }
+
 const SolutionsContext = createContext<ISolutionsData>({} as ISolutionsData);
 
 const SolutionsProvider = ({ children }: ISolutionsProps) => {
   const token = localStorage.getItem('token');
 
-  const [solutions, setSolutions] = useState([]);
+  const [solutions, setSolutions] = useState<SolutionType[]>([]);
+  const [filteredSolutions, setFilteredSolutions] = useState<SolutionType[]>(
+    []
+  );
+  const [search, setSearch] = useState('');
 
   const createSolution = (data: ISolutionsData) => {
     api
@@ -64,13 +73,30 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
       .get('/solutions')
       .then((response) => {
         setSolutions(response.data);
+        setFilteredSolutions(response.data);
       })
       .catch((err) => console.log(err.response.data.message));
   }, []);
 
+  const searchSolution = () => {
+    setFilteredSolutions(
+      solutions.filter((solution) =>
+        solution.title.toLowerCase().includes(search)
+      )
+    );
+  };
+
   return (
     <SolutionsContext.Provider
-      value={{ createSolution, getSolution, solutions }}
+      value={{
+        createSolution,
+        getSolution,
+        solutions,
+        search,
+        setSearch,
+        searchSolution,
+        filteredSolutions,
+      }}
     >
       {children}
     </SolutionsContext.Provider>
