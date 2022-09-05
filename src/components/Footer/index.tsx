@@ -65,53 +65,57 @@ const Footer = ({ targetType }: FooterProps) => (
             </p>
           </div>
         </section>
+        <div className='divSectionTwoThree'>
+          <section className='section-two'>
+            <div className='divTitle'>
+              <h2 className='title'>Contato:</h2>
+            </div>
 
-        <section className='section-two'>
-          <div className='divTitle'>
-            <h2 className='title'>Contato:</h2>
-          </div>
+            <div className='divbottom'>
+              <ul>
+                {devsData.map((dev) => (
+                  <li>
+                    <div className='divIcon'>
+                      <a target={targetType} href={dev.linkedin}>
+                        <FaLinkedin className='icon' />
+                      </a>
+                      <a target={targetType} href={dev.intagram}>
+                        <FaInstagramSquare className='icon' />
+                      </a>
+                      <a target={targetType} href={dev.github}>
+                        <FaGithubSquare className='icon' />
+                      </a>
+                    </div>
+                    <h3>{dev.nome}</h3>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
 
-          <div className='divbottom'>
-            <ul>
-              {devsData.map((dev) => (
-                <li>
-                  <div className='divIcon'>
-                    <a target={targetType} href={dev.linkedin}>
-                      <FaLinkedin className='icon' />
-                    </a>
-                    <a target={targetType} href={dev.intagram}>
-                      <FaInstagramSquare className='icon' />
-                    </a>
-                    <a target={targetType} href={dev.github}>
-                      <FaGithubSquare className='icon' />
-                    </a>
-                  </div>
-                  <h3>{dev.nome}</h3>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
+          <section className='section-three'>
+            <div className='divTitle'>
+              <h2 className='title'>Team de Desenvolvedores</h2>
+            </div>
 
-        <section className='section-three'>
-          <div className='divTitle'>
-            <h2 className='title'>Team de Desenvolvedores</h2>
-          </div>
-
-          <div className='divbottom'>
-            <ul>
-              {devsData.map((dev) => (
-                <li>
-                  <img
-                    className='dev-photos'
-                    src={dev.picture}
-                    alt={dev.nome}
-                  />
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
+            <div className='divbottom'>
+              <ul>
+                {devsData.map((dev) => (
+                  <li>
+                    <img
+                      className='dev-photos'
+                      src={dev.picture}
+                      alt={dev.nome}
+                    />
+                    <div className='tooltip'>
+                      <div className='tooltipDev'>{dev.nome}</div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        </div>
       </div>
     </div>
   </FootContainer>
