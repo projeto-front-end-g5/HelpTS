@@ -1,13 +1,20 @@
 import { GoThumbsup } from 'react-icons/go';
 import { DivSolutionCard } from './style';
 
-const SolutionCard = () => (
+interface ISolutionCardProps {
+  title: string;
+  tags: string[];
+  likes: number;
+}
+
+const SolutionCard = ({ title, tags, likes }: ISolutionCardProps) => (
   <DivSolutionCard>
     <div className='card1'>
-      <h3 className='title--card'>SOLUÇÃO</h3>
+      <h3 className='title--card'>{title}</h3>
       <span className='span--tags'>
-        <p className='hash--card'>#hashtag</p>
-        <p className='hash--card'>#hashtag</p>
+        {tags.map((tag) => (
+          <p className='hash--card'>#{tag}</p>
+        ))}
       </span>
     </div>
     <div className='card2'>
@@ -15,7 +22,7 @@ const SolutionCard = () => (
         <button className='btn--like' type='button'>
           <GoThumbsup />
         </button>
-        <p className='countLike--card'>10 likes</p>
+        <p className='countLike--card'>{likes} likes</p>
       </div>
       <span className='span--tags'>
         <p className='hash--card'>Comentários</p>

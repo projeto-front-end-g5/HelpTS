@@ -1,10 +1,14 @@
-import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
-import internal from 'stream';
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from 'react';
 import api from '../../services/api';
 
 interface ISolutionsProps {
   children: ReactNode;
- 
 }
 
 type ContentType = {
@@ -12,7 +16,7 @@ type ContentType = {
   code: string;
 };
 
-type SolutionType = {
+export type SolutionType = {
   title: string;
   content: ContentType;
   created_at: string;
@@ -55,27 +59,23 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
       .catch((err) => console.log(err.response.data.message));
   };
 
-
-
   useEffect(() => {
     api
-        .get('/solutions')
-        .then((response) => {
-          setSolutions(response.data);
-        })
-        .catch((err) => console.log(err.response.data.message));
+      .get('/solutions')
+      .then((response) => {
+        setSolutions(response.data);
+      })
+      .catch((err) => console.log(err.response.data.message));
   }, []);
-  
 
   return (
-    <SolutionsContext.Provider value={{ createSolution, getSolution, solutions }}>
+    <SolutionsContext.Provider
+      value={{ createSolution, getSolution, solutions }}
+    >
       {children}
     </SolutionsContext.Provider>
   );
 };
-
-
-
 
 const useSolutionsContext = () => useContext(SolutionsContext);
 
