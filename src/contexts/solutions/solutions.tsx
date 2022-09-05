@@ -1,10 +1,14 @@
-import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
-import internal from 'stream';
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from 'react';
 import api from '../../services/api';
 
 interface ISolutionsProps {
   children: ReactNode;
- 
 }
 
 type ContentType = {
@@ -26,7 +30,12 @@ type SolutionType = {
 interface ISolutionsData {
   createSolution: (data: ISolutionsData) => void;
   getSolution: (data: ISolutionsData) => void;
+  deleteSolution: () => void;
   solutions: SolutionType[];
+  visibilityDeleteSolution: boolean;
+  idSolution: number;
+  setIdSolution: (idSolution: number) => void;
+  setVisibilityDeleteSolution: (visibilityDeleteSolution: boolean) => void;
 }
 const SolutionsContext = createContext<ISolutionsData>({} as ISolutionsData);
 
@@ -34,6 +43,9 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
   const token = localStorage.getItem('token');
 
   const [solutions, setSolutions] = useState([]);
+  const [visibilityDeleteSolution, setVisibilityDeleteSolution] =
+    useState(true);
+  const [idSolution, setIdSolution] = useState(0);
 
   const createSolution = (data: ISolutionsData) => {
     api
@@ -55,27 +67,43 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
       .catch((err) => console.log(err.response.data.message));
   };
 
-
-
   useEffect(() => {
     api
-        .get('/solutions')
-        .then((response) => {
-          setSolutions(response.data);
-        })
-        .catch((err) => console.log(err.response.data.message));
+      .get('/solutions')
+      .then((response) => {
+        setSolutions(response.data);
+      })
+      .catch((err) => console.log(err.response.data.message));
   }, []);
-  
+
+  const deleteSolution = () => {
+    api
+      .delete(`/solutions/${idSolution}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then(() => {
+        console.log('Solução deletada');
+      })
+      .catch((err) => console.log(err.response.data.message));
+  };
 
   return (
-    <SolutionsContext.Provider value={{ createSolution, getSolution, solutions }}>
+    <SolutionsContext.Provider
+      value={{
+        createSolution,
+        getSolution,
+        solutions,
+        visibilityDeleteSolution,
+        setVisibilityDeleteSolution,
+        deleteSolution,
+        idSolution,
+        setIdSolution,
+      }}
+    >
       {children}
     </SolutionsContext.Provider>
   );
 };
-
-
-
 
 const useSolutionsContext = () => useContext(SolutionsContext);
 
