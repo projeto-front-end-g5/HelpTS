@@ -16,7 +16,7 @@ type ContentType = {
   code: string;
 };
 
-export type SolutionType = {
+export interface SolutionType {
   title: string;
   content: ContentType;
   created_at: string;
@@ -25,27 +25,39 @@ export type SolutionType = {
   likes: number;
   userId: number;
   id: number;
-};
+}
 
 interface ISolutionsData {
   createSolution: (data: ISolutionsData) => void;
   getSolution: (data: ISolutionsData) => void;
   deleteSolution: () => void;
   solutions: SolutionType[];
+  search: string;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
+  searchSolution: () => void;
+  filteredSolutions: SolutionType[];
   visibilityDeleteSolution: boolean;
   idSolution: number;
   setIdSolution: (idSolution: number) => void;
   setVisibilityDeleteSolution: (visibilityDeleteSolution: boolean) => void;
 }
+
 const SolutionsContext = createContext<ISolutionsData>({} as ISolutionsData);
 
 const SolutionsProvider = ({ children }: ISolutionsProps) => {
   const token = localStorage.getItem('token');
 
+
+  const [solutions, setSolutions] = useState<SolutionType[]>([]);
+  const [filteredSolutions, setFilteredSolutions] = useState<SolutionType[]>(
+    []
+  );
+  const [search, setSearch] = useState('');
   const [solutions, setSolutions] = useState([]);
   const [visibilityDeleteSolution, setVisibilityDeleteSolution] =
     useState(true);
   const [idSolution, setIdSolution] = useState(0);
+
 
   const createSolution = (data: ISolutionsData) => {
     api
@@ -72,9 +84,19 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
       .get('/solutions')
       .then((response) => {
         setSolutions(response.data);
+        setFilteredSolutions(response.data);
       })
       .catch((err) => console.log(err.response.data.message));
   }, []);
+
+
+  const searchSolution = () => {
+    setFilteredSolutions(
+      solutions.filter((solution) =>
+        solution.title.toLowerCase().includes(search)
+      )
+    );
+    }
 
   const deleteSolution = () => {
     api
@@ -93,6 +115,10 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
         createSolution,
         getSolution,
         solutions,
+        search,
+        setSearch,
+        searchSolution,
+        filteredSolutions,
         visibilityDeleteSolution,
         setVisibilityDeleteSolution,
         deleteSolution,

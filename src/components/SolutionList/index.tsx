@@ -2,13 +2,13 @@ import { useSolutionsContext } from '../../contexts/solutions/solutions';
 import SolutionCard from '../SolutionCard';
 
 const SolutionList = () => {
-  const { solutions } = useSolutionsContext();
+  const { solutions, filteredSolutions } = useSolutionsContext();
   console.log(solutions);
 
   return (
     <>
-      {solutions.length &&
-        solutions.map((item) => (
+      {filteredSolutions.length &&
+        filteredSolutions.map((item) => (
           <SolutionCard
             key={item.id}
             title={item.title}
