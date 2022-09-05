@@ -16,7 +16,7 @@ type ContentType = {
   code: string;
 };
 
-type SolutionType = {
+export type SolutionType = {
   title: string;
   content: ContentType;
   created_at: string;
