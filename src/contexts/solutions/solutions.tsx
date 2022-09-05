@@ -30,7 +30,12 @@ export type SolutionType = {
 interface ISolutionsData {
   createSolution: (data: ISolutionsData) => void;
   getSolution: (data: ISolutionsData) => void;
+  deleteSolution: () => void;
   solutions: SolutionType[];
+  visibilityDeleteSolution: boolean;
+  idSolution: number;
+  setIdSolution: (idSolution: number) => void;
+  setVisibilityDeleteSolution: (visibilityDeleteSolution: boolean) => void;
 }
 const SolutionsContext = createContext<ISolutionsData>({} as ISolutionsData);
 
@@ -38,6 +43,9 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
   const token = localStorage.getItem('token');
 
   const [solutions, setSolutions] = useState([]);
+  const [visibilityDeleteSolution, setVisibilityDeleteSolution] =
+    useState(true);
+  const [idSolution, setIdSolution] = useState(0);
 
   const createSolution = (data: ISolutionsData) => {
     api
@@ -68,9 +76,29 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
       .catch((err) => console.log(err.response.data.message));
   }, []);
 
+  const deleteSolution = () => {
+    api
+      .delete(`/solutions/${idSolution}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then(() => {
+        console.log('Solução deletada');
+      })
+      .catch((err) => console.log(err.response.data.message));
+  };
+
   return (
     <SolutionsContext.Provider
-      value={{ createSolution, getSolution, solutions }}
+      value={{
+        createSolution,
+        getSolution,
+        solutions,
+        visibilityDeleteSolution,
+        setVisibilityDeleteSolution,
+        deleteSolution,
+        idSolution,
+        setIdSolution,
+      }}
     >
       {children}
     </SolutionsContext.Provider>
