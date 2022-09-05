@@ -56,6 +56,7 @@ a {
 .App {
 	width: 100vw;
     height: 100vh;
+	overflow-x: hidden;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
