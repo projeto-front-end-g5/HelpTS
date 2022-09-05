@@ -15,6 +15,30 @@ export const DivPageRegister = styled.div`
   background-color: var(--grey-card);
   flex-wrap: wrap;
   justify-content: center;
+  border: 3px solid #4087d700;
+  border-radius: 40px;
+  box-shadow: 0px 0px 21px 0px rgb(170 167 167);
+  position: relative;
+
+  .btn--home {
+    background: transparent;
+    border: none;
+    border-radius: 5px;
+    color: var(--blue-dark);
+    font-size: 1.5rem;
+    position: absolute;
+    top: 35px;
+    left: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+
+    :hover {
+      transition: 0.5s;
+      background: #00207c30;
+    }
+  }
 
   .logo--pageRegister {
     width: 300px;
@@ -62,6 +86,7 @@ export const DivPageRegister = styled.div`
     & {
       align-items: center;
       align-content: center;
+      border-radius: 20px;
     }
 
     svg {
@@ -90,6 +115,25 @@ export const DivPageRegister = styled.div`
 
     .textlink--login {
       font-size: 0.8rem;
+    }
+
+    .btn--home {
+      top: -15px;
+      left: 30px;
+    }
+  }
+
+  @media screen and (max-width: 321px) {
+    & {
+      width: 80%;
+    }
+  }
+
+  @media screen and (max-width: 426px) {
+    .btn--home {
+      font-size: 1.2rem;
+      top: -39px;
+      left: 12px;
     }
   }
 `;
