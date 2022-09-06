@@ -1,3 +1,4 @@
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 import {
   createContext,
   useContext,
@@ -30,18 +31,16 @@ export interface ISolutionCardProps {
 interface IDashboardData {
   tags: string[];
   darkMode: boolean;
-  user: boolean;
   counter: number;
   buttonClick: boolean;
   DarkLight(): void;
-  UserExists(): void;
   increase(): void;
   decrease(): void;
+  navigate: NavigateFunction;
   IncreaseLike: (like: number) => number;
   Like: (item: SolutionsCard) => void;
   setCounter: React.Dispatch<React.SetStateAction<number>>;
   setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
-  setUser: React.Dispatch<React.SetStateAction<boolean>>;
   setTags: React.Dispatch<React.SetStateAction<string[]>>;
   setButtonClick: (buttonClick: boolean) => void;
 }
@@ -63,8 +62,8 @@ const DashboardContext = createContext<IDashboardData>({} as IDashboardData);
 const DashboardProvider = ({ children }: IDashboardProps) => {
   const token = localStorage.getItem('token');
   const [darkMode, setDarkMode] = useState(false);
-  const [user, setUser] = useState(false);
   const [counter, setCounter] = useState(1);
+  const navigate = useNavigate();
   const [buttonClick, setButtonClick] = useState(false);
   const [tags, setTags] = useState<string[]>([
     'state',
@@ -108,10 +107,6 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
 
   function DarkLight() {
     return darkMode ? setDarkMode(false) : setDarkMode(true);
-  }
-
-  function UserExists() {
-    return user ? setUser(false) : setUser(true);
   }
 
   function IncreaseLike(like: number) {
@@ -164,16 +159,14 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
       value={{
         darkMode,
         setDarkMode,
-        user,
-        setUser,
         DarkLight,
-        UserExists,
         tags,
         setTags,
         counter,
         setCounter,
         increase,
         decrease,
+        navigate,
         buttonClick,
         setButtonClick,
         Like,

@@ -12,9 +12,22 @@ interface ISubmitLogin {
   password: string;
 }
 
+export interface IUser {
+  email: string;
+  name: string;
+  contact: string;
+  github: string;
+  passwordConfirm: string;
+  id: number;
+}
+
 interface ILoginData {
   openEye: boolean;
   typeInput: string;
+  user: IUser;
+  token: string | null;
+  userId: string | null;
+  setUser: React.Dispatch<React.SetStateAction<IUser>>;
   submitLogin: (dataSubmit: ISubmitLogin) => void;
   changeStateOpenEyes: () => void;
 }
@@ -24,15 +37,16 @@ const LoginContex = createContext<ILoginData>({} as ILoginData);
 const LoginProvider = ({ children }: ILoginProps) => {
   const [openEye, setOpenEye] = useState(false);
   const [typeInput, setTypeInput] = useState('password');
-
+  const [user, setUser] = useState<IUser>({} as IUser);
+  const token = localStorage.getItem('token');
+  const userId = localStorage.getItem('userId');
   const navigate = useNavigate();
 
   const submitLogin = (data: ISubmitLogin) => {
-    console.log(data);
-
     api
       .post('/login', data)
       .then((response) => {
+        setUser(response.data.user);
         localStorage.setItem('token', response.data.accessToken);
         localStorage.setItem('userId', response.data.user.id);
         navigate('/dashboard', { replace: true });
@@ -48,7 +62,7 @@ const LoginProvider = ({ children }: ILoginProps) => {
         });
       })
       .catch((err) => {
-        console.log(err.response.data);
+        console.error(err.response.data);
 
         return toast('❌ Tente novamente!', {
           position: 'top-right',
@@ -71,6 +85,7 @@ const LoginProvider = ({ children }: ILoginProps) => {
     }
   };
 
+  //
   return (
     <LoginContex.Provider
       value={{
@@ -78,6 +93,10 @@ const LoginProvider = ({ children }: ILoginProps) => {
         submitLogin,
         changeStateOpenEyes,
         typeInput,
+        setUser,
+        user,
+        token,
+        userId,
       }}
     >
       {children}
