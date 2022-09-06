@@ -40,7 +40,6 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
   const token = localStorage.getItem('token');
 
   const [solutions, setSolutions] = useState([]);
-  const [backup, setBackup] = useState([]);
 
   const createSolution = (data: ISolutionsData) => {
     api
@@ -58,7 +57,6 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
       .get('/solutions?_page=1&_limit=4')
       .then((response) => {
         setSolutions(response.data);
-        setBackup(response.data);
       })
       .catch((err) => console.log(err.response.data.message));
   }, []);

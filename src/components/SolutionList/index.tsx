@@ -1,4 +1,5 @@
 import { useSolutionsContext } from '../../contexts/solutions/solutions';
+import EmptyList from '../EmptyList';
 import SolutionCard from '../SolutionCard';
 
 const SolutionList = () => {
@@ -6,7 +7,7 @@ const SolutionList = () => {
 
   return (
     <>
-      {solutions.length &&
+      {solutions.length > 0 ? (
         solutions.map((item) => (
           <SolutionCard
             key={item.id}
@@ -14,7 +15,13 @@ const SolutionList = () => {
             tags={item.tags}
             likes={item.likes}
           />
-        ))}
+        ))
+      ) : (
+        <div>
+          Carregando...
+          <EmptyList />
+        </div>
+      )}
       <div />
     </>
   );

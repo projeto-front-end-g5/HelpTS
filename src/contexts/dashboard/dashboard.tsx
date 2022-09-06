@@ -64,13 +64,7 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
     } else {
       setCounter(counter);
     }
-
-    api
-      .get(`/solutions?_page=${counter}&_limit=4`)
-      .then((response) => {
-        setSolutions(response.data);
-      })
-      .catch((err) => console.log(err.response.data.message));
+    console.log('increase', counter);
   }
 
   function decrease() {
@@ -79,14 +73,17 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
     } else {
       setCounter(counter - 1);
     }
+    console.log('decrease', counter);
+  }
 
+  useEffect(() => {
     api
       .get(`/solutions?_page=${counter}&_limit=4`)
       .then((response) => {
         setSolutions(response.data);
       })
       .catch((err) => console.log(err.response.data.message));
-  }
+  }, [counter]);
 
   function DarkLight() {
     return darkMode ? setDarkMode(false) : setDarkMode(true);

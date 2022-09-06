@@ -12,29 +12,38 @@ function NavCard() {
       <div className='nav--params'>
         {counter === 1 ? (
           <>
-            <IoIosArrowBack
-              className='willDisable'
-              onClick={() => decrease()}
-            />
-            <IoIosArrowForward onClick={() => increase()} />
+            <button type='button' disabled>
+              <IoIosArrowBack
+                className='willDisable'
+                onClick={() => decrease()}
+              />
+            </button>
+            <button type='button'>
+              <IoIosArrowForward onClick={() => increase()} />
+            </button>
+          </>
+        ) : counter === 5 ? (
+          <>
+            <button type='button'>
+              <IoIosArrowBack onClick={() => decrease()} />
+            </button>
+            <button type='button' disabled>
+              <IoIosArrowForward
+                className='willDisable'
+                onClick={() => increase()}
+              />
+            </button>
           </>
         ) : (
           <>
-            <IoIosArrowBack onClick={() => decrease()} />
-            <IoIosArrowForward
-              className='willDisable'
-              onClick={() => increase()}
-            />
+            <button type='button'>
+              <IoIosArrowBack onClick={() => decrease()} />
+            </button>
+            <button type='button'>
+              <IoIosArrowForward onClick={() => increase()} />
+            </button>
           </>
         )}
-        {
-          // :(
-          //   <>
-          //   <IoIosArrowBack onClick={() => decrease()} />
-          //     <IoIosArrowForward onClick={() => increase()} />
-          //   </>
-          // )
-        }
 
         <p>{counter}</p>
         <span>...</span>
