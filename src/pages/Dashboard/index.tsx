@@ -8,16 +8,13 @@ import { ButtonAll, DashboardContainer, DivCardDash } from './styles';
 const Dashboard = () => (
   <DashboardContainer>
     <Header />
-
     <DashboardDescription />
-
     <section className='main--dashboard'>
       <NavCard />
       <DivCardDash />
       <SolutionList />
       <ButtonAll>Mostrar todos</ButtonAll>
     </section>
-
     <Footer targetType='_blank' />
   </DashboardContainer>
 );

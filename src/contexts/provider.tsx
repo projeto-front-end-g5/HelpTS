@@ -11,17 +11,17 @@ interface IProvider {
 }
 
 const Provider = ({ children }: IProvider) => (
-  <DashboardProvider>
-    <LoginProvider>
-      <RegisterProvider>
-        <PostProvider>
-          <SolutionsProvider>
+  <SolutionsProvider>
+    <DashboardProvider>
+      <LoginProvider>
+        <RegisterProvider>
+          <PostProvider>
             <CommentsProvider>{children}</CommentsProvider>
-          </SolutionsProvider>
-        </PostProvider>
-      </RegisterProvider>
-    </LoginProvider>
-  </DashboardProvider>
+          </PostProvider>
+        </RegisterProvider>
+      </LoginProvider>
+    </DashboardProvider>
+  </SolutionsProvider>
 );
 
 export default Provider;
