@@ -1,23 +1,16 @@
 import { useSolutionsContext } from '../../contexts/solutions/solutions';
 import SolutionCard from '../SolutionCard';
+import { ContainerSolutions } from '../SolutionCard/style';
 
 const SolutionList = () => {
-  const { solutions, filteredSolutions } = useSolutionsContext();
-  console.log(solutions);
+  const { filteredSolutions } = useSolutionsContext();
+ 
 
   return (
-    <>
+    <ContainerSolutions>
       {filteredSolutions.length &&
-        filteredSolutions.map((item) => (
-          <SolutionCard
-            key={item.id}
-            title={item.title}
-            tags={item.tags}
-            likes={item.likes}
-          />
-        ))}
-      <div />
-    </>
+        filteredSolutions.map((item) => <SolutionCard key={item.id} item={item} />)}
+    </ContainerSolutions>
   );
 };
 

@@ -16,6 +16,7 @@ type ContentType = {
   code: string;
 };
 
+
 export interface SolutionType {
   title: string;
   content: ContentType;
