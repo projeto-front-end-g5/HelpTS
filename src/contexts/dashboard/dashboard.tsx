@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 interface IDashboardProps {
   children: ReactNode;
@@ -7,15 +8,13 @@ interface IDashboardProps {
 interface IDashboardData {
   tags: string[];
   darkMode: boolean;
-  user: boolean;
   counter: number;
   DarkLight(): void;
-  UserExists(): void;
   increase(): void;
   decrease(): void;
+  navigate: NavigateFunction;
   setCounter: React.Dispatch<React.SetStateAction<number>>;
   setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
-  setUser: React.Dispatch<React.SetStateAction<boolean>>;
   setTags: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
@@ -23,8 +22,8 @@ const DashboardContext = createContext<IDashboardData>({} as IDashboardData);
 
 const DashboardProvider = ({ children }: IDashboardProps) => {
   const [darkMode, setDarkMode] = useState(false);
-  const [user, setUser] = useState(false);
   const [counter, setCounter] = useState(1);
+  const navigate = useNavigate();
   const [tags, setTags] = useState<string[]>([
     'state',
     'function',
@@ -48,25 +47,19 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
     return darkMode ? setDarkMode(false) : setDarkMode(true);
   }
 
-  function UserExists() {
-    return user ? setUser(false) : setUser(true);
-  }
-
   return (
     <DashboardContext.Provider
       value={{
         darkMode,
         setDarkMode,
-        user,
-        setUser,
         DarkLight,
-        UserExists,
         tags,
         setTags,
         counter,
         setCounter,
         increase,
         decrease,
+        navigate,
       }}
     >
       {children}

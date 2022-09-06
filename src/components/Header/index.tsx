@@ -1,7 +1,6 @@
 import { MdOutlineDarkMode } from 'react-icons/md';
 import { BiSun } from 'react-icons/bi';
 
-
 import {
   ButtonLogout,
   DarkModeButton,
@@ -11,9 +10,11 @@ import {
   UserImage,
 } from './style';
 import { useDashboardContext } from '../../contexts/dashboard/dashboard';
+import { useLoginContext } from '../../contexts/login/login';
 
 function Header() {
-  const { darkMode, user, DarkLight, UserExists } = useDashboardContext();
+  const { darkMode, DarkLight, navigate } = useDashboardContext();
+  const { token } = useLoginContext();
 
   return (
     <HeaderContainer>
@@ -21,7 +22,7 @@ function Header() {
         Help<span>TS</span>
       </h1>
 
-      {user ? (
+      {token ? (
         <div className='DarkMode-ImgUser-Logout'>
           <DarkModeImgUserContainer>
             <DarkModeButton onClick={() => DarkLight()}>
@@ -31,8 +32,14 @@ function Header() {
               <img alt='' />
             </UserImage>
           </DarkModeImgUserContainer>
-          <ButtonLogout type='submit' onClick={() => UserExists()}>
-            {user ? 'Logout' : 'Login'}
+          <ButtonLogout
+            type='submit'
+            onClick={() => {
+              window.localStorage.clear();
+              window.location.reload();
+            }}
+          >
+            Logout
           </ButtonLogout>
         </div>
       ) : (
@@ -42,8 +49,8 @@ function Header() {
               {darkMode ? <BiSun /> : <MdOutlineDarkMode />}
             </DarkModeButton>
           </DarkModeContainer>
-          <ButtonLogout type='submit' onClick={() => UserExists()}>
-            {user ? 'Logout' : 'Login'}
+          <ButtonLogout type='submit' onClick={() => navigate('/login')}>
+            Login
           </ButtonLogout>
         </div>
       )}
@@ -51,5 +58,3 @@ function Header() {
   );
 }
 export default Header;
-
-
