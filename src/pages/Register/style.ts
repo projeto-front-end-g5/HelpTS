@@ -118,8 +118,9 @@ export const DivPageRegister = styled.div`
     }
 
     .btn--home {
-      top: -15px;
-      left: 30px;
+      top: 17px;
+      left: 15px;
+      height: 38px;
     }
   }
 
@@ -132,8 +133,9 @@ export const DivPageRegister = styled.div`
   @media screen and (max-width: 426px) {
     .btn--home {
       font-size: 1.2rem;
-      top: -39px;
+      top: 20px;
       left: 12px;
+      height: 33px;
     }
   }
 `;

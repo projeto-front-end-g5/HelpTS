@@ -1,30 +1,25 @@
 import { useSolutionsContext } from '../../contexts/solutions/solutions';
 import EmptyList from '../EmptyList';
 import SolutionCard from '../SolutionCard';
+import { ContainerSolutions } from '../SolutionCard/style';
 
 const SolutionList = () => {
-  const { solutions } = useSolutionsContext();
+  const { filteredSolutions } = useSolutionsContext();
 
   return (
     <>
-      {solutions.length > 0 ? (
-        solutions.map((item) => (
-          <SolutionCard
-            key={item.id}
-            title={item.title}
-            tags={item.tags}
-            likes={item.likes}
-          />
-        ))
-      ) : (
+    <ContainerSolutions>
+      {filteredSolutions.length ? 
+        filteredSolutions.map((item) => <SolutionCard key={item.id} item={item} />)
+        : (
         <div>
           Carregando...
           <EmptyList />
         </div>
-      )}
-      <div />
+      )
+        }
+    </ContainerSolutions>
     </>
-  );
 };
 
 export default SolutionList;
