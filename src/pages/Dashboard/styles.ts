@@ -15,7 +15,6 @@ export const DashboardContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
   }
 `;
 
@@ -27,6 +26,7 @@ export const ButtonAll = styled.button`
   border-radius: 5px;
   font-family: 'Tajawal';
   align-self: center;
+  margin: 20px;
 `;
 
 export const DivCardDash = styled.div`

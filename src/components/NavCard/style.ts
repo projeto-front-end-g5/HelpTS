@@ -7,9 +7,9 @@ export const NavTypesContainer = styled.div`
 
   font-family: 'ubuntu';
 
-  margin-top: 1.875rem;
+  margin: 1.875rem 0 1.875rem 0;
 
-  width: 90%;
+  width: 100%;
 
   button {
     border: none;

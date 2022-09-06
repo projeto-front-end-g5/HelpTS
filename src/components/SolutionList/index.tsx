@@ -5,11 +5,14 @@ import { ContainerSolutions } from '../SolutionCard/style';
 import { Container } from './style';
 
 const SolutionList = () => {
-  const { filteredSolutions } = useSolutionsContext();
+  const { filteredSolutions, isFound } = useSolutionsContext();
+  // console.log(isFound);
 
   return (
     <ContainerSolutions>
-      {filteredSolutions.length ? (
+      {isFound === false ? (
+        <div>Não há resultado disponível</div>
+      ) : filteredSolutions.length ? (
         filteredSolutions.map((item) => (
           <SolutionCard key={item.id} item={item} />
         ))
