@@ -10,8 +10,41 @@ function NavCard() {
         <IoMdAdd />
       </div>
       <div className='nav--params'>
-        <IoIosArrowBack onClick={() => decrease()} />
-        <IoIosArrowForward onClick={() => increase()} />
+        {counter === 1 ? (
+          <>
+            <button type='button' disabled>
+              <IoIosArrowBack
+                className='willDisable'
+                onClick={() => decrease()}
+              />
+            </button>
+            <button type='button'>
+              <IoIosArrowForward onClick={() => increase()} />
+            </button>
+          </>
+        ) : counter === 5 ? (
+          <>
+            <button type='button'>
+              <IoIosArrowBack onClick={() => decrease()} />
+            </button>
+            <button type='button' disabled>
+              <IoIosArrowForward
+                className='willDisable'
+                onClick={() => increase()}
+              />
+            </button>
+          </>
+        ) : (
+          <>
+            <button type='button'>
+              <IoIosArrowBack onClick={() => decrease()} />
+            </button>
+            <button type='button'>
+              <IoIosArrowForward onClick={() => increase()} />
+            </button>
+          </>
+        )}
+
         <p>{counter}</p>
         <span>...</span>
       </div>

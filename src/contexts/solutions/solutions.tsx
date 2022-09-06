@@ -4,6 +4,8 @@ import {
   useState,
   ReactNode,
   useEffect,
+  SetStateAction,
+  Dispatch,
 } from 'react';
 import api from '../../services/api';
 
@@ -30,6 +32,7 @@ export interface SolutionType {
 
 interface ISolutionsData {
   createSolution: (data: ISolutionsData) => void;
+  setSolutions: Dispatch<SetStateAction<never[]>>;
   getSolution: (data: ISolutionsData) => void;
   deleteSolution: () => void;
   solutions: SolutionType[];
@@ -68,18 +71,9 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
       .catch((err) => console.log(err.response.data.message));
   };
 
-  const getSolution = () => {
-    api
-      .get('/solutions')
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => console.log(err.response.data.message));
-  };
-
   useEffect(() => {
     api
-      .get('/solutions')
+      .get('/solutions?_page=1&_limit=4')
       .then((response) => {
         setSolutions(response.data);
         setFilteredSolutions(response.data);
@@ -121,7 +115,9 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
         deleteSolution,
         idSolution,
         setIdSolution,
+        setSolutions
       }}
+
     >
       {children}
     </SolutionsContext.Provider>
