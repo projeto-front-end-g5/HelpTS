@@ -77,7 +77,7 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
     'parameter',
   ]);
 
-  const { setSolutions } = useSolutionsContext();
+  const { setFilteredSolutions } = useSolutionsContext();
 
   function increase() {
     if (counter < 5) {
@@ -101,7 +101,7 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
     api
       .get(`/solutions?_page=${counter}&_limit=4`)
       .then((response) => {
-        setSolutions(response.data);
+        setFilteredSolutions(response.data);
       })
       .catch((err) => console.log(err.response.data.message));
   }, [counter]);
