@@ -3,14 +3,13 @@ import SolutionCard from '../SolutionCard';
 import { ContainerSolutions } from '../SolutionCard/style';
 
 const SolutionList = () => {
-  const { solutions } = useSolutionsContext();
-  console.log(solutions);
+  const { filteredSolutions } = useSolutionsContext();
+ 
 
   return (
     <ContainerSolutions>
-      {solutions.length &&
-        solutions.map((item) => <SolutionCard key={item.id} item={item} />)}
-      <div />
+      {filteredSolutions.length &&
+        filteredSolutions.map((item) => <SolutionCard key={item.id} item={item} />)}
     </ContainerSolutions>
   );
 };
