@@ -18,7 +18,6 @@ type ContentType = {
   code: string;
 };
 
-
 export interface SolutionType {
   title: string;
   content: ContentType;
@@ -32,14 +31,14 @@ export interface SolutionType {
 
 interface ISolutionsData {
   createSolution: (data: ISolutionsData) => void;
-  setSolutions: Dispatch<SetStateAction<never[]>>;
-  getSolution: (data: ISolutionsData) => void;
+  setSolutions: Dispatch<SetStateAction<SolutionType[]>>;
   deleteSolution: () => void;
   solutions: SolutionType[];
   search: string;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
   searchSolution: () => void;
   filteredSolutions: SolutionType[];
+  setFilteredSolutions: Dispatch<SetStateAction<SolutionType[]>>;
   visibilityDeleteSolution: boolean;
   idSolution: number;
   setIdSolution: (idSolution: number) => void;
@@ -104,20 +103,19 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
     <SolutionsContext.Provider
       value={{
         createSolution,
-        getSolution,
         solutions,
         search,
         setSearch,
         searchSolution,
         filteredSolutions,
+        setFilteredSolutions,
         visibilityDeleteSolution,
         setVisibilityDeleteSolution,
         deleteSolution,
         idSolution,
         setIdSolution,
-        setSolutions
+        setSolutions,
       }}
-
     >
       {children}
     </SolutionsContext.Provider>
