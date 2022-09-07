@@ -1,8 +1,5 @@
 import { createContext, useState, useEffect, ReactNode } from 'react';
 
-
-export const UserContext = createContext({});
-
 interface userPoviderProps {
   children: ReactNode;
 }
@@ -15,7 +12,6 @@ export const UserContext = createContext<IUserData>({} as IUserData);
 
 export const UserProvider = ({ children }: userPoviderProps) => {
   const [user, setUser] = useState<string[]>([]);
-
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -32,7 +28,6 @@ export const UserProvider = ({ children }: userPoviderProps) => {
         .then((response) => response.json())
         .then((response) => setUser(response))
         .catch((error) => {
-
           console.error(error);
 
           localStorage.removeItem('token');
