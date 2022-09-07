@@ -12,8 +12,10 @@ const Posts = () => (
 
     <Container>
       <div className='main--posts'>
+        {/* <div className='inner--posts'> */}
         <NavCard />
         <SolutionList />
+        {/* </div> */}
       </div>
     </Container>
     <Footer targetType='_blank' />
