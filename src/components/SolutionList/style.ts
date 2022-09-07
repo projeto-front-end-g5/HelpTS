@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import {  ButtonHTMLAttributes, ReactNode} from "react";
 
 interface ISecondContainer extends ButtonHTMLAttributes<HTMLButtonElement> {
-    children: ReactNode
+    children: ReactNode;
   }
   
   export const SecondContainer = styled.div<ISecondContainer> `

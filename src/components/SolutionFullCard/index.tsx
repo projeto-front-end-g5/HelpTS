@@ -3,8 +3,7 @@ import { FaTrashAlt } from 'react-icons/fa';
 import LogoRegisterLogin from "../LogoRegisterLogin"
 import { DivSolutionCard } from "../SolutionCard/style"
 import { Container } from "./style"
-import { useSolutionsContext } from '../../contexts/solutions/solutions';
-
+import { SolutionType, useSolutionsContext } from '../../contexts/solutions/solutions';
 
 interface ISolutionFullCard {
    id: number;
@@ -16,17 +15,6 @@ const teste = "teste"
 type ContentType = {
    text: string;
    code: string;
-};
-
-export type SolutionType = {
-   title: string;
-   content: ContentType;
-   created_at: string;
-   updated_at: string;
-   tags: string[];
-   likes: number;
-   userId: number;
-   id: number;
 };
 
 function getSolution(solutions: SolutionType[], id: number) {
@@ -85,7 +73,7 @@ console.log(solution.content.code)
                   </div>
 
                   <div className='solution-code'>
-                  <Highlight {...defaultProps} code={codigo} language='tsx'>
+                  <Highlight {...defaultProps} code={solution.content.code.toString()} language='tsx'>
                      {({ className, style, tokens, getLineProps, getTokenProps }) => (
                         <pre className={className} style={style}>
                            {tokens.map((line, i) => (

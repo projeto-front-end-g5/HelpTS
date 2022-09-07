@@ -7,6 +7,7 @@ import {
   SetStateAction,
   Dispatch,
 } from 'react';
+import { useNavigate } from 'react-router-dom';
 import api from '../../services/api';
 
 interface ISolutionsProps {
@@ -40,13 +41,9 @@ interface ISolutionsData {
   titleSolution: string;
   idSolution: number;
   solutionEdit: SolutionType;
-  createSolution: (data: ISolutionsData) => void;
   setSolutions: Dispatch<SetStateAction<SolutionType[]>>;
-  deleteSolution: () => void;
   solutions: SolutionType[];
   search: string;
-  setSearch: React.Dispatch<React.SetStateAction<string>>;
-  searchSolution: () => void;
   isFound: boolean;
   filteredSolutions: SolutionType[];
   setFilteredSolutions: Dispatch<SetStateAction<SolutionType[]>>;
@@ -60,23 +57,15 @@ interface ISolutionsData {
   EditSolution: (item: SolutionType) => void;
   RequestEdit: (item: IDataEdit) => void;
   setIdSolution: (idSolution: number) => void;
-  getSolution: (data: ISolutionsData) => void;
   createSolution: (data: ISolutionsData) => void;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
   setVisibilityDeleteSolution: (visibilityDeleteSolution: boolean) => void;
-}
-
-interface IOpenSolution{
-  element :object;
+  OpenSolution: (id:number) => void;
 }
 
 const SolutionsContext = createContext<ISolutionsData>({} as ISolutionsData);
 
 
-
- const OpenSolution = ({element}: IOpenSolution) => {
-    console.log(element)
-}
 
 const SolutionsProvider = ({ children }: ISolutionsProps) => {
   const token = localStorage.getItem('token');
@@ -98,6 +87,13 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
   const [solutionEdit, setSolutionEdit] = useState<SolutionType>(
     {} as SolutionType
   );
+
+
+  const navigate = useNavigate();
+
+  const OpenSolution = (id:number) => {
+    navigate(`solution/${id}`)
+  }
 
   const createSolution = (data: ISolutionsData) => {
     api
@@ -247,6 +243,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
         visibilityEditSolution,
         setSolutions,
         isFound,
+        OpenSolution
       }}
     >
       {children}
@@ -256,4 +253,4 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
 
 const useSolutionsContext = () => useContext(SolutionsContext);
 
-export { useSolutionsContext, SolutionsProvider, OpenSolution };
+export { useSolutionsContext, SolutionsProvider };
