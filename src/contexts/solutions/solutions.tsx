@@ -13,9 +13,15 @@ interface ISolutionsProps {
 
 type ContentType = {
   text: string;
-  code: string;
+  code: string[];
 };
 
+export interface IDataEdit {
+  title: string;
+  tag: string;
+  contentText: string;
+  contentCode: string;
+}
 
 export interface SolutionType {
   title: string;
@@ -29,17 +35,25 @@ export interface SolutionType {
 }
 
 interface ISolutionsData {
-  createSolution: (data: ISolutionsData) => void;
-  getSolution: (data: ISolutionsData) => void;
-  deleteSolution: () => void;
-  solutions: SolutionType[];
   search: string;
-  setSearch: React.Dispatch<React.SetStateAction<string>>;
-  searchSolution: () => void;
+  titleSolution: string;
+  idSolution: number;
+  solutions: SolutionType[];
+  solutionEdit: SolutionType;
   filteredSolutions: SolutionType[];
   visibilityDeleteSolution: boolean;
-  idSolution: number;
+  contentTextSolution: string;
+  contentCodeSolution: string;
+  contentTag: string[];
+  visibilityEditSolution: boolean;
+  deleteSolution: () => void;
+  searchSolution: () => void;
+  EditSolution: (item: SolutionType) => void;
+  RequestEdit: (item: IDataEdit) => void;
   setIdSolution: (idSolution: number) => void;
+  getSolution: (data: ISolutionsData) => void;
+  createSolution: (data: ISolutionsData) => void;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
   setVisibilityDeleteSolution: (visibilityDeleteSolution: boolean) => void;
 }
 
@@ -55,7 +69,15 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
   const [search, setSearch] = useState('');
   const [visibilityDeleteSolution, setVisibilityDeleteSolution] =
     useState(true);
+  const [visibilityEditSolution, setVisibilityEditSolution] = useState(true);
   const [idSolution, setIdSolution] = useState(0);
+  const [titleSolution, setTitleSolution] = useState('');
+  const [contentTextSolution, setContentTextSolution] = useState('');
+  const [contentCodeSolution, setContentCodeSolution] = useState('');
+  const [contentTag, setContentTag] = useState<string[]>([]);
+  const [solutionEdit, setSolutionEdit] = useState<SolutionType>(
+    {} as SolutionType
+  );
 
   const createSolution = (data: ISolutionsData) => {
     api
@@ -106,6 +128,73 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
       .catch((err) => console.log(err.response.data.message));
   };
 
+  const RequestEdit = (item: IDataEdit) => {
+    console.log(item);
+    const { title, tag, contentText, contentCode } = item;
+    const newContent = {
+      text: contentText,
+      code: contentCode,
+    };
+    const dateUpdate = new Date();
+    const day = dateUpdate.getDate();
+    const month = dateUpdate.getMonth() + 1;
+    const year = dateUpdate.getFullYear();
+    const newDateSolution = `0${day}/0${month}/${year}`;
+    console.log(dateUpdate, newDateSolution);
+
+    api
+      .patch(
+        `/solutions/${solutionEdit.id}`,
+        {
+          // eslint-disable-next-line object-shorthand
+          title: title,
+          content: newContent,
+          // eslint-disable-next-line object-shorthand, camelcase
+          created_at: solutionEdit.created_at,
+          // eslint-disable-next-line object-shorthand, camelcase
+          updated_at: newDateSolution,
+          // eslint-disable-next-line object-shorthand
+          tags: tag,
+          // eslint-disable-next-line object-shorthand
+          userId: solutionEdit.userId,
+          // eslint-disable-next-line object-shorthand
+          id: solutionEdit.id,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
+      .then(() => {
+        console.log('Solução editada');
+      })
+      .catch((err) => console.log(err.response.data.message));
+  };
+
+  const EditSolution = (item: SolutionType) => {
+    setVisibilityEditSolution(true);
+    setSolutionEdit(item);
+    setTitleSolution(item.title);
+    setContentTextSolution(item.content.text);
+    setContentCodeSolution(item.content.code[0]);
+    setContentTag(item.tags);
+  };
+
+  /*   EditSolution({
+    title: 'Como tipar um useState?',
+    content: {
+      text: "O formato do state todo mundo já conhece: [example, setExample] = useState(''). Caso seja apenas uma string, você pode tipar assim: [example, setExample] = useState<string>(“”). (No entanto o typescript já deduziria que a tipagem é string, então não é obrigatório colocar o <string>. Caso seja apenas um booleano, você pode tipar assim: [example, setExample] = useState<boolean>(true). Agora, caso estejamos falando de um objeto, você teria que tipar cada propriedade desse objeto. Caso seja um array de objetos, assim como sendo apenas um objeto, você precisa tipar o objeto e declarar que é um array.",
+      code: [
+        "function soma (a:number, b:number):number {return a + b} const exemplo = ():void => {console.log('exemplo')}",
+      ],
+    },
+    created_at: '01/09/2022',
+    updated_at: '01/09/2022',
+    tags: ['state'],
+    userId: 4,
+    id: 2,
+    likes: 0,
+  }); */
+
   return (
     <SolutionsContext.Provider
       value={{
@@ -121,6 +210,14 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
         deleteSolution,
         idSolution,
         setIdSolution,
+        RequestEdit,
+        EditSolution,
+        solutionEdit,
+        titleSolution,
+        contentTextSolution,
+        contentCodeSolution,
+        contentTag,
+        visibilityEditSolution,
       }}
     >
       {children}
