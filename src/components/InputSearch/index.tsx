@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
 import { InputSearchContainer } from './styles';
 import { useSolutionsContext } from '../../contexts/solutions/solutions';
@@ -5,6 +6,8 @@ import { useSolutionsContext } from '../../contexts/solutions/solutions';
 const InputSearch = () => {
   const { search, setSearch, searchSolution, searchFound } =
     useSolutionsContext();
+
+  const navigate = useNavigate();
 
   return (
     <InputSearchContainer>

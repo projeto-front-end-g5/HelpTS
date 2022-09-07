@@ -99,7 +99,7 @@ const PostProvider = ({ children }: IPostProps) => {
       const { data } = await api.post('/solutions', solution, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setFilteredSolutions([...filteredSolutions, data]);
+      /* setFilteredSolutions([...filteredSolutions, data]); */
       setSolutions([...solutions, data]);
       navigate('/posts', { replace: true });
       toast('✅ Solução criada com sucesso!', {

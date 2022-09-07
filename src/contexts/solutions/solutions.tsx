@@ -7,6 +7,7 @@ import {
   SetStateAction,
   Dispatch,
 } from 'react';
+import { useNavigate } from 'react-router-dom';
 import api from '../../services/api';
 import { useDashboardContext } from '../dashboard/dashboard';
 
@@ -69,6 +70,8 @@ const SolutionsContext = createContext<ISolutionsData>({} as ISolutionsData);
 const SolutionsProvider = ({ children }: ISolutionsProps) => {
   const token = localStorage.getItem('token');
 
+  const navigate = useNavigate();
+
   const [solutions, setSolutions] = useState<SolutionType[]>([]);
   const [filteredSolutions, setFilteredSolutions] = useState<SolutionType[]>(
     []
@@ -123,6 +126,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
           solution.tags.join().toLowerCase().includes(search) */
       )
     );
+    /* navigate(`/posts/${search}`, { replace: true }); */
   };
 
   const searchFound = () => {
