@@ -10,6 +10,18 @@ export const ContainerCreatePost = styled.div`
   font-family: 'Tajawal';
   padding: 0.75rem;
 
+  .aparece {
+    display: flex;
+  }
+
+  .desaparece {
+    display: none;
+  }
+
+  .codearea {
+    height: 80px;
+  }
+
   .divInput--newpost {
     margin-top: 1rem;
     font-family: 'Tajawal';
@@ -50,13 +62,14 @@ export const ContainerCreatePost = styled.div`
   }
 
   .btn--newPost {
-    padding: 0.2rem;
+    padding: 6px;
     border-radius: 7px;
     background-color: var(--blue-dark);
     color: var(--white);
     border: none;
     font-family: ubuntu;
-    font-size: 0.6rem;
+    font-size: 0.7rem;
+    cursor: pointer;
   }
 
   .divIcon--newPost {
@@ -68,6 +81,7 @@ export const ContainerCreatePost = styled.div`
     border: none;
     color: var(--blue-dark);
     padding: 5px;
+    font-size: 1rem;
   }
 
   .div--icon textarea {
@@ -85,9 +99,24 @@ export const ContainerCreatePost = styled.div`
     padding: 3px;
   }
 
+  .div--iconCode {
+    border: none;
+    position: relative;
+  }
+
   .icon--code {
     color: var(--blue-dark);
     position: absolute;
+    font-size: 1rem;
+    right: 4px;
+    top: 4px;
+    cursor: pointer;
+  }
+
+  .icon--code2 {
+    color: var(--white);
+    position: absolute;
+    font-size: 1rem;
     right: 4px;
     top: 4px;
     cursor: pointer;

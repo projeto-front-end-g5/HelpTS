@@ -40,3 +40,20 @@ export const formRegisterSchema = yup.object().shape({
     .required('Confirme sua  senha')
     .oneOf([yup.ref('password')], 'Deve ser igual a senha'),
 });
+
+export const formEditSolution = yup.object().shape({
+  title: yup.string().required('Necessário estar preenchido'),
+  tag: yup.string().required('Necessário estar selecionado'),
+  contentText: yup.string().required('Necessário estar preenchido'),
+  contentCode: yup.string().required('Necessário estar preenchido'),
+});
+
+export const newPostSchema = yup.object().shape({
+  title: yup
+    .string()
+    .required('Titulo obrigatório!')
+    .min(8, 'No minimo 8 caracteres'),
+  tags: yup.string().required('Titulo obrigatório!'),
+  text: yup.string().required('Campo obrigatório'),
+  code: yup.string(),
+});

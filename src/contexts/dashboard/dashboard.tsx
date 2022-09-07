@@ -36,6 +36,8 @@ interface IDashboardData {
   DarkLight(): void;
   increase(): void;
   decrease(): void;
+  limit: number;
+  setLimit: React.Dispatch<React.SetStateAction<number>>;
   navigate: NavigateFunction;
   IncreaseLike: (like: number) => number;
   Like: (item: SolutionsCard) => void;
@@ -47,23 +49,12 @@ interface IDashboardData {
 
 const DashboardContext = createContext<IDashboardData>({} as IDashboardData);
 
-// console.log(solutions);
-// const [backup, setBackup] = useState([]);
-
-// useEffect(() => {
-//   api
-//     .get('/solutions?_page=1&_limit=4')
-//     .then((response) => {
-//       setBackup(response.data);
-//     })
-//     .catch((err) => console.log(err.response.data.message));
-// }, []);
-
 const DashboardProvider = ({ children }: IDashboardProps) => {
   const token = localStorage.getItem('token');
+  const navigate = useNavigate();
   const [darkMode, setDarkMode] = useState(false);
   const [counter, setCounter] = useState(1);
-  const navigate = useNavigate();
+  const [limit, setLimit] = useState(4);
   const [buttonClick, setButtonClick] = useState(false);
   const [tags, setTags] = useState<string[]>([
     'state',
@@ -84,7 +75,6 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
     } else {
       setCounter(counter);
     }
-    console.log('increase', counter);
   }
 
   function decrease() {
@@ -93,17 +83,16 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
     } else {
       setCounter(counter - 1);
     }
-    console.log('decrease', counter);
   }
 
   useEffect(() => {
     api
-      .get(`/solutions?_page=${counter}&_limit=4`)
+      .get(`/solutions?_page=${counter}&_limit=${limit}`)
       .then((response) => {
         setFilteredSolutions(response.data);
       })
       .catch((err) => console.log(err.response.data.message));
-  }, [counter]);
+  }, [counter, limit]);
 
   function DarkLight() {
     return darkMode ? setDarkMode(false) : setDarkMode(true);
@@ -143,14 +132,14 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
           },
           {
             headers: {
-              Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhcmFAa2VuemllLmNvbSIsImlhdCI6MTY2MjQyNjM2NCwiZXhwIjoxNjYyNDI5OTY0LCJzdWIiOiIyIn0.TKzgy1Oa1aW-5UYyl_n7EGHthzOrulLuQnI9TO2U2x0`,
+              Authorization: `Bearer ${token}`,
             },
           }
         )
         .then((response) => {
           console.log('like adicionado');
         })
-        .catch((err) => console.log(err.response.data.message));
+        .catch((err) => console.error(err.response.data.message));
     }
   }
 
@@ -171,6 +160,8 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
         setButtonClick,
         Like,
         IncreaseLike,
+        limit,
+        setLimit,
       }}
     >
       {children}
