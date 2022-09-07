@@ -25,10 +25,7 @@ export const formRegisterSchema = yup.object().shape({
     .string()
     .required('Contato obrigatório!')
     .min(11, 'Número com 11 digitos')
-    .matches(
-      /[1-9]{2}9[1-9]\d{4}/,
-      'Insira um DDD sem parenteses e um número com 9 digitos sem espaços ou traço!'
-    ),
+    .matches(/[1-9]{2}9[1-9]\d{4}/, 'Somente numeros com DDD'),
   github: yup.string().required('Necessário inserir a URL!'),
   password: yup
     .string()
