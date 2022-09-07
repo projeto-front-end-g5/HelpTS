@@ -44,11 +44,13 @@ interface ISolutionsData {
   setSolutions: Dispatch<SetStateAction<SolutionType[]>>;
   solutions: SolutionType[];
   search: string;
+  setSearch: Dispatch<SetStateAction<string>>;
+  searchSolution: () => void;
   searchFound: () => void;
   isFound: boolean;
   filteredSolutions: SolutionType[];
   setFilteredSolutions: Dispatch<SetStateAction<SolutionType[]>>;
-  showAll: () => void;
+  deleteSolution: () => void;
   visibilityDeleteSolution: boolean;
   contentTextSolution: string;
   contentCodeSolution: string;
@@ -129,23 +131,6 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
     setIsFound(filtered.some((elem) => elem === true));
 
     return filtered;
-  };
-
-  const showMine = () => {
-    const idUser = localStorage.getItem('userId');
-
-    const filtered = filteredSolutions.filter(
-      (solution) => solution.userId === Number(idUser)
-    );
-
-    setFilteredSolutions(filtered);
-  };
-
-  const { setLimit } = useDashboardContext();
-
-  const showAll = () => {
-    console.log(setLimit);
-    setLimit(10);
   };
 
   const deleteSolution = () => {
@@ -237,7 +222,6 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
         searchFound,
         filteredSolutions,
         setFilteredSolutions,
-        showAll,
         visibilityDeleteSolution,
         setVisibilityDeleteSolution,
         deleteSolution,
