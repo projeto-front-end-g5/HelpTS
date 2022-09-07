@@ -3,7 +3,8 @@ import { InputSearchContainer } from './styles';
 import { useSolutionsContext } from '../../contexts/solutions/solutions';
 
 const InputSearch = () => {
-  const { search, setSearch, searchSolution } = useSolutionsContext();
+  const { search, setSearch, searchSolution, searchFound } =
+    useSolutionsContext();
 
   return (
     <InputSearchContainer>
@@ -17,6 +18,7 @@ const InputSearch = () => {
         onClick={(e) => {
           e.preventDefault();
           searchSolution();
+          searchFound();
           setSearch('');
         }}
       >

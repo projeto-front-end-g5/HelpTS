@@ -4,8 +4,8 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { formLoginSchema } from '../../validator/schema';
 import { useLoginContext } from '../../contexts/login/login';
-
 import { ContainerFormLogin, FormLogin as Form } from './style';
+import { LabelErrors } from '../FormRegister/style';
 
 interface IUserLogin {
   email: string;
@@ -27,7 +27,10 @@ const FormLogin = () => {
   return (
     <ContainerFormLogin>
       <Form onSubmit={handleSubmit(submitLogin)}>
-        <label htmlFor='email'>Email </label>
+        <LabelErrors>
+          <label htmlFor='email'>Email </label>
+          <p>{errors.email?.message}</p>
+        </LabelErrors>
         <input
           className='email--login'
           id='email'
@@ -35,8 +38,10 @@ const FormLogin = () => {
           placeholder='Email'
           {...register('email')}
         />
-        {errors && <p>{errors.email?.message}</p>}
-        <label htmlFor='password'>Senha</label>
+        <LabelErrors>
+          <label htmlFor='password'>Senha</label>
+          <p>{errors.password?.message}</p>
+        </LabelErrors>
         <span className='ContainerPassword'>
           <input
             className='input--password'
@@ -57,7 +62,6 @@ const FormLogin = () => {
             )}
           </button>
         </span>
-        {errors && <p>{errors.password?.message}</p>}
         <button className='btn--login' type='submit'>
           Entrar
         </button>
