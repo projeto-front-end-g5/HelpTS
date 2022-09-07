@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+
 export const DivSolutionCard = styled.div`
   width: 100%;
   min-height: 75px;

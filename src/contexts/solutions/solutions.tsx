@@ -32,7 +32,18 @@ interface ISolutionsData {
   getSolution: (data: ISolutionsData) => void;
   solutions: SolutionType[];
 }
+
+interface IOpenSolution{
+  element :object;
+}
+
 const SolutionsContext = createContext<ISolutionsData>({} as ISolutionsData);
+
+
+
+ const OpenSolution = ({element}: IOpenSolution) => {
+    console.log(element)
+}
 
 const SolutionsProvider = ({ children }: ISolutionsProps) => {
   const token = localStorage.getItem('token');
@@ -79,4 +90,4 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
 
 const useSolutionsContext = () => useContext(SolutionsContext);
 
-export { useSolutionsContext, SolutionsProvider };
+export { useSolutionsContext, SolutionsProvider, OpenSolution };
