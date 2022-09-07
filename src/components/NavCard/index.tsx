@@ -1,5 +1,5 @@
 import { IoIosArrowBack, IoIosArrowForward, IoMdAdd } from 'react-icons/io';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useDashboardContext } from '../../contexts/dashboard/dashboard';
 import ButtonsPosts from '../ButtonsPosts';
 import { NavTypesContainer } from './style';
@@ -13,9 +13,11 @@ function NavCard() {
       {rota.posts === 'posts' ? (
         <ButtonsPosts />
       ) : (
-        <div className='create--type'>
-          <IoMdAdd />
-        </div>
+        <Link to='/newpost'>
+          <div className='create--type'>
+            <IoMdAdd />
+          </div>
+        </Link>
       )}
       <div className='nav--params'>
         {counter === 1 ? (
