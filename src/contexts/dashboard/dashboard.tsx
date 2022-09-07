@@ -49,18 +49,6 @@ interface IDashboardData {
 
 const DashboardContext = createContext<IDashboardData>({} as IDashboardData);
 
-// console.log(solutions);
-// const [backup, setBackup] = useState([]);
-
-// useEffect(() => {
-//   api
-//     .get('/solutions?_page=1&_limit=4')
-//     .then((response) => {
-//       setBackup(response.data);
-//     })
-//     .catch((err) => console.log(err.response.data.message));
-// }, []);
-
 const DashboardProvider = ({ children }: IDashboardProps) => {
   const token = localStorage.getItem('token');
   const navigate = useNavigate();
@@ -151,7 +139,7 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
         .then((response) => {
           console.log('like adicionado');
         })
-        .catch((err) => console.log(err.response.data.message));
+        .catch((err) => console.error(err.response.data.message));
     }
   }
 

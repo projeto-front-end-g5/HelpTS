@@ -7,7 +7,6 @@ import { Container, ContainerNotFound } from './style';
 
 const SolutionList = () => {
   const { filteredSolutions, isFound } = useSolutionsContext();
-  // console.log(isFound);
 
   return (
     <ContainerSolutions>

@@ -70,7 +70,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
       .then((response) => {
         console.log('Solução criada');
       })
-      .catch((err) => console.log(err.response.data.message));
+      .catch((err) => console.error(err.response.data.message));
   };
 
   useEffect(() => {
@@ -80,7 +80,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
         setSolutions(response.data);
         setFilteredSolutions(response.data);
       })
-      .catch((err) => console.log(err.response.data.message));
+      .catch((err) => console.error(err.response.data.message));
   }, []);
 
   const searchSolution = () => {
@@ -109,7 +109,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
       .then(() => {
         console.log('Solução deletada');
       })
-      .catch((err) => console.log(err.response.data.message));
+      .catch((err) => console.error(err.response.data.message));
   };
 
   return (
