@@ -118,8 +118,9 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
 
   const searchSolution = () => {
     setFilteredSolutions(
-      solutions.filter((solution) =>
-        solution.title.toLowerCase().includes(search)
+      solutions.filter(
+        (solution) => solution.title.toLowerCase().includes(search) /* ||
+          solution.tags.join().toLowerCase().includes(search) */
       )
     );
   };
