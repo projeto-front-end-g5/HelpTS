@@ -56,6 +56,7 @@ interface ISolutionsData {
   contentCodeSolution: string;
   contentTag: string[];
   visibilityEditSolution: boolean;
+  filterTags: (tag: string) => void;
   EditSolution: (item: SolutionType) => void;
   RequestEdit: (item: IDataEdit) => void;
   setIdSolution: (idSolution: number) => void;
@@ -92,7 +93,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
       .post('/solutions', data, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then((response) => {
+      .then(() => {
         console.log('Solução criada');
       })
       .catch((err) => console.error(err.response.data.message));
@@ -196,6 +197,11 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
     setContentTag(item.tags);
   };
 
+  const filterTags = (tag: string) => {
+    const newArr = solutions.filter((item) => item.tags[0] === tag);
+    setFilteredSolutions(newArr);
+  };
+
   /*   EditSolution({
     title: 'Como tipar um useState?',
     content: {
@@ -238,6 +244,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
         visibilityEditSolution,
         setSolutions,
         isFound,
+        filterTags,
       }}
     >
       {children}

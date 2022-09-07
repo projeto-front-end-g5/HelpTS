@@ -1,4 +1,5 @@
 import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 import {
   createContext,
   useContext,
@@ -24,12 +25,17 @@ interface SolutionsCard {
   likes: number;
 }
 
+interface ITags {
+  id: string;
+  tag: string;
+}
+
 export interface ISolutionCardProps {
   item: SolutionsCard;
 }
 
 interface IDashboardData {
-  tags: string[];
+  tags: ITags[];
   darkMode: boolean;
   counter: number;
   buttonClick: boolean;
@@ -59,7 +65,7 @@ interface IDashboardData {
   setBackGroundColorHeader: (backGroundColorHeader: string) => void;
   setCounter: React.Dispatch<React.SetStateAction<number>>;
   setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
-  setTags: React.Dispatch<React.SetStateAction<string[]>>;
+  setTags: React.Dispatch<React.SetStateAction<ITags[]>>;
   setButtonClick: (buttonClick: boolean) => void;
 }
 
@@ -72,22 +78,26 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
   const [counter, setCounter] = useState(1);
   const [limit, setLimit] = useState(4);
   const [buttonClick, setButtonClick] = useState(false);
+
+  const [tags, setTags] = useState<ITags[]>([
+    { id: uuidv4(), tag: 'state' },
+    { id: uuidv4(), tag: 'function' },
+    { id: uuidv4(), tag: 'styled-components' },
+    { id: uuidv4(), tag: 'png' },
+    { id: uuidv4(), tag: 'axios' },
+    { id: uuidv4(), tag: 'contextApi' },
+    { id: uuidv4(), tag: 'props' },
+    { id: uuidv4(), tag: 'parameter' },
+    { id: uuidv4(), tag: 'string' },
+
   const [currentTheme, setCurrentTheme] = useState('light');
   const [backGroundColorLight, setBackgroundColorLight] = useState('#E4E4C8');
   const [backGroundColorDark, setBackgroundColorDark] = useState('#1C1C1C');
   const [backGroundColorHeader, setBackGroundColorHeader] = useState('#EEB73F');
   const [backGroundColorContainerBlue, setBackGroundColorContainerBlue] =
-    useState('#4087D7');
+  useState('#4087D7');
 
-  const [tags, setTags] = useState<string[]>([
-    'state',
-    'function',
-    'styled-components',
-    'png',
-    'axios',
-    'contextApi',
-    'props',
-    'parameter',
+
   ]);
 
   const { setFilteredSolutions, filteredSolutions, solutions } =
@@ -195,7 +205,7 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
             },
           }
         )
-        .then((response) => {
+        .then(() => {
           console.log('like adicionado');
         })
         .catch((err) => console.error(err.response.data.message));
