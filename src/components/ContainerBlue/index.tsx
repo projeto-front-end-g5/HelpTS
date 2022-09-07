@@ -5,10 +5,19 @@ import { Container } from './style';
 
 const ContainerBlue = () => {
   const navigate = useNavigate();
-  const { setLimit } = useDashboardContext();
+  const {
+    setLimit,
+    currentTheme,
+    backGroundColorContainerBlue,
+    backGroundColorDark,
+  } = useDashboardContext();
 
   return (
-    <Container>
+    <Container
+      theme={currentTheme}
+      backGroundColorContainerBlue={backGroundColorContainerBlue}
+      backGroundColorDark={backGroundColorDark}
+    >
       <Button
         text='Voltar'
         height='2.25rem'

@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaInstagramSquare, FaLinkedin, FaGithubSquare } from 'react-icons/fa';
+import { useDashboardContext } from '../../contexts/dashboard/dashboard';
 import { FootContainer } from './style';
 
 const devsData = [
@@ -44,34 +45,33 @@ interface FooterProps {
   targetType: string;
 }
 
-const Footer = ({ targetType }: FooterProps) => (
-  <FootContainer>
-    <div className='div-one'>
-      <h1>Aplicação desenvolvida para conclusão do módulo Front-End</h1>
-    </div>
-    <div className='div-two'>
-      <div className='divSection'>
-        <section className='section-one'>
-          <div className='divTitle'>
-            <h2 className='title'> Sobre nós:</h2>
-          </div>
+const Footer = ({ targetType }: FooterProps) => {
+  const { backGroundColorContainerBlue, backGroundColorDark, currentTheme } =
+    useDashboardContext();
 
-          <div className='divbottom'>
-            <p className='text'>
-              O HelpTS foi desenvolvido com o objetivo de centralizar todas as
-              soluções em TypeScript em um só lugar, de forma clara, rápida e
-              objetiva para que o desenvolvedor perca o menor tempo possível na
-              busca da solução para o seu problema.
-            </p>
-          </div>
-        </section>
-        <div className='divSectionTwoThree'>
-          <section className='section-two'>
+  return (
+    <FootContainer
+      theme={currentTheme}
+      backGroundColorContainerBlue={backGroundColorContainerBlue}
+      backGroundColorDark={backGroundColorDark}
+    >
+      <div className='div-one'>
+        <h1>Aplicação desenvolvida para conclusão do módulo Front-End</h1>
+      </div>
+      <div className='div-two'>
+        <div className='divSection'>
+          <section className='section-one'>
             <div className='divTitle'>
-              <h2 className='title'>Contato:</h2>
+              <h2 className='title'> Sobre nós:</h2>
             </div>
 
             <div className='divbottom'>
+              <p className='text'>
+                O HelpTS foi desenvolvido com o objetivo de centralizar todas as
+                soluções em TypeScript em um só lugar, de forma clara, rápida e
+                objetiva para que o desenvolvedor perca o menor tempo possível
+                na busca da solução para o seu problema.
+              </p>
               <ul>
                 {devsData.map((dev) => (
                   <li key={dev.nome}>
@@ -92,33 +92,61 @@ const Footer = ({ targetType }: FooterProps) => (
               </ul>
             </div>
           </section>
+          <div className='divSectionTwoThree'>
+            <section className='section-two'>
+              <div className='divTitle'>
+                <h2 className='title'>Contato:</h2>
+              </div>
 
-          <section className='section-three'>
-            <div className='divTitle'>
-              <h2 className='title'>Team de Desenvolvedores</h2>
-            </div>
+              <div className='divbottom'>
+                <ul>
+                  {devsData.map((dev) => (
+                    <li>
+                      <div className='divIcon'>
+                        <a target={targetType} href={dev.linkedin}>
+                          <FaLinkedin className='icon' />
+                        </a>
+                        <a target={targetType} href={dev.intagram}>
+                          <FaInstagramSquare className='icon' />
+                        </a>
+                        <a target={targetType} href={dev.github}>
+                          <FaGithubSquare className='icon' />
+                        </a>
+                      </div>
+                      <h3>{dev.nome}</h3>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </section>
 
-            <div className='divbottom'>
-              <ul>
-                {devsData.map((dev) => (
-                  <li>
-                    <img
-                      className='dev-photos'
-                      src={dev.picture}
-                      alt={dev.nome}
-                    />
-                    <div className='tooltip'>
-                      <div className='tooltipDev'>{dev.nome}</div>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </section>
+            <section className='section-three'>
+              <div className='divTitle'>
+                <h2 className='title'>Team de Desenvolvedores</h2>
+              </div>
+
+              <div className='divbottom'>
+                <ul>
+                  {devsData.map((dev) => (
+                    <li>
+                      <img
+                        className='dev-photos'
+                        src={dev.picture}
+                        alt={dev.nome}
+                      />
+                      <div className='tooltip'>
+                        <div className='tooltipDev'>{dev.nome}</div>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </section>
+          </div>
         </div>
       </div>
-    </div>
-  </FootContainer>
-);
+    </FootContainer>
+  );
+};
 
 export default Footer;

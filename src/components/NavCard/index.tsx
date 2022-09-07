@@ -2,14 +2,14 @@ import { IoIosArrowBack, IoIosArrowForward, IoMdAdd } from 'react-icons/io';
 import { Link, useParams } from 'react-router-dom';
 import { useDashboardContext } from '../../contexts/dashboard/dashboard';
 import ButtonsPosts from '../ButtonsPosts';
-import { NavTypesContainer } from './style';
+import { NavParams, NavTypesContainer } from './style';
 
 function NavCard() {
-  const { counter, increase, decrease } = useDashboardContext();
+  const { counter, increase, decrease, currentTheme } = useDashboardContext();
   const rota = useParams();
 
   return (
-    <NavTypesContainer>
+    <NavTypesContainer theme={currentTheme}>
       {rota.posts === 'posts' ? (
         <ButtonsPosts />
       ) : (
@@ -19,7 +19,7 @@ function NavCard() {
           </div>
         </Link>
       )}
-      <div className='nav--params'>
+      <NavParams theme={currentTheme}>
         {counter === 1 ? (
           <>
             <button type='button' disabled>
@@ -57,7 +57,7 @@ function NavCard() {
 
         <p>{counter}</p>
         <span>...</span>
-      </div>
+      </NavParams>
     </NavTypesContainer>
   );
 }
