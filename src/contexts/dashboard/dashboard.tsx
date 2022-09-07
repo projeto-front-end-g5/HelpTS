@@ -38,6 +38,8 @@ interface IDashboardData {
   decrease(): void;
   limit: number;
   setLimit: React.Dispatch<React.SetStateAction<number>>;
+  showAll: () => void;
+  showMine: () => void;
   navigate: NavigateFunction;
   IncreaseLike: (like: number) => number;
   Like: (item: SolutionsCard) => void;
@@ -67,7 +69,8 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
     'parameter',
   ]);
 
-  const { setFilteredSolutions } = useSolutionsContext();
+  const { setFilteredSolutions, filteredSolutions, solutions } =
+    useSolutionsContext();
 
   function increase() {
     if (counter < 5) {
@@ -93,6 +96,21 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
       })
       .catch((err) => console.log(err.response.data.message));
   }, [counter, limit]);
+
+  const showAll = () => {
+    setFilteredSolutions(solutions);
+    setLimit(10);
+  };
+
+  const showMine = () => {
+    const idUser = localStorage.getItem('userId');
+
+    const filtered = filteredSolutions.filter(
+      (solution) => solution.userId === Number(idUser)
+    );
+
+    setFilteredSolutions(filtered);
+  };
 
   function DarkLight() {
     return darkMode ? setDarkMode(false) : setDarkMode(true);
@@ -162,6 +180,8 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
         IncreaseLike,
         limit,
         setLimit,
+        showAll,
+        showMine,
       }}
     >
       {children}

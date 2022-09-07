@@ -8,6 +8,7 @@ import {
   Dispatch,
 } from 'react';
 import api from '../../services/api';
+import { useDashboardContext } from '../dashboard/dashboard';
 
 interface ISolutionsProps {
   children: ReactNode;
@@ -47,19 +48,17 @@ interface ISolutionsData {
   isFound: boolean;
   filteredSolutions: SolutionType[];
   setFilteredSolutions: Dispatch<SetStateAction<SolutionType[]>>;
+  showAll: () => void;
   visibilityDeleteSolution: boolean;
   contentTextSolution: string;
   contentCodeSolution: string;
   contentTag: string[];
   visibilityEditSolution: boolean;
-  deleteSolution: () => void;
-  searchSolution: () => void;
   EditSolution: (item: SolutionType) => void;
   RequestEdit: (item: IDataEdit) => void;
   setIdSolution: (idSolution: number) => void;
   /* getSolution: (data: ISolutionsData) => void; */
   createSolution: (data: ISolutionsData) => void;
-  setSearch: React.Dispatch<React.SetStateAction<string>>;
   setVisibilityDeleteSolution: (visibilityDeleteSolution: boolean) => void;
 }
 
@@ -101,8 +100,16 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
     api
       .get('/solutions?_page=1&_limit=4')
       .then((response) => {
-        setSolutions(response.data);
         setFilteredSolutions(response.data);
+      })
+      .catch((err) => console.error(err.response.data.message));
+  }, []);
+
+  useEffect(() => {
+    api
+      .get('/solutions')
+      .then((response) => {
+        setSolutions(response.data);
       })
       .catch((err) => console.error(err.response.data.message));
   }, []);
@@ -119,10 +126,26 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
     const filtered = solutions.map((solution) =>
       solution.title.toLowerCase().includes(search)
     );
-
     setIsFound(filtered.some((elem) => elem === true));
 
     return filtered;
+  };
+
+  const showMine = () => {
+    const idUser = localStorage.getItem('userId');
+
+    const filtered = filteredSolutions.filter(
+      (solution) => solution.userId === Number(idUser)
+    );
+
+    setFilteredSolutions(filtered);
+  };
+
+  const { setLimit } = useDashboardContext();
+
+  const showAll = () => {
+    console.log(setLimit);
+    setLimit(10);
   };
 
   const deleteSolution = () => {
@@ -214,6 +237,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
         searchFound,
         filteredSolutions,
         setFilteredSolutions,
+        showAll,
         visibilityDeleteSolution,
         setVisibilityDeleteSolution,
         deleteSolution,

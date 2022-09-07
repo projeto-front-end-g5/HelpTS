@@ -48,6 +48,7 @@ export const DivSolutionCard = styled.li`
     line-height: 130%;
     color: var(--blue);
     padding-top: 5px;
+    word-break: break-all;
   }
 
   .card1 {
