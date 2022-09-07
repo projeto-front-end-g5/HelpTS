@@ -42,6 +42,7 @@ const LoginProvider = ({ children }: ILoginProps) => {
   const userId = localStorage.getItem('userId');
   const navigate = useNavigate();
 
+  console.log(user);
   const submitLogin = (data: ISubmitLogin) => {
     api
       .post('/login', data)
@@ -49,6 +50,7 @@ const LoginProvider = ({ children }: ILoginProps) => {
         setUser(response.data.user);
         localStorage.setItem('token', response.data.accessToken);
         localStorage.setItem('userId', response.data.user.id);
+        localStorage.setItem('userName', response.data.user.name);
         navigate('/dashboard', { replace: true });
 
         return toast('✅ Login realizado com sucesso!', {

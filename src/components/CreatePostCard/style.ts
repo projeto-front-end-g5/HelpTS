@@ -34,20 +34,67 @@ export const ContainerCreatePost = styled.div`
   .divInput--newpost .label--newPost {
     display: flex;
     flex-direction: column;
-    font-size: 0.8rem;
+    font-size: 1rem;
     gap: 0.2rem;
     font-weight: 700;
+
+    p {
+      color: #9b2226;
+      font-size: 0.75rem;
+    }
+  }
+
+  .label--select {
+    display: flex;
+    flex-direction: column;
+    font-size: 1rem;
+    gap: 0.2rem;
+    font-weight: 700;
+
+    p {
+      color: #9b2226;
+      font-size: 0.75rem;
+    }
+
+    #tag {
+      border: 0.5px solid var(--blue);
+      border-radius: 3px;
+      background-color: var(--grey-card);
+      padding: 0.35rem;
+      color: var(--blue-dark);
+
+      :focus {
+        outline: 1px solid var(--blue-dark);
+      }
+
+      option {
+        font-family: 'Ubuntu';
+        color: var(--blue-dark);
+      }
+    }
   }
 
   .input--newPost {
     border: 0.5px solid var(--blue);
     border-radius: 3px;
     background-color: var(--grey-card);
-    padding: 0.2rem;
+    padding: 0.35rem;
+    color: var(--blue-dark);
+
+    :focus {
+      outline: 1px solid var(--blue-dark);
+    }
   }
 
-  .input--newPost:focus {
-    outline: none;
+  .input--newText {
+    background-color: var(--grey-card);
+    border: none;
+    padding: 0.35rem;
+    color: var(--blue-dark);
+
+    :focus {
+      outline: none;
+    }
   }
 
   .footer--newPost {
@@ -70,6 +117,11 @@ export const ContainerCreatePost = styled.div`
     font-family: ubuntu;
     font-size: 0.7rem;
     cursor: pointer;
+
+    :hover {
+      opacity: 0.8;
+      transition: 0.5s;
+    }
   }
 
   .divIcon--newPost {
@@ -82,6 +134,11 @@ export const ContainerCreatePost = styled.div`
     color: var(--blue-dark);
     padding: 5px;
     font-size: 1rem;
+
+    :hover {
+      opacity: 0.8;
+      transition: 0.5s;
+    }
   }
 
   .div--icon textarea {
