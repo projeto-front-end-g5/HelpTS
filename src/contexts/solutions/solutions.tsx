@@ -4,6 +4,8 @@ import {
   useState,
   ReactNode,
   useEffect,
+  SetStateAction,
+  Dispatch,
 } from 'react';
 import api from '../../services/api';
 
@@ -29,13 +31,15 @@ export interface SolutionType {
 
 interface ISolutionsData {
   createSolution: (data: ISolutionsData) => void;
-  getSolution: (data: ISolutionsData) => void;
+  setSolutions: Dispatch<SetStateAction<SolutionType[]>>;
   deleteSolution: () => void;
   solutions: SolutionType[];
   search: string;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
   searchSolution: () => void;
+  isFound: boolean;
   filteredSolutions: SolutionType[];
+  setFilteredSolutions: Dispatch<SetStateAction<SolutionType[]>>;
   visibilityDeleteSolution: boolean;
   idSolution: number;
   setIdSolution: (idSolution: number) => void;
@@ -52,6 +56,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
     []
   );
   const [search, setSearch] = useState('');
+  const [isFound, setIsFound] = useState(true);
   const [visibilityDeleteSolution, setVisibilityDeleteSolution] =
     useState(true);
   const [idSolution, setIdSolution] = useState(0);
@@ -67,18 +72,9 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
       .catch((err) => console.log(err.response.data.message));
   };
 
-  const getSolution = () => {
-    api
-      .get('/solutions')
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => console.log(err.response.data.message));
-  };
-
   useEffect(() => {
     api
-      .get('/solutions')
+      .get('/solutions?_page=1&_limit=4')
       .then((response) => {
         setSolutions(response.data);
         setFilteredSolutions(response.data);
@@ -93,6 +89,22 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
       )
     );
   };
+
+  // const searchFound = () => {
+  //   solutions.filter((solution) => {
+  //     const filtered = solution.title.toLowerCase().includes(search);
+
+  //     if (filtered === true) {
+  //       return setIsFound(true);
+  //       // eslint-disable-next-line no-else-return
+  //     } else {
+  //       setIsFound(false);
+  //     }
+
+  //     return filtered;
+  //   });
+  //   console.log(search);
+  // };
 
   const deleteSolution = () => {
     api
@@ -109,17 +121,19 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
     <SolutionsContext.Provider
       value={{
         createSolution,
-        getSolution,
         solutions,
         search,
         setSearch,
         searchSolution,
         filteredSolutions,
+        setFilteredSolutions,
         visibilityDeleteSolution,
         setVisibilityDeleteSolution,
         deleteSolution,
         idSolution,
         setIdSolution,
+        setSolutions,
+        isFound,
       }}
     >
       {children}

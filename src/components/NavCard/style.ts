@@ -7,15 +7,30 @@ export const NavTypesContainer = styled.div`
 
   font-family: 'ubuntu';
 
-  margin-top: 30px;
+  margin: 1.875rem 0 1.875rem 0;
 
-  width: 90%;
+  width: 100%;
+
+  button {
+    border: none;
+    background-color: transparent;
+    font-size: 1.1875rem;
+  }
+
+  p,
+  span {
+    cursor: default;
+  }
+
+  .willDisable {
+    cursor: not-allowed;
+  }
 
   .create--type {
     display: flex;
     align-items: center;
 
-    font-size: 20px;
+    font-size: 1.25rem;
 
     width: fit-content;
     height: fit-content;
@@ -25,12 +40,12 @@ export const NavTypesContainer = styled.div`
     color: var(--yellow);
     background-color: var(--blue-dark);
 
-    @media (min-width: 600px) {
-      font-size: 25px;
+    @media (min-width: 37.5rem) {
+      font-size: 1.5625rem;
     }
 
-    @media (min-width: 1024px) {
-      font-size: 30px;
+    @media (min-width: 64rem) {
+      font-size: 1.875rem;
       font-weight: 800;
     }
 
@@ -42,10 +57,10 @@ export const NavTypesContainer = styled.div`
   .nav--params {
     display: flex;
 
-    font-size: 18px;
+    font-size: 1.125rem;
 
-    @media (min-width: 600px) {
-      font-size: 22px;
+    @media (min-width: 37.5rem) {
+      font-size: 1.375rem;
     }
 
     :hover {

@@ -1,23 +1,28 @@
 import { useSolutionsContext } from '../../contexts/solutions/solutions';
+import EmptyList from '../EmptyList';
 import SolutionCard from '../SolutionCard';
+import { ContainerSolutions } from '../SolutionCard/style';
+import { Container } from './style';
 
 const SolutionList = () => {
-  const { solutions, filteredSolutions } = useSolutionsContext();
-  console.log(solutions);
+  const { filteredSolutions, isFound } = useSolutionsContext();
+  // console.log(isFound);
 
   return (
-    <>
-      {filteredSolutions.length &&
+    <ContainerSolutions>
+      {isFound === false ? (
+        <div>Não há resultado disponível</div>
+      ) : filteredSolutions.length ? (
         filteredSolutions.map((item) => (
-          <SolutionCard
-            key={item.id}
-            title={item.title}
-            tags={item.tags}
-            likes={item.likes}
-          />
-        ))}
-      <div />
-    </>
+          <SolutionCard key={item.id} item={item} />
+        ))
+      ) : (
+        <Container>
+          <p>Carregando...</p>
+          <EmptyList />
+        </Container>
+      )}
+    </ContainerSolutions>
   );
 };
 
