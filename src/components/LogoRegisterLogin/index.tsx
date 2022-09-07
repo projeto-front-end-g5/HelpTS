@@ -1,7 +1,6 @@
 const LogoRegisterLogin = () => (
   <svg
     width='300'
-    height='300'
     viewBox='0 0 181 181'
     fill='none'
     xmlns='http://www.w3.org/2000/svg'
