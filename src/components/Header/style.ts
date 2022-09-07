@@ -1,6 +1,14 @@
+import { ReactNode } from 'react';
 import styled from 'styled-components';
 
-export const HeaderContainer = styled.header`
+interface IHeaderContainer {
+  children: ReactNode;
+  backGroundColorHeader: string;
+  backGroundColorDark: string;
+  theme: string;
+}
+
+export const HeaderContainer = styled.header<IHeaderContainer>`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -8,7 +16,11 @@ export const HeaderContainer = styled.header`
   width: 100%;
   height: 4rem;
 
-  background-color: var(--yellow);
+  /*  background-color: ${({
+    theme,
+    backGroundColorDark,
+    backGroundColorHeader,
+  }) => (theme === 'light' ? backGroundColorHeader : backGroundColorDark)}; */
 
   h1 {
     font-family: 'ubuntu';

@@ -13,11 +13,22 @@ import { useDashboardContext } from '../../contexts/dashboard/dashboard';
 import { useLoginContext } from '../../contexts/login/login';
 
 function Header() {
-  const { darkMode, DarkLight, navigate } = useDashboardContext();
+  const {
+    darkMode,
+    navigate,
+    changeTheme,
+    backGroundColorHeader,
+    backGroundColorDark,
+    currentTheme,
+  } = useDashboardContext();
   const { token } = useLoginContext();
 
   return (
-    <HeaderContainer>
+    <HeaderContainer
+      theme={currentTheme}
+      backGroundColorHeader={backGroundColorHeader}
+      backGroundColorDark={backGroundColorDark}
+    >
       <h1>
         Help<span>TS</span>
       </h1>
@@ -25,7 +36,7 @@ function Header() {
       {token ? (
         <div className='DarkMode-ImgUser-Logout'>
           <DarkModeImgUserContainer>
-            <DarkModeButton onClick={() => DarkLight()}>
+            <DarkModeButton onClick={() => changeTheme()}>
               {darkMode ? <BiSun /> : <MdOutlineDarkMode />}
             </DarkModeButton>
             <UserImage>
@@ -45,7 +56,7 @@ function Header() {
       ) : (
         <div className='DarkMode-Logout'>
           <DarkModeContainer>
-            <DarkModeButton onClick={() => DarkLight()}>
+            <DarkModeButton onClick={() => changeTheme()}>
               {darkMode ? <BiSun /> : <MdOutlineDarkMode />}
             </DarkModeButton>
           </DarkModeContainer>
