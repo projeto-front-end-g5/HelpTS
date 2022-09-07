@@ -42,7 +42,6 @@ const LoginProvider = ({ children }: ILoginProps) => {
   const userId = localStorage.getItem('userId');
   const navigate = useNavigate();
 
-  console.log(user);
   const submitLogin = (data: ISubmitLogin) => {
     api
       .post('/login', data)
