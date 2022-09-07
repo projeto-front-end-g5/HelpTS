@@ -48,7 +48,6 @@ interface IDashboardData {
   DarkLight(): void;
   increase(): void;
   decrease(): void;
-  /* troca(): void; */
   changeTheme(): void;
   setBackgroundColorLight: (backGroundColorLight: string) => void;
   setBackgroundColorDark: (backGroundColorDark: string) => void;
@@ -80,9 +79,13 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
   const [counter, setCounter] = useState(1);
   const [limit, setLimit] = useState(4);
   const [buttonClick, setButtonClick] = useState(false);
-
-
   const [postId, setPostId] = useState(0);
+  const [currentTheme, setCurrentTheme] = useState('light');
+  const [backGroundColorLight, setBackgroundColorLight] = useState('#E4E4C8');
+  const [backGroundColorDark, setBackgroundColorDark] = useState('#1C1C1C');
+  const [backGroundColorHeader, setBackGroundColorHeader] = useState('#EEB73F');
+  const [backGroundColorContainerBlue, setBackGroundColorContainerBlue] =
+    useState('#4087D7');
 
   const [tags, setTags] = useState<ITags[]>([
     { id: uuidv4(), tag: 'state' },
@@ -94,22 +97,9 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
     { id: uuidv4(), tag: 'props' },
     { id: uuidv4(), tag: 'parameter' },
     { id: uuidv4(), tag: 'string' },
-
-
-  const [currentTheme, setCurrentTheme] = useState('light');
-  const [backGroundColorLight, setBackgroundColorLight] = useState('#E4E4C8');
-  const [backGroundColorDark, setBackgroundColorDark] = useState('#1C1C1C');
-  const [backGroundColorHeader, setBackGroundColorHeader] = useState('#EEB73F');
-  const [backGroundColorContainerBlue, setBackGroundColorContainerBlue] =
-
-  useState('#4087D7');
-
-
-
   ]);
 
-  const { setFilteredSolutions, filteredSolutions, solutions } =
-    useSolutionsContext();
+  const { setFilteredSolutions, solutions } = useSolutionsContext();
 
   function increase() {
     if (counter < 5) {
