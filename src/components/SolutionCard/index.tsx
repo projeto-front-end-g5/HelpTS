@@ -31,7 +31,6 @@ const SolutionCard = ({ item }: ISolutionCardProps) => {
         </div>
         <span className='span--tags'>
           <p className='hash--card'>Comentários</p>
-          <p className='hash--card'>Dúvidas</p>
         </span>
       </div>
     </DivSolutionCard>

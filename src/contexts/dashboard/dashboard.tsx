@@ -104,11 +104,17 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
 
   const showMine = () => {
     const idUser = localStorage.getItem('userId');
+    console.log(idUser);
 
-    const filtered = filteredSolutions.filter(
+    // const filtered = solutions.filter((solution) =>
+    //   console.log(solution.userId)
+    // );
+    console.log(solutions);
+    const filtered = solutions.filter(
       (solution) => solution.userId === Number(idUser)
     );
 
+    console.log(filtered);
     setFilteredSolutions(filtered);
   };
 
