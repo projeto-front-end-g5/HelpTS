@@ -36,6 +36,8 @@ interface IDashboardData {
   DarkLight(): void;
   increase(): void;
   decrease(): void;
+  limit: number;
+  setLimit: React.Dispatch<React.SetStateAction<number>>;
   navigate: NavigateFunction;
   IncreaseLike: (like: number) => number;
   Like: (item: SolutionsCard) => void;
@@ -61,9 +63,10 @@ const DashboardContext = createContext<IDashboardData>({} as IDashboardData);
 
 const DashboardProvider = ({ children }: IDashboardProps) => {
   const token = localStorage.getItem('token');
+  const navigate = useNavigate();
   const [darkMode, setDarkMode] = useState(false);
   const [counter, setCounter] = useState(1);
-  const navigate = useNavigate();
+  const [limit, setLimit] = useState(4);
   const [buttonClick, setButtonClick] = useState(false);
   const [tags, setTags] = useState<string[]>([
     'state',
@@ -84,7 +87,6 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
     } else {
       setCounter(counter);
     }
-    console.log('increase', counter);
   }
 
   function decrease() {
@@ -93,17 +95,16 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
     } else {
       setCounter(counter - 1);
     }
-    console.log('decrease', counter);
   }
 
   useEffect(() => {
     api
-      .get(`/solutions?_page=${counter}&_limit=4`)
+      .get(`/solutions?_page=${counter}&_limit=${limit}`)
       .then((response) => {
         setFilteredSolutions(response.data);
       })
       .catch((err) => console.log(err.response.data.message));
-  }, [counter]);
+  }, [counter, limit]);
 
   function DarkLight() {
     return darkMode ? setDarkMode(false) : setDarkMode(true);
@@ -171,6 +172,8 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
         setButtonClick,
         Like,
         IncreaseLike,
+        limit,
+        setLimit,
       }}
     >
       {children}

@@ -1,14 +1,22 @@
 import { IoIosArrowBack, IoIosArrowForward, IoMdAdd } from 'react-icons/io';
+import { useParams } from 'react-router-dom';
 import { useDashboardContext } from '../../contexts/dashboard/dashboard';
+import ButtonsPosts from '../ButtonsPosts';
 import { NavTypesContainer } from './style';
 
 function NavCard() {
   const { counter, increase, decrease } = useDashboardContext();
+  const rota = useParams();
+
   return (
     <NavTypesContainer>
-      <div className='create--type'>
-        <IoMdAdd />
-      </div>
+      {rota.posts === 'posts' ? (
+        <ButtonsPosts />
+      ) : (
+        <div className='create--type'>
+          <IoMdAdd />
+        </div>
+      )}
       <div className='nav--params'>
         {counter === 1 ? (
           <>

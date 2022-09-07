@@ -37,6 +37,7 @@ interface ISolutionsData {
   search: string;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
   searchSolution: () => void;
+  isFound: boolean;
   filteredSolutions: SolutionType[];
   setFilteredSolutions: Dispatch<SetStateAction<SolutionType[]>>;
   visibilityDeleteSolution: boolean;
@@ -55,6 +56,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
     []
   );
   const [search, setSearch] = useState('');
+  const [isFound, setIsFound] = useState(true);
   const [visibilityDeleteSolution, setVisibilityDeleteSolution] =
     useState(true);
   const [idSolution, setIdSolution] = useState(0);
@@ -88,6 +90,22 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
     );
   };
 
+  // const searchFound = () => {
+  //   solutions.filter((solution) => {
+  //     const filtered = solution.title.toLowerCase().includes(search);
+
+  //     if (filtered === true) {
+  //       return setIsFound(true);
+  //       // eslint-disable-next-line no-else-return
+  //     } else {
+  //       setIsFound(false);
+  //     }
+
+  //     return filtered;
+  //   });
+  //   console.log(search);
+  // };
+
   const deleteSolution = () => {
     api
       .delete(`/solutions/${idSolution}`, {
@@ -115,6 +133,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
         idSolution,
         setIdSolution,
         setSolutions,
+        isFound,
       }}
     >
       {children}
