@@ -51,9 +51,9 @@ export const formEditSolution = yup.object().shape({
 export const newPostSchema = yup.object().shape({
   title: yup
     .string()
-    .required('Titulo obrigatório!')
-    .min(8, 'No minimo 8 caracteres'),
-  tags: yup.string().required('Titulo obrigatório!'),
-  text: yup.string().required('Campo obrigatório'),
-  code: yup.string(),
+    .required('Necessário estar preenchido')
+    .min(6, 'No minimo 6 caracteres'),
+  tags: yup.string().required('Necessário estar selecionado'),
+  text: yup.string().required('Necessário estar preenchido'),
+  code: yup.string().required('Necessário estar preenchido'),
 });
