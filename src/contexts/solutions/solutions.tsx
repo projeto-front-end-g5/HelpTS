@@ -40,29 +40,25 @@ interface ISolutionsData {
   titleSolution: string;
   idSolution: number;
   solutionEdit: SolutionType;
-  createSolution: (data: ISolutionsData) => void;
-  setSolutions: Dispatch<SetStateAction<SolutionType[]>>;
-  deleteSolution: () => void;
   solutions: SolutionType[];
   search: string;
-  setSearch: React.Dispatch<React.SetStateAction<string>>;
-  searchSolution: () => void;
-  searchFound: () => void;
   isFound: boolean;
   filteredSolutions: SolutionType[];
-  setFilteredSolutions: Dispatch<SetStateAction<SolutionType[]>>;
   visibilityDeleteSolution: boolean;
   contentTextSolution: string;
   contentCodeSolution: string;
   contentTag: string[];
   visibilityEditSolution: boolean;
+  filterTags: (tag: string) => void;
+  searchFound: () => void;
   deleteSolution: () => void;
   searchSolution: () => void;
   EditSolution: (item: SolutionType) => void;
   RequestEdit: (item: IDataEdit) => void;
   setIdSolution: (idSolution: number) => void;
-  getSolution: (data: ISolutionsData) => void;
   createSolution: (data: ISolutionsData) => void;
+  setSolutions: Dispatch<SetStateAction<SolutionType[]>>;
+  setFilteredSolutions: Dispatch<SetStateAction<SolutionType[]>>;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
   setVisibilityDeleteSolution: (visibilityDeleteSolution: boolean) => void;
 }
@@ -95,7 +91,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
       .post('/solutions', data, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then((response) => {
+      .then(() => {
         console.log('Solução criada');
       })
       .catch((err) => console.error(err.response.data.message));
@@ -191,6 +187,11 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
     setContentTag(item.tags);
   };
 
+  const filterTags = (tag: string) => {
+    const newArr = solutions.filter((item) => item.tags[0] === tag);
+    setFilteredSolutions(newArr);
+  };
+
   /*   EditSolution({
     title: 'Como tipar um useState?',
     content: {
@@ -233,6 +234,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
         visibilityEditSolution,
         setSolutions,
         isFound,
+        filterTags,
       }}
     >
       {children}

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const ListTagContainer = styled.ul`
   display: flex;
@@ -6,10 +6,10 @@ export const ListTagContainer = styled.ul`
   align-items: center;
   gap: 8px;
   overflow-x: scroll;
-  ::-webkit-scrollbar { 
+  ::-webkit-scrollbar {
     display: none;
   }
-  
+
   margin-top: 10px;
   width: 100%;
 `;
@@ -34,30 +34,28 @@ export const Button = styled.button`
   background-color: transparent;
   border-radius: 12px;
   border: 2px solid var(--yellow);
-  color: var( --yellow);
+  color: var(--yellow);
 
   transition: 0.4s;
 
   :hover {
     cursor: pointer;
-    letter-spacing: 0.100em;
+    letter-spacing: 0.1em;
     box-shadow: 0px 0px 10px 1px yellow;
     background-color: var(--yellow);
     color: white;
   }
 
   :focus {
-    letter-spacing: 0.100em;
+    letter-spacing: 0.1em;
     box-shadow: 0px 0px 10px 1px yellow;
     background-color: var(--yellow);
     color: white;
   }
 
-
-  @media (min-width:600px) {
+  @media (min-width: 600px) {
     font-size: 15px;
     height: 25px;
     padding: 10px;
   }
-  
 `;

@@ -14,8 +14,6 @@ export const FootContainer = styled.div`
 
   position: relative;
   bottom: 0;
-  left: 0;
-  right: 0;
 
   .div-one {
     display: flex;
@@ -148,8 +146,7 @@ export const FootContainer = styled.div`
           font-size: 12px;
 
           @media (min-width: 600px) {
-            margin-top: 5px;
-
+            margin-top: 10px;
             font-size: 10px;
           }
 
@@ -166,6 +163,12 @@ export const FootContainer = styled.div`
 
     .section-two {
       margin-top: 5px;
+
+      .divbottom {
+        @media (min-width: 600px) {
+          margin-top: 9px;
+        }
+      }
 
       .divbottom h3 {
         display: flex;
@@ -247,6 +250,12 @@ export const FootContainer = styled.div`
 
     .section-three {
       margin-top: 5px;
+
+      .divbottom {
+        @media (min-width: 600px) {
+          margin-top: 15px;
+        }
+      }
 
       .divbottom ul {
         display: flex;

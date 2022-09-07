@@ -3,11 +3,6 @@ import pc from '../../assets/pc.svg';
 import InputSearch from '../InputSearch';
 import TagList from '../TagList';
 
-
-
-
-
-
 const DashboardDescription = () => (
   <Container>
     <div className='container_description'>
@@ -22,7 +17,7 @@ const DashboardDescription = () => (
       </div>
     </div>
     <InputSearch />
-    <TagList/>
+    <TagList />
   </Container>
 );
 

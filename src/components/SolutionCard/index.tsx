@@ -29,10 +29,7 @@ const SolutionCard = ({ item }: ISolutionCardProps) => {
           </button>
           <p className='countLike--card'>{likes} likes</p>
         </div>
-        <span className='span--tags'>
-          <p className='hash--card'>Comentários</p>
-          <p className='hash--card'>Dúvidas</p>
-        </span>
+        <p className='hash--card'>Comentários</p>
       </div>
     </DivSolutionCard>
   );
