@@ -1,5 +1,13 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from 'react';
 import api from '../../services/api';
+import { useSolutionsContext } from '../solutions/solutions';
 
 interface IDashboardProps {
   children: ReactNode;
@@ -23,34 +31,47 @@ export interface ISolutionCardProps {
 interface IDashboardData {
   tags: string[];
   darkMode: boolean;
-  user: boolean;
   counter: number;
   buttonClick: boolean;
   DarkLight(): void;
-  UserExists(): void;
   increase(): void;
   decrease(): void;
+  limit: number;
+  setLimit: React.Dispatch<React.SetStateAction<number>>;
+  navigate: NavigateFunction;
   IncreaseLike: (like: number) => number;
   Like: (item: SolutionsCard) => void;
   setCounter: React.Dispatch<React.SetStateAction<number>>;
   setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
-  setUser: React.Dispatch<React.SetStateAction<boolean>>;
   setTags: React.Dispatch<React.SetStateAction<string[]>>;
   setButtonClick: (buttonClick: boolean) => void;
 }
 
 const DashboardContext = createContext<IDashboardData>({} as IDashboardData);
 
+// console.log(solutions);
+// const [backup, setBackup] = useState([]);
+
+// useEffect(() => {
+//   api
+//     .get('/solutions?_page=1&_limit=4')
+//     .then((response) => {
+//       setBackup(response.data);
+//     })
+//     .catch((err) => console.log(err.response.data.message));
+// }, []);
+
 const DashboardProvider = ({ children }: IDashboardProps) => {
   const token = localStorage.getItem('token');
+  const navigate = useNavigate();
   const [darkMode, setDarkMode] = useState(false);
-  const [user, setUser] = useState(false);
   const [counter, setCounter] = useState(1);
+  const [limit, setLimit] = useState(4);
   const [buttonClick, setButtonClick] = useState(false);
   const [tags, setTags] = useState<string[]>([
     'state',
     'function',
-    'style-components',
+    'styled-components',
     'png',
     'axios',
     'contextApi',
@@ -58,20 +79,35 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
     'parameter',
   ]);
 
+  const { setFilteredSolutions } = useSolutionsContext();
+
   function increase() {
-    return counter < 5 ? setCounter(counter + 1) : setCounter(counter);
+    if (counter < 5) {
+      setCounter(counter + 1);
+    } else {
+      setCounter(counter);
+    }
   }
 
   function decrease() {
-    return counter === 1 ? setCounter(counter) : setCounter(counter - 1);
+    if (counter === 1) {
+      setCounter(counter);
+    } else {
+      setCounter(counter - 1);
+    }
   }
+
+  useEffect(() => {
+    api
+      .get(`/solutions?_page=${counter}&_limit=${limit}`)
+      .then((response) => {
+        setFilteredSolutions(response.data);
+      })
+      .catch((err) => console.log(err.response.data.message));
+  }, [counter, limit]);
 
   function DarkLight() {
     return darkMode ? setDarkMode(false) : setDarkMode(true);
-  }
-
-  function UserExists() {
-    return user ? setUser(false) : setUser(true);
   }
 
   function IncreaseLike(like: number) {
@@ -124,20 +160,20 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
       value={{
         darkMode,
         setDarkMode,
-        user,
-        setUser,
         DarkLight,
-        UserExists,
         tags,
         setTags,
         counter,
         setCounter,
         increase,
         decrease,
+        navigate,
         buttonClick,
         setButtonClick,
         Like,
         IncreaseLike,
+        limit,
+        setLimit,
       }}
     >
       {children}
