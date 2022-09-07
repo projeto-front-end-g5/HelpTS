@@ -101,16 +101,25 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
     api
       .get('/solutions?_page=1&_limit=4')
       .then((response) => {
-        setSolutions(response.data);
         setFilteredSolutions(response.data);
+      })
+      .catch((err) => console.error(err.response.data.message));
+  }, []);
+
+  useEffect(() => {
+    api
+      .get('/solutions')
+      .then((response) => {
+        setSolutions(response.data);
       })
       .catch((err) => console.error(err.response.data.message));
   }, []);
 
   const searchSolution = () => {
     setFilteredSolutions(
-      solutions.filter((solution) =>
-        solution.title.toLowerCase().includes(search)
+      solutions.filter(
+        (solution) => solution.title.toLowerCase().includes(search) /* ||
+          solution.tags.join().toLowerCase().includes(search) */
       )
     );
   };

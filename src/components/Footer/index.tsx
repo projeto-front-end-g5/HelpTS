@@ -74,7 +74,7 @@ const Footer = ({ targetType }: FooterProps) => (
             <div className='divbottom'>
               <ul>
                 {devsData.map((dev) => (
-                  <li>
+                  <li key={dev.nome}>
                     <div className='divIcon'>
                       <a target={targetType} href={dev.linkedin}>
                         <FaLinkedin className='icon' />
