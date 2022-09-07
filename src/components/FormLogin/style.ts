@@ -1,75 +1,69 @@
 import styled from 'styled-components';
 import { FormHTMLAttributes, ReactNode } from 'react';
 
+interface IFormProps extends FormHTMLAttributes<HTMLFormElement> {
+  children: ReactNode;
+}
+
 export const ContainerFormLogin = styled.div`
-  width: 100%;
+  width: 90%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   gap: 1rem;
-`;
 
-interface IFormProps extends FormHTMLAttributes<HTMLFormElement> {
-  children: ReactNode;
-}
+  @media (min-width: 1600px) {
+    width: 70%;
+  }
+
+  .ContainerLinkResgister {
+    margin-bottom: 10px;
+  }
+`;
 
 export const FormLogin = styled.form<IFormProps>`
   width: 100%;
-  max-width: 350px;
-  height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 5px;
 
   .ContainerPassword {
     width: 100%;
     display: flex;
     border: 0.5px solid var(--blue);
     background-color: var(--grey-card);
-    padding: 5px;
+    padding: 0.3125rem;
     border-radius: 3px;
+    margin-bottom: 10px;
 
-    :focus-within {
-      outline: 2px solid var(--blue-dark);
+    @media (min-width: 500px) {
+      padding: 0.5rem;
     }
-  }
-
-  label {
-    align-self: flex-start;
-    color: var(--blue);
-  }
-
-  p {
-    align-self: flex-start;
-    color: red;
-    font-size: 0.8rem;
   }
 
   .email--login {
     width: 100%;
-    padding: 0.4rem;
+    padding: 0.3125rem;
     border: 0.5px solid var(--blue);
     border-radius: 3px;
     background-color: var(--grey-card);
     box-sizing: border-box;
     color: var(--blue-dark);
     font-family: 'Ubuntu';
+    margin-bottom: 10px;
+    outline: none;
 
-    :focus {
-      outline: 2px solid var(--blue-dark);
+    @media (min-width: 500px) {
+      padding: 0.5rem;
     }
   }
 
   .input--password {
-    width: 95%;
+    width: 100%;
     border: none;
     background-color: var(--grey-card);
     color: var(--blue-dark);
     font-family: 'Ubuntu';
-  }
-
-  .input--password:focus {
     outline: none;
   }
 
@@ -92,6 +86,10 @@ export const FormLogin = styled.form<IFormProps>`
     :hover {
       opacity: 0.8;
       transition: 0.5s;
+    }
+
+    @media (min-width: 500px) {
+      padding: 0.625rem;
     }
   }
 

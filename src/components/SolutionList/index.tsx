@@ -1,34 +1,28 @@
-import {  ButtonHTMLAttributes, ReactNode} from "react";
-import { useNavigate } from "react-router-dom";
 import { useSolutionsContext } from '../../contexts/solutions/solutions';
+import EmptyList from '../EmptyList';
 import SolutionCard from '../SolutionCard';
-import { Container } from './style';
-
-
-
-
+import { ContainerSolutions } from '../SolutionCard/style';
+import { Container,SecondContainer } from './style';
 
 const SolutionList = () => {
-  const { solutions } = useSolutionsContext();
-  const navigate = useNavigate();
+  const { filteredSolutions, isFound } = useSolutionsContext();
+  // console.log(isFound);
 
   return (
-      <>
-      {solutions.length &&
-        solutions.map((item) => (
-          <Container onClick={() => {
-            navigate(`/solution/${item.id}`)
-          }}>
-          <SolutionCard
-            key={item.id}
-            title={item.title}
-            tags={item.tags}
-            likes={item.likes}
-          />
-          </Container>
-        ))}
-      <div />
-    </>
+    <ContainerSolutions>
+      {isFound === false ? (
+        <div>Não há resultado disponível</div>
+      ) : filteredSolutions.length ? (
+        filteredSolutions.map((item) => (
+          <SolutionCard key={item.id} item={item} />
+        ))
+      ) : (
+        <Container>
+          <p>Carregando...</p>
+          <EmptyList />
+        </Container>
+      )}
+    </ContainerSolutions>
   );
 };
 
