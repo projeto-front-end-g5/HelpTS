@@ -1,6 +1,14 @@
+import { ReactNode } from 'react';
 import styled from 'styled-components';
 
-export const Container = styled.div`
+interface IContainer {
+  children: ReactNode;
+  backGroundColorContainerBlue: string;
+  backGroundColorDark: string;
+  theme: string;
+}
+
+export const Container = styled.div<IContainer>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -8,8 +16,16 @@ export const Container = styled.div`
   width: 100%;
   height: 18.75rem;
 
-  background-color: var(--blue);
+  background-color: ${({
+    theme,
+    backGroundColorDark,
+    backGroundColorContainerBlue,
+  }) =>
+    theme === 'light' ? backGroundColorContainerBlue : backGroundColorDark};
   box-shadow: 0px 24px 19px -7px rgba(0, 0, 0, 0.3);
+
+  border-bottom: ${({ theme }) =>
+    theme === 'light' ? 'node' : '1px solid var(--grey-light)'};
 
   .container_description {
     display: flex;

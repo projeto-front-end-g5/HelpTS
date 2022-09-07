@@ -33,16 +33,30 @@ interface IDashboardData {
   darkMode: boolean;
   counter: number;
   buttonClick: boolean;
+  limit: number;
+  currentTheme: string;
+  backGroundColorLight: string;
+  backGroundColorHeader: string;
+  backGroundColorDark: string;
+  backGroundColorContainerBlue: string;
   DarkLight(): void;
   increase(): void;
   decrease(): void;
-  limit: number;
+  /* troca(): void; */
+  changeTheme(): void;
+  setBackgroundColorLight: (backGroundColorLight: string) => void;
+  setBackgroundColorDark: (backGroundColorDark: string) => void;
+  setBackGroundColorContainerBlue: (
+    backGroundColorContainerBlue: string
+  ) => void;
+  setCurrentTheme: (currentTheme: string) => void;
   setLimit: React.Dispatch<React.SetStateAction<number>>;
   showAll: () => void;
   showMine: () => void;
   navigate: NavigateFunction;
   IncreaseLike: (like: number) => number;
   Like: (item: SolutionsCard) => void;
+  setBackGroundColorHeader: (backGroundColorHeader: string) => void;
   setCounter: React.Dispatch<React.SetStateAction<number>>;
   setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
   setTags: React.Dispatch<React.SetStateAction<string[]>>;
@@ -60,7 +74,17 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
   const [counter, setCounter] = useState(1);
   const [limit, setLimit] = useState(4);
   const [buttonClick, setButtonClick] = useState(false);
+
   const [postId, setPostId] = useState(0);
+
+  const [currentTheme, setCurrentTheme] = useState('light');
+  const [backGroundColorLight, setBackgroundColorLight] = useState('#E4E4C8');
+  const [backGroundColorDark, setBackgroundColorDark] = useState('#1C1C1C');
+  const [backGroundColorHeader, setBackGroundColorHeader] = useState('#EEB73F');
+  const [backGroundColorContainerBlue, setBackGroundColorContainerBlue] =
+    useState('#4087D7');
+
+
   const [tags, setTags] = useState<string[]>([
     'state',
     'function',
@@ -116,17 +140,33 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
   };
 
   function DarkLight() {
-    return darkMode ? setDarkMode(false) : setDarkMode(true);
+    if (darkMode) {
+      setDarkMode(false);
+      setCurrentTheme('dark');
+    } else {
+      setDarkMode(true);
+      setCurrentTheme('light');
+    }
   }
 
   function IncreaseLike(like: number) {
     return like + 1;
   }
 
+  const changeTheme = () => {
+    DarkLight();
+    if (darkMode) {
+      setBackgroundColorLight('#1C1C1C');
+    } else {
+      setBackgroundColorLight('#E4E4C8');
+    }
+  };
+
   function Like(item: SolutionsCard) {
     setButtonClick(true);
     if (buttonClick) {
       setPostId(item.id);
+
       const newLike = IncreaseLike(item.likes);
 
       // eslint-disable-next-line camelcase, no-shadow
@@ -178,6 +218,17 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
         IncreaseLike,
         limit,
         setLimit,
+        currentTheme,
+        setCurrentTheme,
+        backGroundColorLight,
+        setBackgroundColorLight,
+        changeTheme,
+        backGroundColorHeader,
+        setBackGroundColorHeader,
+        backGroundColorDark,
+        setBackgroundColorDark,
+        backGroundColorContainerBlue,
+        setBackGroundColorContainerBlue,
         showAll,
         showMine,
         postId,

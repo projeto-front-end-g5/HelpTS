@@ -1,6 +1,12 @@
+import { ReactNode } from 'react';
 import styled from 'styled-components';
 
-export const NavTypesContainer = styled.div`
+interface INavTypesContainer {
+  children: ReactNode;
+  theme: string;
+}
+
+export const NavTypesContainer = styled.div<INavTypesContainer>`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -20,10 +26,13 @@ export const NavTypesContainer = styled.div`
   p,
   span {
     cursor: default;
+    color: ${({ theme }) =>
+      theme === 'light' ? 'color: var(--blue-dark)' : 'var(--grey-light)'};
   }
 
   .willDisable {
     cursor: not-allowed;
+    opacity: 0.3;
   }
 
   .create--type {
@@ -53,18 +62,28 @@ export const NavTypesContainer = styled.div`
       cursor: pointer;
     }
   }
+`;
 
-  .nav--params {
-    display: flex;
+interface INavParams {
+  children: ReactNode;
+  theme: string;
+}
 
-    font-size: 1.125rem;
+export const NavParams = styled.div<INavParams>`
+  display: flex;
 
-    @media (min-width: 37.5rem) {
-      font-size: 1.375rem;
-    }
+  font-size: 1.125rem;
 
-    :hover {
-      cursor: pointer;
-    }
+  @media (min-width: 37.5rem) {
+    font-size: 1.375rem;
+  }
+
+  :hover {
+    cursor: pointer;
+  }
+
+  svg {
+    color: ${({ theme }) =>
+      theme === 'light' ? 'color: var(--blue-dark)' : 'var(--grey-light)'};
   }
 `;
