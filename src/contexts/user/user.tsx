@@ -1,41 +1,40 @@
-import { createContext,useState, useEffect, ReactNode  } from "react";
-
-
-export const UserContext = createContext({});
+import { createContext, useState, useEffect, ReactNode } from 'react';
 
 interface userPoviderProps {
-    children: ReactNode;
-  }
+  children: ReactNode;
+}
 
+interface IUserData {
+  user: string[];
+}
 
-export const UserProvider = ({ children } : userPoviderProps) => {
+export const UserContext = createContext<IUserData>({} as IUserData);
 
-  const [user, setUser] = useState([]);
-  
+export const UserProvider = ({ children }: userPoviderProps) => {
+  const [user, setUser] = useState<string[]>([]);
+
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token');
 
     if (token != null) {
-      fetch("https://kenziehub.herokuapp.com/profile", {
-        method: "GET",
+      fetch('https://kenziehub.herokuapp.com/profile', {
+        method: 'GET',
         headers: {
           Accept: 'application/json',
-                  'Content-Type': 'application/json',
-                  'Authorization': `Bearer ${token}`
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
       })
         .then((response) => response.json())
         .then((response) => setUser(response))
         .catch((error) => {
-          localStorage.removeItem("token");
-          localStorage.removeItem("userId");
+          localStorage.removeItem('token');
+          localStorage.removeItem('userId');
         });
     }
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
-      {children}
-    </UserContext.Provider>
+    <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>
   );
 };

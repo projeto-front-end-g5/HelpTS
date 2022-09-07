@@ -43,3 +43,13 @@ export const formRegisterSchema = yup.object().shape({
     .required('Confirmação de senha obrigatória!')
     .oneOf([yup.ref('password')], 'Confirmação deve ser igual a senha!'),
 });
+
+export const newPostSchema = yup.object().shape({
+  title: yup
+    .string()
+    .required('Titulo obrigatório!')
+    .min(8, 'No minimo 8 caracteres'),
+  tags: yup.string().required('Titulo obrigatório!'),
+  text: yup.string().required('Campo obrigatório'),
+  code: yup.string(),
+});
