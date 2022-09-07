@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import DashboardDescription from '../../components/DashboardDescription';
 import Footer from '../../components/Footer';
@@ -13,24 +14,31 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   return (
-    <DashboardContainer>
-      <Header />
-      <DashboardDescription />
-      <section className='main--dashboard'>
-        <NavCard />
-        <DivCardDash />
-        <SolutionList />
-        <ButtonAll
-          onClick={() => {
-            navigate('/posts');
-            setLimit(10);
-          }}
-        >
-          Mostrar todos
-        </ButtonAll>
-      </section>
-      <Footer targetType='_blank' />
-    </DashboardContainer>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <DashboardContainer>
+        <Header />
+        <DashboardDescription />
+        <section className='main--dashboard'>
+          <NavCard />
+          <DivCardDash />
+          <SolutionList />
+          <ButtonAll
+            onClick={() => {
+              navigate('/posts');
+              setLimit(10);
+            }}
+          >
+            Mostrar todos
+          </ButtonAll>
+        </section>
+        <Footer targetType='_blank' />
+      </DashboardContainer>
+    </motion.div>
   );
 };
 

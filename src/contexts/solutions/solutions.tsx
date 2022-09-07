@@ -41,13 +41,9 @@ interface ISolutionsData {
   titleSolution: string;
   idSolution: number;
   solutionEdit: SolutionType;
-
   setSolutions: Dispatch<SetStateAction<SolutionType[]>>;
-  deleteSolution: () => void;
   solutions: SolutionType[];
   search: string;
-  setSearch: React.Dispatch<React.SetStateAction<string>>;
-  searchSolution: () => void;
   searchFound: () => void;
   isFound: boolean;
   filteredSolutions: SolutionType[];
@@ -61,6 +57,7 @@ interface ISolutionsData {
   EditSolution: (item: SolutionType) => void;
   RequestEdit: (item: IDataEdit) => void;
   setIdSolution: (idSolution: number) => void;
+  /* getSolution: (data: ISolutionsData) => void; */
   createSolution: (data: ISolutionsData) => void;
   setVisibilityDeleteSolution: (visibilityDeleteSolution: boolean) => void;
 }

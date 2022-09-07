@@ -1,5 +1,13 @@
 /* eslint-disable camelcase */
-import { createContext, useContext, useState, ReactNode } from 'react';
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import api from '../../services/api';
 import { UserContext } from '../user/user';
 
@@ -22,7 +30,7 @@ interface IPostFull {
   };
   created_at?: string;
   updated_at?: string;
-  tags: string;
+  tags: string[];
   likes: number;
   userId: string | null;
 }
@@ -35,6 +43,7 @@ interface IPostData {
   title: string;
   setTitle: React.Dispatch<React.SetStateAction<string>>;
   newSolution: (data: IPost) => void;
+  getDate: () => string;
 }
 
 const PostContext = createContext<IPostData>({} as IPostData);
@@ -44,7 +53,22 @@ const PostProvider = ({ children }: IPostProps) => {
 
   const [textcode, setTextcode] = useState('');
   const [texts, setTexts] = useState('');
-  const [title, setTitle] = useState('Titulo');
+  const [title, setTitle] = useState('');
+
+  const navigate = useNavigate();
+
+  const getDate = () => {
+    const dateUpdate = new Date();
+    const day = dateUpdate.getDate();
+    const month = dateUpdate.getMonth() + 1;
+    const year = dateUpdate.getFullYear();
+
+    return `0${day}/0${month}/${year}`;
+  };
+
+  useEffect(() => {
+    getDate();
+  }, []);
 
   const newSolution = async (data: IPost) => {
     const dateUpdate = new Date();
@@ -66,7 +90,7 @@ const PostProvider = ({ children }: IPostProps) => {
       },
       created_at: newDateSolution,
       updated_at: newDateSolution,
-      tags: data.tags,
+      tags: [data.tags],
       likes: 0,
       userId: idUser,
     };
@@ -76,9 +100,27 @@ const PostProvider = ({ children }: IPostProps) => {
       await api.post('/solutions', solution, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      console.log('funcionou');
+      navigate('/posts', { replace: true });
+      toast('✅ Solução criada com sucesso!', {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     } catch (error) {
       console.error(error);
+      toast('❌ Tente novamente!', {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
@@ -92,6 +134,7 @@ const PostProvider = ({ children }: IPostProps) => {
         newSolution,
         title,
         setTitle,
+        getDate,
       }}
     >
       {children}

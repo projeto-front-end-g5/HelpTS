@@ -1,10 +1,16 @@
+import { motion } from 'framer-motion';
 import BackgroundTSParticles from '../../components/BackgroundTSParticles';
 import FormRegister from '../../components/FormRegister';
 import LogoRegisterLogin from '../../components/LogoRegisterLogin';
 import { ContainerPageRegister, DivPageRegister } from './style';
 
 const Register = () => (
-  <>
+  <motion.div
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    transition={{ duration: 0.5 }}
+  >
     <BackgroundTSParticles />
     <ContainerPageRegister>
       <DivPageRegister>
@@ -20,7 +26,7 @@ const Register = () => (
         </div>
       </DivPageRegister>
     </ContainerPageRegister>
-  </>
+  </motion.div>
 );
 
 export default Register;

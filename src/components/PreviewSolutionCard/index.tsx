@@ -5,7 +5,7 @@ import { ContainerCreatePost } from '../CreatePostCard/style';
 import { DivCodePreview, DivTextPreview } from './style';
 
 const PreviewCardSolution = () => {
-  const { textcode, texts, title } = usePostContext();
+  const { textcode, texts, title, getDate } = usePostContext();
 
   return (
     <ContainerCreatePost>
@@ -13,7 +13,7 @@ const PreviewCardSolution = () => {
         <div className='cardComment--name'>
           <p>{title}</p>
         </div>
-        <span>30/08/2022</span>
+        <span>{getDate()}</span>
       </ContainerCommentTitle>
       <DivTextPreview>
         <p>{texts}</p>
@@ -33,9 +33,6 @@ const PreviewCardSolution = () => {
             </pre>
           )}
         </Highlight>
-        <button className='btn--newPost' type='submit'>
-          Finalizar
-        </button>
       </DivCodePreview>
     </ContainerCreatePost>
   );
