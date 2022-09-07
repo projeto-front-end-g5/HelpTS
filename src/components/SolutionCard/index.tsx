@@ -40,15 +40,9 @@ const SolutionCard = ({ item }: ISolutionCardProps) => {
           </button>
           <p className='countLike--card'>{likes} likes</p>
         </div>
-        <span className='span--tags'>
-          <button
-            type='button'
-            className='hash--card'
-            onClick={() => navigate('/comments')}
-          >
-            Comentários
-          </button>
-        </span>
+
+        <p className='hash--card'>Comentários</p>
+
       </div>
     </DivSolutionCard>
   );
