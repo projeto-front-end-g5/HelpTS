@@ -47,6 +47,7 @@ interface ISolutionsData {
   search: string;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
   searchSolution: () => void;
+  searchFound: () => void;
   isFound: boolean;
   filteredSolutions: SolutionType[];
   setFilteredSolutions: Dispatch<SetStateAction<SolutionType[]>>;
@@ -97,7 +98,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
       .then((response) => {
         console.log('Solução criada');
       })
-      .catch((err) => console.log(err.response.data.message));
+      .catch((err) => console.error(err.response.data.message));
   };
 
   useEffect(() => {
@@ -107,7 +108,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
         setSolutions(response.data);
         setFilteredSolutions(response.data);
       })
-      .catch((err) => console.log(err.response.data.message));
+      .catch((err) => console.error(err.response.data.message));
   }, []);
 
   const searchSolution = () => {
@@ -118,21 +119,15 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
     );
   };
 
-  // const searchFound = () => {
-  //   solutions.filter((solution) => {
-  //     const filtered = solution.title.toLowerCase().includes(search);
+  const searchFound = () => {
+    const filtered = solutions.map((solution) =>
+      solution.title.toLowerCase().includes(search)
+    );
 
-  //     if (filtered === true) {
-  //       return setIsFound(true);
-  //       // eslint-disable-next-line no-else-return
-  //     } else {
-  //       setIsFound(false);
-  //     }
+    setIsFound(filtered.some((elem) => elem === true));
 
-  //     return filtered;
-  //   });
-  //   console.log(search);
-  // };
+    return filtered;
+  };
 
   const deleteSolution = () => {
     api
@@ -142,7 +137,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
       .then(() => {
         console.log('Solução deletada');
       })
-      .catch((err) => console.log(err.response.data.message));
+      .catch((err) => console.error(err.response.data.message));
   };
 
   const RequestEdit = (item: IDataEdit) => {
@@ -220,6 +215,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
         search,
         setSearch,
         searchSolution,
+        searchFound,
         filteredSolutions,
         setFilteredSolutions,
         visibilityDeleteSolution,
