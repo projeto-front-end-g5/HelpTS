@@ -7,7 +7,6 @@ import { darkTheme, lightTheme } from './themes';
 import { useDashboardContext } from './contexts/dashboard/dashboard';
 import ModalEdit from './components/ModalEdit';
 
-
 function App() {
   const { currentTheme } = useDashboardContext();
 
@@ -15,6 +14,7 @@ function App() {
     <ThemeProvider theme={currentTheme === 'dark' ? darkTheme : lightTheme}>
       <AppContainer>
         <Global />
+        <ModalEdit />
         <ModalDelete />
         <RoutesMain />
       </AppContainer>
