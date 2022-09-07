@@ -47,6 +47,8 @@ interface IDashboardData {
   setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
   setTags: React.Dispatch<React.SetStateAction<string[]>>;
   setButtonClick: (buttonClick: boolean) => void;
+  postId: number;
+  setPostId: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const DashboardContext = createContext<IDashboardData>({} as IDashboardData);
@@ -58,6 +60,7 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
   const [counter, setCounter] = useState(1);
   const [limit, setLimit] = useState(4);
   const [buttonClick, setButtonClick] = useState(false);
+  const [postId, setPostId] = useState(0);
   const [tags, setTags] = useState<string[]>([
     'state',
     'function',
@@ -94,7 +97,7 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
       .then((response) => {
         setFilteredSolutions(response.data);
       })
-      .catch((err) => console.log(err.response.data.message));
+      .catch((err) => console.error(err.response.data.message));
   }, [counter, limit]);
 
   const showAll = () => {
@@ -104,17 +107,11 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
 
   const showMine = () => {
     const idUser = localStorage.getItem('userId');
-    console.log(idUser);
 
-    // const filtered = solutions.filter((solution) =>
-    //   console.log(solution.userId)
-    // );
-    console.log(solutions);
     const filtered = solutions.filter(
       (solution) => solution.userId === Number(idUser)
     );
 
-    console.log(filtered);
     setFilteredSolutions(filtered);
   };
 
@@ -123,35 +120,30 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
   }
 
   function IncreaseLike(like: number) {
-    console.log(like);
     return like + 1;
   }
 
   function Like(item: SolutionsCard) {
-    setButtonClick(!buttonClick);
-    if (!buttonClick) {
-      console.log('foi');
+    setButtonClick(true);
+    if (buttonClick) {
+      setPostId(item.id);
       const newLike = IncreaseLike(item.likes);
+
       // eslint-disable-next-line camelcase, no-shadow
       const { content, created_at, id, tags, title, updated_at, userId } = item;
       api
         .patch(
           `/solutions/${item.id}`,
           {
-            // eslint-disable-next-line object-shorthand
-            title: title,
-            // eslint-disable-next-line object-shorthand
-            content: content,
+            title,
+            content,
             // eslint-disable-next-line object-shorthand, camelcase
             created_at: created_at,
             // eslint-disable-next-line object-shorthand, camelcase
             updated_at: updated_at,
-            // eslint-disable-next-line object-shorthand
-            tags: tags,
-            // eslint-disable-next-line object-shorthand
-            userId: userId,
-            // eslint-disable-next-line object-shorthand
-            id: id,
+            tags,
+            userId,
+            id,
             likes: newLike,
           },
           {
@@ -188,6 +180,8 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
         setLimit,
         showAll,
         showMine,
+        postId,
+        setPostId,
       }}
     >
       {children}

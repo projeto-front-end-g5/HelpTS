@@ -70,6 +70,8 @@ export const DivSolutionCard = styled.li`
     font-size: 0.8rem;
     color: var(--grey-dark);
     cursor: pointer;
+    background: transparent;
+    border: none;
   }
 
   .span--tags {
