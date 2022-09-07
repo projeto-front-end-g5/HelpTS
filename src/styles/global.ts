@@ -1,6 +1,17 @@
 import { createGlobalStyle } from 'styled-components';
 
-export default createGlobalStyle`
+interface IGLobal {
+  theme: {
+    body: string;
+    header: string;
+    fontColor: string;
+    button: string;
+    boderBottom: string;
+    svgColor: string;
+  };
+}
+
+export default createGlobalStyle<IGLobal>`
 
 :root {
 --blue: #4087D7;
@@ -44,30 +55,39 @@ time, audio, video {
 	vertical-align: baseline;
 }
 
-button {
-	cursor: pointer;
-}
-
 a {
 	text-decoration: none;
 	cursor: pointer;
 }
 
-.App {
-	width: 100vw;
-    height: 100vh;
-	overflow-x: hidden;
-}
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 body {
-	line-height: 1;
-	background-color: var( --grey-light);
-	
+	line-height: 1;	
+	background-color: ${({ theme }) => theme.body};
+	color: ${({ theme }) => theme.fontColor};
 }
+
+button {
+	color: ${({ theme }) => theme.button};
+}
+
+svg {
+	.nav--params {
+		color: ${({ theme }) => theme.svgColor};
+	}
+}
+
+header {
+	background-color: ${({ theme }) => theme.header};
+	border-bottom: ${({ theme }) => theme.boderBottom};
+}
+
+
+
 ol, ul {
 	list-style: none;
 }

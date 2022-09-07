@@ -1,6 +1,14 @@
+import { ReactNode } from 'react';
 import styled from 'styled-components';
 
-export const FootContainer = styled.div`
+interface IFootContainer {
+  children: ReactNode;
+  backGroundColorContainerBlue: string;
+  backGroundColorDark: string;
+  theme: string;
+}
+
+export const FootContainer = styled.div<IFootContainer>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,7 +18,12 @@ export const FootContainer = styled.div`
 
   width: 100%;
 
-  background-color: var(--blue);
+  background-color: ${({
+    theme,
+    backGroundColorDark,
+    backGroundColorContainerBlue,
+  }) =>
+    theme === 'light' ? backGroundColorContainerBlue : backGroundColorDark};
 
   position: relative;
   bottom: 0;
@@ -24,6 +37,7 @@ export const FootContainer = styled.div`
 
     width: 100%;
     min-height: 30px;
+    color: var(--blue-dark);
 
     background-color: var(--grey-card);
 

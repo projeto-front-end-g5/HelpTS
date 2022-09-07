@@ -1,3 +1,5 @@
+import { useParams } from 'react-router-dom';
+import { useDashboardContext } from '../../contexts/dashboard/dashboard';
 import { useSolutionsContext } from '../../contexts/solutions/solutions';
 import EmptyList from '../EmptyList';
 import NotFound from '../NotFound';
@@ -7,6 +9,14 @@ import { Container, ContainerNotFound } from './style';
 
 const SolutionList = () => {
   const { filteredSolutions, isFound } = useSolutionsContext();
+  const { setLimit } = useDashboardContext();
+  const rota = useParams();
+
+  if (rota.posts === 'posts') {
+    setLimit(10);
+  } else {
+    setLimit(4);
+  }
 
   return (
     <ContainerSolutions>

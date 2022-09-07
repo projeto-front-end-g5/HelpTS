@@ -8,6 +8,7 @@ import {
   Dispatch,
 } from 'react';
 import api from '../../services/api';
+import { useDashboardContext } from '../dashboard/dashboard';
 
 interface ISolutionsProps {
   children: ReactNode;
@@ -40,26 +41,27 @@ interface ISolutionsData {
   titleSolution: string;
   idSolution: number;
   solutionEdit: SolutionType;
+  setSolutions: Dispatch<SetStateAction<SolutionType[]>>;
   solutions: SolutionType[];
   search: string;
+  setSearch: Dispatch<SetStateAction<string>>;
+  searchSolution: () => void;
+  searchFound: () => void;
   isFound: boolean;
   filteredSolutions: SolutionType[];
+  setFilteredSolutions: Dispatch<SetStateAction<SolutionType[]>>;
+  deleteSolution: () => void;
   visibilityDeleteSolution: boolean;
   contentTextSolution: string;
   contentCodeSolution: string;
   contentTag: string[];
   visibilityEditSolution: boolean;
   filterTags: (tag: string) => void;
-  searchFound: () => void;
-  deleteSolution: () => void;
-  searchSolution: () => void;
   EditSolution: (item: SolutionType) => void;
   RequestEdit: (item: IDataEdit) => void;
   setIdSolution: (idSolution: number) => void;
+  /* getSolution: (data: ISolutionsData) => void; */
   createSolution: (data: ISolutionsData) => void;
-  setSolutions: Dispatch<SetStateAction<SolutionType[]>>;
-  setFilteredSolutions: Dispatch<SetStateAction<SolutionType[]>>;
-  setSearch: React.Dispatch<React.SetStateAction<string>>;
   setVisibilityDeleteSolution: (visibilityDeleteSolution: boolean) => void;
 }
 
@@ -101,16 +103,25 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
     api
       .get('/solutions?_page=1&_limit=4')
       .then((response) => {
-        setSolutions(response.data);
         setFilteredSolutions(response.data);
+      })
+      .catch((err) => console.error(err.response.data.message));
+  }, []);
+
+  useEffect(() => {
+    api
+      .get('/solutions')
+      .then((response) => {
+        setSolutions(response.data);
       })
       .catch((err) => console.error(err.response.data.message));
   }, []);
 
   const searchSolution = () => {
     setFilteredSolutions(
-      solutions.filter((solution) =>
-        solution.title.toLowerCase().includes(search)
+      solutions.filter(
+        (solution) => solution.title.toLowerCase().includes(search) /* ||
+          solution.tags.join().toLowerCase().includes(search) */
       )
     );
   };
@@ -119,7 +130,6 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
     const filtered = solutions.map((solution) =>
       solution.title.toLowerCase().includes(search)
     );
-
     setIsFound(filtered.some((elem) => elem === true));
 
     return filtered;

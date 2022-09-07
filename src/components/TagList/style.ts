@@ -41,7 +41,7 @@ export const Button = styled.button`
   :hover {
     cursor: pointer;
     letter-spacing: 0.1em;
-    box-shadow: 0px 0px 10px 1px yellow;
+    box-shadow: 0px 0px 10px 1px var(--yellow);
     background-color: var(--yellow);
     color: white;
   }

@@ -83,7 +83,8 @@ export const DivSolutionCard = styled.li`
     line-height: 130%;
     color: var(--blue);
     padding-top: 5px;
-
+    word-break: break-all;
+    
     @media (min-width: 600px) {
       font-size: 14px;
     }
@@ -95,7 +96,8 @@ export const DivSolutionCard = styled.li`
     @media (min-width: 1200px) {
       font-size: 18px;
     }
-  }
+    
+    }
 
   .card1 {
     font-family: 'Ubuntu';
