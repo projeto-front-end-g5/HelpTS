@@ -144,7 +144,7 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
           },
           {
             headers: {
-              Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhcmFAa2VuemllLmNvbSIsImlhdCI6MTY2MjQyNjM2NCwiZXhwIjoxNjYyNDI5OTY0LCJzdWIiOiIyIn0.TKzgy1Oa1aW-5UYyl_n7EGHthzOrulLuQnI9TO2U2x0`,
+              Authorization: `Bearer ${token}`,
             },
           }
         )
