@@ -9,10 +9,10 @@ export const formLoginSchema = yup.object().shape({
     .string()
     .required('Senha obrigatória!')
     .min(8, 'No mínimo 8 digitos')
-    .matches(
-      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/,
-      'Necessário ter 1 letra maiúscula, 1 minúscula, 1 número e 1 caracter especial!'
-    ),
+    .matches(/[A-Z]/, 'Deve conter ao menos 1 letra maiúscula')
+    .matches(/([a-z])/, 'Deve conter ao menos 1 letra minúscula')
+    .matches(/(\d)/, 'Deve conter ao menos 1 número')
+    .matches(/(\W)|_/, 'Deve conter ao menos 1 caracter especial'),
 });
 
 export const formRegisterSchema = yup.object().shape({
@@ -25,31 +25,35 @@ export const formRegisterSchema = yup.object().shape({
     .string()
     .required('Contato obrigatório!')
     .min(11, 'Número com 11 digitos')
-    .matches(
-      /[1-9]{2}9[1-9]\d{4}/,
-      'Insira um DDD sem parenteses e um número com 9 digitos sem espaços ou traço!'
-    ),
+    .matches(/[1-9]{2}9[1-9]\d{4}/, 'Somente numeros com DDD'),
   github: yup.string().required('Necessário inserir a URL!'),
   password: yup
     .string()
     .required('Senha obrigatória!')
-    .min(8, 'No mínimo 8 digitos')
-    .matches(
-      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/,
-      'Necessário ter 1 letra maiúscula, 1 minúscula, 1 número e 1 caracter especial!'
-    ),
+    .matches(/[A-Z]/, 'Deve conter ao menos 1 letra maiúscula')
+    .matches(/([a-z])/, 'Deve conter ao menos 1 letra minúscula')
+    .matches(/(\d)/, 'Deve conter ao menos 1 número')
+    .matches(/(\W)|_/, 'Deve conter ao menos 1 caracter especial')
+    .min(8, 'No mínimo 8 digitos'),
   passwordConfirm: yup
     .string()
-    .required('Confirmação de senha obrigatória!')
-    .oneOf([yup.ref('password')], 'Confirmação deve ser igual a senha!'),
+    .required('Confirme sua  senha')
+    .oneOf([yup.ref('password')], 'Deve ser igual a senha'),
+});
+
+export const formEditSolution = yup.object().shape({
+  title: yup.string().required('Necessário estar preenchido'),
+  tag: yup.string().required('Necessário estar selecionado'),
+  contentText: yup.string().required('Necessário estar preenchido'),
+  contentCode: yup.string().required('Necessário estar preenchido'),
 });
 
 export const newPostSchema = yup.object().shape({
   title: yup
     .string()
-    .required('Titulo obrigatório!')
-    .min(8, 'No minimo 8 caracteres'),
-  tags: yup.string().required('Titulo obrigatório!'),
-  text: yup.string().required('Campo obrigatório'),
-  code: yup.string(),
+    .required('Necessário estar preenchido')
+    .min(6, 'No minimo 6 caracteres'),
+  tags: yup.string().required('Necessário estar selecionado'),
+  text: yup.string().required('Necessário estar preenchido'),
+  code: yup.string().required('Necessário estar preenchido'),
 });

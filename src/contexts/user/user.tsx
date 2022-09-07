@@ -28,6 +28,8 @@ export const UserProvider = ({ children }: userPoviderProps) => {
         .then((response) => response.json())
         .then((response) => setUser(response))
         .catch((error) => {
+          console.error(error);
+
           localStorage.removeItem('token');
           localStorage.removeItem('userId');
         });

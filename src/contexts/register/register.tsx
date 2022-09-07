@@ -28,8 +28,7 @@ const RegisterProvider = ({ children }: IRegisterProps) => {
   const submitRegister = (data: IFormRegister) => {
     api
       .post('/register', data)
-      .then((response) => {
-        console.log(response);
+      .then(() => {
         navigate('/login', { replace: true });
 
         return toast('✅ Registro concluído com sucesso!', {

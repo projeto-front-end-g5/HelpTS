@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import { FaRegThumbsUp, FaThumbsUp } from 'react-icons/fa';
 import {
   ISolutionCardProps,
@@ -13,8 +14,10 @@ const SolutionCard = ({ item }: ISolutionCardProps) => {
       <div className='card1'>
         <h3 className='title--card'>{title}</h3>
         <span className='span--tags'>
-          {tags.map((tag: string) => (
-            <p className='tag--card'>#{tag}</p>
+          {tags.map((tag: string, index) => (
+            <p key={index} className='tag--card'>
+              #{tag}
+            </p>
           ))}
         </span>
       </div>
@@ -31,7 +34,6 @@ const SolutionCard = ({ item }: ISolutionCardProps) => {
         </div>
         <span className='span--tags'>
           <p className='hash--card'>Comentários</p>
-          <p className='hash--card'>Dúvidas</p>
         </span>
       </div>
     </DivSolutionCard>

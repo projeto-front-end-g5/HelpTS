@@ -20,12 +20,13 @@ const ContainerBlue = () => {
     >
       <Button
         text='Voltar'
-        height='1.25rem'
+        height='2.25rem'
         onClick={() => {
           navigate('/dashboard');
           setLimit(4);
         }}
-        width='3.4rem'
+        width='6.4rem'
+        fontSize='17px'
       />
     </Container>
   );

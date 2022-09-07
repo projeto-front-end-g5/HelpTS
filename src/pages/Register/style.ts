@@ -9,63 +9,87 @@ export const ContainerPageRegister = styled.div`
 `;
 
 export const DivPageRegister = styled.div`
-  width: 70%;
-  height: 70%;
   display: flex;
-  background-color: var(--grey-card);
-  flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 90%;
+  background-color: var(--grey-card);
   border: 3px solid #4087d700;
-  border-radius: 40px;
+  border-radius: 20px;
   box-shadow: 0px 0px 21px 0px rgb(170 167 167);
   position: relative;
 
-  .btn--home {
-    background: transparent;
-    border: none;
-    border-radius: 5px;
-    color: var(--blue-dark);
-    font-size: 1.5rem;
-    position: absolute;
-    top: 35px;
-    left: 35px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 8px;
+  @media (min-width: 500px) {
+    width: 70%;
+  }
 
-    :hover {
-      transition: 0.5s;
-      background: #00207c30;
-    }
+  @media (min-width: 768px) {
+    justify-content: space-between;
+    flex-direction: row;
+
+    width: 80%;
+  }
+
+  @media (min-width: 1000px) {
+    width: 70%;
+  }
+
+  @media (min-width: 1100px) {
+    width: 65%;
+  }
+
+  @media (min-width: 1400px) {
+    width: 60%;
+  }
+
+  @media (min-width: 1600px) {
+    width: 50%;
   }
 
   .logo--pageRegister {
-    width: 300px;
-    min-width: 200px;
     display: flex;
+    justify-content: center;
     align-items: center;
+    width: 30%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    @media (min-width: 768px) {
+      width: 50%;
+    }
   }
 
   .container--formRegister {
-    width: 33%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 1rem;
     font-family: ubuntu;
     color: var(--blue-dark);
 
     .title--formRegister {
       font-size: 1rem;
       font-weight: 700;
+
+      @media (min-width: 500px) {
+        font-size: 1.125rem;
+      }
+
+      @media (min-width: 768px) {
+        margin-top: 30px;
+      }
     }
 
     .text--formRegister {
       font-size: 0.7rem;
       padding-bottom: 1rem;
+
+      @media (min-width: 500px) {
+        font-size: 13px;
+      }
     }
 
     .textlink--login {
@@ -79,63 +103,6 @@ export const DivPageRegister = styled.div`
           color: var(--blue);
         }
       }
-    }
-  }
-
-  @media only screen and (max-width: 779px) {
-    & {
-      align-items: center;
-      align-content: center;
-      border-radius: 20px;
-    }
-
-    svg {
-      height: 120px;
-    }
-
-    .logo--pageRegister {
-      min-width: 120px;
-      align-items: flex-end;
-      margin-top: 16px;
-    }
-
-    .container--formRegister {
-      width: 100%;
-      align-items: flex-start;
-      padding: 1rem;
-    }
-
-    .title--formRegister {
-      align-self: center;
-    }
-
-    .text--formRegister {
-      align-self: center;
-    }
-
-    .textlink--login {
-      font-size: 0.8rem;
-    }
-
-    .btn--home {
-      top: 17px;
-      left: 15px;
-      height: 38px;
-    }
-  }
-
-  @media screen and (max-width: 321px) {
-    & {
-      width: 80%;
-    }
-  }
-
-  @media screen and (max-width: 426px) {
-    .btn--home {
-      font-size: 1.2rem;
-      top: 20px;
-      left: 12px;
-      height: 33px;
     }
   }
 `;

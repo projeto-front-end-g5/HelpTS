@@ -1,9 +1,9 @@
 import Lottie from 'react-lottie';
 import { useState } from 'react';
-import image from '../../assets/116822-transfer-files.json';
+import image from '../../assets/VWWMqRuhEq.json';
 import { Container } from './style';
 
-const EmptyList = () => {
+const NotFound = () => {
   const [animate] = useState({ isStopped: false, isPaused: false });
 
   const defaultOptions = {
@@ -26,4 +26,4 @@ const EmptyList = () => {
   );
 };
 
-export default EmptyList;
+export default NotFound;

@@ -3,7 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { formRegisterSchema } from '../../validator/schema';
 import { useRegisterContext } from '../../contexts/register/register';
 
-import { FormReg } from './style';
+import { FormReg, LabelErrors } from './style';
 
 interface IFormRegister {
   name: string;
@@ -26,66 +26,85 @@ const FormRegister = () => {
 
   return (
     <FormReg onSubmit={handleSubmit(submitRegister)}>
-      <label className='label--register'>
-        Nome
-        <input
-          className='input--register'
-          type='text'
-          placeholder='Nome'
-          {...register('name')}
-        />
-        {errors.name && <p>{errors.name?.message}</p>}
-      </label>
-      <label className='label--register'>
-        Email
-        <input
-          className='input--register'
-          type='text'
-          placeholder='Email'
-          {...register('email')}
-        />
-        {errors.email && <p>{errors.email?.message}</p>}
-      </label>
-      <label className='label--register'>
-        Telefone
-        <input
-          className='input--register'
-          type='text'
-          placeholder='Telefone'
-          {...register('contact')}
-        />
-        {errors.contact && <p>{errors.contact?.message}</p>}
-      </label>
-      <label className='label--register'>
-        GitHub
-        <input
-          className='input--register'
-          type='text'
-          placeholder='GitHub'
-          {...register('github')}
-        />
-        {errors.github && <p>{errors.github?.message}</p>}
-      </label>
-      <label className='label--register'>
-        Senha
-        <input
-          className='input--register'
-          type='password'
-          placeholder='Senha'
-          {...register('password')}
-        />
-        {errors.password && <p>{errors.password?.message}</p>}
-      </label>
-      <label className='label--register'>
-        Confirmar senha
-        <input
-          className='input--register'
-          type='password'
-          placeholder='Confirme sua senha'
-          {...register('passwordConfirm')}
-        />
-        {errors.passwordConfirm && <p>{errors.passwordConfirm?.message}</p>}
-      </label>
+      <LabelErrors>
+        <label htmlFor='name' className='label--register'>
+          Nome
+        </label>
+        <p>{errors.name?.message}</p>
+      </LabelErrors>
+      <input
+        id='name'
+        className='input--register'
+        type='text'
+        placeholder='Nome'
+        {...register('name')}
+      />
+      <LabelErrors>
+        <label htmlFor='email' className='label--register'>
+          Email
+        </label>
+        <p>{errors.email?.message}</p>
+      </LabelErrors>
+      <input
+        id='email'
+        className='input--register'
+        type='text'
+        placeholder='Email'
+        {...register('email')}
+      />
+      <LabelErrors>
+        <label htmlFor='contact' className='label--register'>
+          Telefone
+        </label>
+        <p>{errors.contact?.message}</p>
+      </LabelErrors>
+      <input
+        id='contact'
+        className='input--register'
+        type='text'
+        placeholder='Telefone'
+        {...register('contact')}
+      />
+      <LabelErrors>
+        <label htmlFor='github' className='label--register'>
+          GitHub
+        </label>
+        <p>{errors.github?.message}</p>
+      </LabelErrors>
+      <input
+        id='github'
+        className='input--register'
+        type='text'
+        placeholder='GitHub'
+        {...register('github')}
+      />
+      <LabelErrors>
+        <label htmlFor='password' className='label--register'>
+          Senha
+        </label>
+        <p>{errors.password?.message}</p>
+      </LabelErrors>
+      <input
+        id='password'
+        className='input--register'
+        type='password'
+        placeholder='Senha'
+        {...register('password')}
+      />
+      <LabelErrors>
+        <label htmlFor='passwordConfirm' className='label--register'>
+          Confirmar senha
+        </label>
+        <p>{errors.passwordConfirm?.message}</p>
+      </LabelErrors>
+      <input
+        id='passwordConfirm'
+        className='input--register'
+        type='password'
+        placeholder='Confirme sua senha'
+        {...register('passwordConfirm')}
+      />
+
       <button className='btn--register' type='submit'>
         Cadastrar
       </button>

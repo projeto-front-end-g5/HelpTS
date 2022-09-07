@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate, useParams } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Comments from '../pages/Comments';
@@ -30,6 +30,7 @@ const RoutesMain = () => (
       <Route path='/solution' element={<Solution />} />
       <Route path='/newpost' element={<CreatePost />} />
       <Route path='/:posts' element={<Posts />} />
+      <Route path='/posts/:search' element={<Posts />} />
       <Route path='*' element={<Navigate to='/dashboard' replace />} />
     </Routes>
   </>

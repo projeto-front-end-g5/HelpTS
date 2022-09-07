@@ -51,6 +51,8 @@ interface IDashboardData {
   ) => void;
   setCurrentTheme: (currentTheme: string) => void;
   setLimit: React.Dispatch<React.SetStateAction<number>>;
+  showAll: () => void;
+  showMine: () => void;
   navigate: NavigateFunction;
   IncreaseLike: (like: number) => number;
   Like: (item: SolutionsCard) => void;
@@ -62,18 +64,6 @@ interface IDashboardData {
 }
 
 const DashboardContext = createContext<IDashboardData>({} as IDashboardData);
-
-// console.log(solutions);
-// const [backup, setBackup] = useState([]);
-
-// useEffect(() => {
-//   api
-//     .get('/solutions?_page=1&_limit=4')
-//     .then((response) => {
-//       setBackup(response.data);
-//     })
-//     .catch((err) => console.log(err.response.data.message));
-// }, []);
 
 const DashboardProvider = ({ children }: IDashboardProps) => {
   const token = localStorage.getItem('token');
@@ -100,7 +90,8 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
     'parameter',
   ]);
 
-  const { setFilteredSolutions } = useSolutionsContext();
+  const { setFilteredSolutions, filteredSolutions, solutions } =
+    useSolutionsContext();
 
   function increase() {
     if (counter < 5) {
@@ -126,6 +117,27 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
       })
       .catch((err) => console.log(err.response.data.message));
   }, [counter, limit]);
+
+  const showAll = () => {
+    setFilteredSolutions(solutions);
+    setLimit(10);
+  };
+
+  const showMine = () => {
+    const idUser = localStorage.getItem('userId');
+    console.log(idUser);
+
+    // const filtered = solutions.filter((solution) =>
+    //   console.log(solution.userId)
+    // );
+    console.log(solutions);
+    const filtered = solutions.filter(
+      (solution) => solution.userId === Number(idUser)
+    );
+
+    console.log(filtered);
+    setFilteredSolutions(filtered);
+  };
 
   function DarkLight() {
     if (darkMode) {
@@ -179,14 +191,14 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
           },
           {
             headers: {
-              Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhcmFAa2VuemllLmNvbSIsImlhdCI6MTY2MjQyNjM2NCwiZXhwIjoxNjYyNDI5OTY0LCJzdWIiOiIyIn0.TKzgy1Oa1aW-5UYyl_n7EGHthzOrulLuQnI9TO2U2x0`,
+              Authorization: `Bearer ${token}`,
             },
           }
         )
         .then((response) => {
           console.log('like adicionado');
         })
-        .catch((err) => console.log(err.response.data.message));
+        .catch((err) => console.error(err.response.data.message));
     }
   }
 
@@ -220,6 +232,8 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
         setBackgroundColorDark,
         backGroundColorContainerBlue,
         setBackGroundColorContainerBlue,
+        showAll,
+        showMine,
       }}
     >
       {children}

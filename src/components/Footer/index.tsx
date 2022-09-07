@@ -72,6 +72,24 @@ const Footer = ({ targetType }: FooterProps) => {
                 objetiva para que o desenvolvedor perca o menor tempo possível
                 na busca da solução para o seu problema.
               </p>
+              <ul>
+                {devsData.map((dev) => (
+                  <li key={dev.nome}>
+                    <div className='divIcon'>
+                      <a target={targetType} href={dev.linkedin}>
+                        <FaLinkedin className='icon' />
+                      </a>
+                      <a target={targetType} href={dev.intagram}>
+                        <FaInstagramSquare className='icon' />
+                      </a>
+                      <a target={targetType} href={dev.github}>
+                        <FaGithubSquare className='icon' />
+                      </a>
+                    </div>
+                    <h3>{dev.nome}</h3>
+                  </li>
+                ))}
+              </ul>
             </div>
           </section>
           <div className='divSectionTwoThree'>
