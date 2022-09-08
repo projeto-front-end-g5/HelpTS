@@ -11,7 +11,7 @@ export const ContainerPageRegister = styled.div`
 export const DivPageRegister = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
+
   flex-direction: column;
   width: 90%;
   background-color: var(--grey-card);
@@ -19,9 +19,47 @@ export const DivPageRegister = styled.div`
   border-radius: 20px;
   box-shadow: 0px 0px 21px 0px rgb(170 167 167);
   position: relative;
+  padding: 20px;
+
+  .logo--btnHome-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+
+    .btn--home {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      width: 100%;
+
+      button {
+        display: flex;
+        align-items: center;
+        background: transparent;
+        border: none;
+        padding: 5px;
+        border-radius: 5px;
+        color: var(--blue-dark);
+
+        font-size: 18px;
+
+        :hover {
+          transition: 0.5s;
+          background: #00207c30;
+        }
+
+        @media (min-width: 768px) {
+          font-size: 25px;
+        }
+      }
+    }
+  }
 
   @media (min-width: 500px) {
-    width: 70%;
+    width: 60%;
   }
 
   @media (min-width: 768px) {
@@ -36,27 +74,28 @@ export const DivPageRegister = styled.div`
   }
 
   @media (min-width: 1100px) {
-    width: 65%;
-  }
-
-  @media (min-width: 1400px) {
     width: 60%;
   }
 
-  @media (min-width: 1600px) {
+  @media (min-width: 1400px) {
     width: 50%;
+  }
+
+  @media (min-width: 1600px) {
+    width: 35%;
   }
 
   .logo--pageRegister {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 30%;
+    width: 40%;
     margin-top: 10px;
     margin-bottom: 10px;
 
     @media (min-width: 768px) {
-      width: 50%;
+      width: 100%;
+      height: 100%;
     }
   }
 

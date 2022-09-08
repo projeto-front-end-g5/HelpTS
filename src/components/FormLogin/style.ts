@@ -14,7 +14,7 @@ export const ContainerFormLogin = styled.div`
   gap: 1rem;
 
   @media (min-width: 1600px) {
-    width: 70%;
+    width: 80%;
   }
 
   .ContainerLinkResgister {

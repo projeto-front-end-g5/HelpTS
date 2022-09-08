@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const ListTagContainer = styled.ul`
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   gap: 8px;
   overflow-x: scroll;
@@ -12,6 +12,10 @@ export const ListTagContainer = styled.ul`
 
   margin-top: 10px;
   width: 100%;
+
+  @media (min-width: 770px) {
+    justify-content: center;
+  }
 `;
 
 export const Button = styled.button`
@@ -33,7 +37,7 @@ export const Button = styled.button`
 
   background-color: transparent;
   border-radius: 12px;
-  border: 2px solid var(--yellow);
+  border: 1px solid var(--yellow);
   color: var(--yellow);
 
   transition: 0.4s;
