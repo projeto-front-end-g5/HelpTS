@@ -27,7 +27,7 @@ export const NavTypesContainer = styled.div<INavTypesContainer>`
   span {
     cursor: default;
     color: ${({ theme }) =>
-      theme === 'light' ? 'color: var(--blue-dark)' : 'var(--grey-light)'};
+      theme === 'light' ? 'var(--blue-dark)' : 'var(--grey-light)'};
   }
 
   .willDisable {
@@ -84,6 +84,6 @@ export const NavParams = styled.div<INavParams>`
 
   svg {
     color: ${({ theme }) =>
-      theme === 'light' ? 'color: var(--blue-dark)' : 'var(--grey-light)'};
+      theme === 'light' ? 'var(--blue-dark)' : 'var(--grey-light)'};
   }
 `;
