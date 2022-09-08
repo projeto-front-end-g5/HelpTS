@@ -74,7 +74,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
   const { setLoading } = useDashboardContext();
   const token = localStorage.getItem('token');
 
-  const navigate = useNavigate();
+  const = useNavigate();
 
   const [solutions, setSolutions] = useState<SolutionType[]>([]);
   const [filteredSolutions, setFilteredSolutions] = useState<SolutionType[]>(
