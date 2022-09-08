@@ -7,7 +7,7 @@ import {
   SetStateAction,
   Dispatch,
 } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import api from '../../services/api';
 
 interface ISolutionsProps {
@@ -71,6 +71,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
   const token = localStorage.getItem('token');
 
   const navigate = useNavigate();
+  /* const { searchId } = useParams(); */
 
   const [solutions, setSolutions] = useState<SolutionType[]>([]);
   const [filteredSolutions, setFilteredSolutions] = useState<SolutionType[]>(
@@ -122,11 +123,12 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
   const searchSolution = () => {
     setFilteredSolutions(
       solutions.filter(
-        (solution) => solution.title.toLowerCase().includes(search) /* ||
-          solution.tags.join().toLowerCase().includes(search) */
+        (solution) =>
+          solution.title.toLowerCase().includes(search) ||
+          solution.tags.join().toLowerCase().includes(search)
       )
     );
-    /* navigate(`/posts/${search}`, { replace: true }); */
+    navigate(`/search/${search}}`, { replace: true });
   };
 
   const searchFound = () => {
