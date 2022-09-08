@@ -7,9 +7,9 @@ import {
   SetStateAction,
   Dispatch,
 } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import api from '../../services/api';
-import { UserContext } from '../user/user';
+import { useDashboardContext } from '../dashboard/dashboard';
 
 interface ISolutionsProps {
   children: ReactNode;
@@ -71,6 +71,7 @@ interface ISolutionsData {
 const SolutionsContext = createContext<ISolutionsData>({} as ISolutionsData);
 
 const SolutionsProvider = ({ children }: ISolutionsProps) => {
+  const { setLoading } = useDashboardContext();
   const token = localStorage.getItem('token');
 
   const navigate = useNavigate();
@@ -104,7 +105,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then(() => {
-        console.log('Solução criada');
+        setLoading(false);
       })
       .catch((err) => console.error(err.response.data.message));
   };
@@ -114,6 +115,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
       .get('/solutions?_page=1&_limit=4')
       .then((response) => {
         setFilteredSolutions(response.data);
+        setLoading(false);
       })
       .catch((err) => console.error(err.response.data.message));
   }, []);
@@ -123,6 +125,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
       .get('/solutions')
       .then((response) => {
         setSolutions(response.data);
+        setLoading(false);
       })
       .catch((err) => console.error(err.response.data.message));
   }, []);
@@ -156,6 +159,8 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
         console.log('Solução deletada');
         navigate('/dashboard', { replace: true });
         setVisibilityDeleteSolution(false);
+        setLoading(false);
+
       })
       .catch((err) => console.error(err.response.data.message));
   };
@@ -195,7 +200,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
         }
       )
       .then(() => {
-        console.log('Solução editada');
+        setLoading(false);
       })
       .catch((err) => console.log(err.response.data.message));
   };
