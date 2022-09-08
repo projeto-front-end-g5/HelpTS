@@ -71,7 +71,6 @@ const SolutionsContext = createContext<ISolutionsData>({} as ISolutionsData);
 const SolutionsProvider = ({ children }: ISolutionsProps) => {
   const token = localStorage.getItem('token');
 
-  const navigate = useNavigate();
   /* const { searchId } = useParams(); */
 
   const [solutions, setSolutions] = useState<SolutionType[]>([]);
