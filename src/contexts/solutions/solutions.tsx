@@ -108,8 +108,9 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
 
   useEffect(() => {
     api
-      .get('/solutions?_page=1&_limit=4')
+      .get('/solutions')
       .then((response) => {
+        setSolutions(response.data);
         setFilteredSolutions(response.data);
       })
       .catch((err) => console.error(err.response.data.message));
@@ -117,9 +118,9 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
 
   useEffect(() => {
     api
-      .get('/solutions')
+      .get('/solutions?_page=1&_limit=4')
       .then((response) => {
-        setSolutions(response.data);
+        setFilteredSolutions(response.data);
       })
       .catch((err) => console.error(err.response.data.message));
   }, []);
