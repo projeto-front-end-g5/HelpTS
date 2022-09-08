@@ -8,7 +8,6 @@ import {
   Dispatch,
 } from 'react';
 import api from '../../services/api';
-import { useDashboardContext } from '../dashboard/dashboard';
 
 interface ISolutionsProps {
   children: ReactNode;
@@ -147,7 +146,6 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
   };
 
   const RequestEdit = (item: IDataEdit) => {
-    console.log(item);
     const { title, tag, contentText, contentCode } = item;
     const newContent = {
       text: contentText,
@@ -158,7 +156,6 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
     const month = dateUpdate.getMonth() + 1;
     const year = dateUpdate.getFullYear();
     const newDateSolution = `0${day}/0${month}/${year}`;
-    console.log(dateUpdate, newDateSolution);
 
     api
       .patch(

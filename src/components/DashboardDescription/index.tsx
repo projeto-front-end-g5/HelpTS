@@ -4,7 +4,6 @@ import InputSearch from '../InputSearch';
 import TagList from '../TagList';
 import { useDashboardContext } from '../../contexts/dashboard/dashboard';
 
-
 const DashboardDescription = () => {
   const { backGroundColorContainerBlue, backGroundColorDark, currentTheme } =
     useDashboardContext();
