@@ -9,7 +9,6 @@ import {
 } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../../services/api';
-import { useDashboardContext } from '../dashboard/dashboard';
 
 interface ISolutionsProps {
   children: ReactNode;
@@ -57,6 +56,7 @@ interface ISolutionsData {
   contentCodeSolution: string;
   contentTag: string[];
   visibilityEditSolution: boolean;
+  filterTags: (tag: string) => void;
   EditSolution: (item: SolutionType) => void;
   RequestEdit: (item: IDataEdit) => void;
   setIdSolution: (idSolution: number) => void;
@@ -95,7 +95,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
       .post('/solutions', data, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then((response) => {
+      .then(() => {
         console.log('Solução criada');
       })
       .catch((err) => console.error(err.response.data.message));
@@ -150,7 +150,6 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
   };
 
   const RequestEdit = (item: IDataEdit) => {
-    console.log(item);
     const { title, tag, contentText, contentCode } = item;
     const newContent = {
       text: contentText,
@@ -161,7 +160,6 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
     const month = dateUpdate.getMonth() + 1;
     const year = dateUpdate.getFullYear();
     const newDateSolution = `0${day}/0${month}/${year}`;
-    console.log(dateUpdate, newDateSolution);
 
     api
       .patch(
@@ -198,6 +196,11 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
     setContentTextSolution(item.content.text);
     setContentCodeSolution(item.content.code[0]);
     setContentTag(item.tags);
+  };
+
+  const filterTags = (tag: string) => {
+    const newArr = solutions.filter((item) => item.tags[0] === tag);
+    setFilteredSolutions(newArr);
   };
 
   /*   EditSolution({
@@ -242,6 +245,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
         visibilityEditSolution,
         setSolutions,
         isFound,
+        filterTags,
       }}
     >
       {children}

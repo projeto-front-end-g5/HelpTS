@@ -1,6 +1,14 @@
+import { ReactNode } from 'react';
 import styled from 'styled-components';
 
-export const FootContainer = styled.div`
+interface IFootContainer {
+  children: ReactNode;
+  backGroundColorContainerBlue: string;
+  backGroundColorDark: string;
+  theme: string;
+}
+
+export const FootContainer = styled.div<IFootContainer>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,12 +18,15 @@ export const FootContainer = styled.div`
 
   width: 100%;
 
-  background-color: var(--blue);
+  background-color: ${({
+    theme,
+    backGroundColorDark,
+    backGroundColorContainerBlue,
+  }) =>
+    theme === 'light' ? backGroundColorContainerBlue : backGroundColorDark};
 
   position: relative;
   bottom: 0;
-  left: 0;
-  right: 0;
 
   .div-one {
     display: flex;
@@ -26,6 +37,7 @@ export const FootContainer = styled.div`
 
     width: 100%;
     min-height: 30px;
+    color: var(--blue-dark);
 
     background-color: var(--grey-card);
 
@@ -148,8 +160,7 @@ export const FootContainer = styled.div`
           font-size: 12px;
 
           @media (min-width: 600px) {
-            margin-top: 5px;
-
+            margin-top: 10px;
             font-size: 10px;
           }
 
@@ -166,6 +177,12 @@ export const FootContainer = styled.div`
 
     .section-two {
       margin-top: 5px;
+
+      .divbottom {
+        @media (min-width: 600px) {
+          margin-top: 9px;
+        }
+      }
 
       .divbottom h3 {
         display: flex;
@@ -247,6 +264,12 @@ export const FootContainer = styled.div`
 
     .section-three {
       margin-top: 5px;
+
+      .divbottom {
+        @media (min-width: 600px) {
+          margin-top: 15px;
+        }
+      }
 
       .divbottom ul {
         display: flex;

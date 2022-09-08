@@ -1,4 +1,5 @@
 import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 import {
   createContext,
   useContext,
@@ -7,7 +8,7 @@ import {
   useEffect,
 } from 'react';
 import api from '../../services/api';
-import { useSolutionsContext } from '../solutions/solutions';
+import { SolutionType, useSolutionsContext } from '../solutions/solutions';
 
 interface IDashboardProps {
   children: ReactNode;
@@ -24,29 +25,51 @@ interface SolutionsCard {
   likes: number;
 }
 
+interface ITags {
+  id: string;
+  tag: string;
+}
+
 export interface ISolutionCardProps {
   item: SolutionsCard;
 }
 
 interface IDashboardData {
-  tags: string[];
+  tags: ITags[];
   darkMode: boolean;
   counter: number;
   buttonClick: boolean;
+  limit: number;
+  currentTheme: string;
+  backGroundColorLight: string;
+  backGroundColorHeader: string;
+  backGroundColorDark: string;
+  backGroundColorContainerBlue: string;
   DarkLight(): void;
   increase(): void;
   decrease(): void;
-  limit: number;
+  changeTheme(): void;
+  setBackgroundColorLight: (backGroundColorLight: string) => void;
+  setBackgroundColorDark: (backGroundColorDark: string) => void;
+  setBackGroundColorContainerBlue: (
+    backGroundColorContainerBlue: string
+  ) => void;
+  setCurrentTheme: (currentTheme: string) => void;
   setLimit: React.Dispatch<React.SetStateAction<number>>;
   showAll: () => void;
   showMine: () => void;
   navigate: NavigateFunction;
   IncreaseLike: (like: number) => number;
   Like: (item: SolutionsCard) => void;
+  setBackGroundColorHeader: (backGroundColorHeader: string) => void;
   setCounter: React.Dispatch<React.SetStateAction<number>>;
   setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
-  setTags: React.Dispatch<React.SetStateAction<string[]>>;
+  setTags: React.Dispatch<React.SetStateAction<ITags[]>>;
   setButtonClick: (buttonClick: boolean) => void;
+  filteredSolutions: SolutionType[];
+  postId: number;
+  setPostId: React.Dispatch<React.SetStateAction<number>>;
+
 }
 
 const DashboardContext = createContext<IDashboardData>({} as IDashboardData);
@@ -58,19 +81,34 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
   const [counter, setCounter] = useState(1);
   const [limit, setLimit] = useState(4);
   const [buttonClick, setButtonClick] = useState(false);
-  const [tags, setTags] = useState<string[]>([
-    'state',
-    'function',
-    'styled-components',
-    'png',
-    'axios',
-    'contextApi',
-    'props',
-    'parameter',
-  ]);
+  const [postId, setPostId] = useState(0);
+  const [currentTheme, setCurrentTheme] = useState('light');
+  const [backGroundColorLight, setBackgroundColorLight] = useState('#E4E4C8');
+  const [backGroundColorDark, setBackgroundColorDark] = useState('#1C1C1C');
+  const [backGroundColorHeader, setBackGroundColorHeader] = useState('#EEB73F');
+  const [backGroundColorContainerBlue, setBackGroundColorContainerBlue] =
+    useState('#4087D7');
 
-  const { setFilteredSolutions, filteredSolutions, solutions } =
-    useSolutionsContext();
+  const [tags, setTags] = useState<ITags[]>([
+    { id: uuidv4(), tag: 'state' },
+    { id: uuidv4(), tag: 'function' },
+    { id: uuidv4(), tag: 'styled-components' },
+    { id: uuidv4(), tag: 'png' },
+    { id: uuidv4(), tag: 'axios' },
+    { id: uuidv4(), tag: 'contextApi' },
+    { id: uuidv4(), tag: 'props' },
+    { id: uuidv4(), tag: 'parameter' },
+    { id: uuidv4(), tag: 'string' },
+  ]);
+  
+  const [currentTheme, setCurrentTheme] = useState('light');
+  const [backGroundColorLight, setBackgroundColorLight] = useState('#E4E4C8');
+  const [backGroundColorDark, setBackgroundColorDark] = useState('#1C1C1C');
+  const [backGroundColorHeader, setBackGroundColorHeader] = useState('#EEB73F');
+  const [backGroundColorContainerBlue, setBackGroundColorContainerBlue] =
+    useState('#4087D7');
+
+  const { setFilteredSolutions, filteredSolutions, solutions } = useSolutionsContext();
 
   function increase() {
     if (counter < 5) {
@@ -94,7 +132,7 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
       .then((response) => {
         setFilteredSolutions(response.data);
       })
-      .catch((err) => console.log(err.response.data.message));
+      .catch((err) => console.error(err.response.data.message));
   }, [counter, limit]);
 
   const showAll = () => {
@@ -104,54 +142,59 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
 
   const showMine = () => {
     const idUser = localStorage.getItem('userId');
-    console.log(idUser);
 
-    // const filtered = solutions.filter((solution) =>
-    //   console.log(solution.userId)
-    // );
-    console.log(solutions);
     const filtered = solutions.filter(
       (solution) => solution.userId === Number(idUser)
     );
 
-    console.log(filtered);
     setFilteredSolutions(filtered);
   };
 
   function DarkLight() {
-    return darkMode ? setDarkMode(false) : setDarkMode(true);
+    if (darkMode) {
+      setDarkMode(false);
+      setCurrentTheme('light');
+    } else {
+      setDarkMode(true);
+      setCurrentTheme('dark');
+    }
   }
 
   function IncreaseLike(like: number) {
-    console.log(like);
     return like + 1;
   }
 
+  const changeTheme = () => {
+    DarkLight();
+    if (darkMode) {
+      setBackgroundColorLight('#1C1C1C');
+    } else {
+      setBackgroundColorLight('#E4E4C8');
+    }
+  };
+
   function Like(item: SolutionsCard) {
-    setButtonClick(!buttonClick);
-    if (!buttonClick) {
-      console.log('foi');
+    setButtonClick(true);
+    if (buttonClick) {
+      setPostId(item.id);
+
       const newLike = IncreaseLike(item.likes);
+
       // eslint-disable-next-line camelcase, no-shadow
       const { content, created_at, id, tags, title, updated_at, userId } = item;
       api
         .patch(
           `/solutions/${item.id}`,
           {
-            // eslint-disable-next-line object-shorthand
-            title: title,
-            // eslint-disable-next-line object-shorthand
-            content: content,
+            title,
+            content,
             // eslint-disable-next-line object-shorthand, camelcase
             created_at: created_at,
             // eslint-disable-next-line object-shorthand, camelcase
             updated_at: updated_at,
-            // eslint-disable-next-line object-shorthand
-            tags: tags,
-            // eslint-disable-next-line object-shorthand
-            userId: userId,
-            // eslint-disable-next-line object-shorthand
-            id: id,
+            tags,
+            userId,
+            id,
             likes: newLike,
           },
           {
@@ -160,7 +203,7 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
             },
           }
         )
-        .then((response) => {
+        .then(() => {
           console.log('like adicionado');
         })
         .catch((err) => console.error(err.response.data.message));
@@ -186,8 +229,22 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
         IncreaseLike,
         limit,
         setLimit,
+        currentTheme,
+        setCurrentTheme,
+        backGroundColorLight,
+        setBackgroundColorLight,
+        changeTheme,
+        backGroundColorHeader,
+        setBackGroundColorHeader,
+        backGroundColorDark,
+        setBackgroundColorDark,
+        backGroundColorContainerBlue,
+        setBackGroundColorContainerBlue,
         showAll,
         showMine,
+        filteredSolutions,
+        postId,
+        setPostId,
       }}
     >
       {children}
