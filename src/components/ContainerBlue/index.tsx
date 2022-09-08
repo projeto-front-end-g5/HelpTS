@@ -5,18 +5,28 @@ import { Container } from './style';
 
 const ContainerBlue = () => {
   const navigate = useNavigate();
-  const { setLimit } = useDashboardContext();
+  const {
+    setLimit,
+    currentTheme,
+    backGroundColorContainerBlue,
+    backGroundColorDark,
+  } = useDashboardContext();
 
   return (
-    <Container>
+    <Container
+      theme={currentTheme}
+      backGroundColorContainerBlue={backGroundColorContainerBlue}
+      backGroundColorDark={backGroundColorDark}
+    >
       <Button
         text='Voltar'
-        height='1.25rem'
+        height='2.25rem'
         onClick={() => {
           navigate('/dashboard');
           setLimit(4);
         }}
-        width='3.4rem'
+        width='6.4rem'
+        fontSize='17px'
       />
     </Container>
   );

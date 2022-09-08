@@ -44,21 +44,24 @@ interface ISolutionsData {
   setSolutions: Dispatch<SetStateAction<SolutionType[]>>;
   solutions: SolutionType[];
   search: string;
+  setSearch: Dispatch<SetStateAction<string>>;
+  searchSolution: () => void;
+  searchFound: () => void;
   isFound: boolean;
   filteredSolutions: SolutionType[];
   setFilteredSolutions: Dispatch<SetStateAction<SolutionType[]>>;
+  deleteSolution: () => void;
   visibilityDeleteSolution: boolean;
   contentTextSolution: string;
   contentCodeSolution: string;
   contentTag: string[];
   visibilityEditSolution: boolean;
-  deleteSolution: () => void;
-  searchSolution: () => void;
+  filterTags: (tag: string) => void;
   EditSolution: (item: SolutionType) => void;
   RequestEdit: (item: IDataEdit) => void;
   setIdSolution: (idSolution: number) => void;
+  /* getSolution: (data: ISolutionsData) => void; */
   createSolution: (data: ISolutionsData) => void;
-  setSearch: React.Dispatch<React.SetStateAction<string>>;
   setVisibilityDeleteSolution: (visibilityDeleteSolution: boolean) => void;
   OpenSolution: (id:number) => void;
 }
@@ -100,45 +103,47 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
       .post('/solutions', data, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then((response) => {
+      .then(() => {
         console.log('Solução criada');
       })
-      .catch((err) => console.log(err.response.data.message));
+      .catch((err) => console.error(err.response.data.message));
   };
 
   useEffect(() => {
     api
       .get('/solutions?_page=1&_limit=4')
       .then((response) => {
-        setSolutions(response.data);
         setFilteredSolutions(response.data);
       })
-      .catch((err) => console.log(err.response.data.message));
+      .catch((err) => console.error(err.response.data.message));
+  }, []);
+
+  useEffect(() => {
+    api
+      .get('/solutions')
+      .then((response) => {
+        setSolutions(response.data);
+      })
+      .catch((err) => console.error(err.response.data.message));
   }, []);
 
   const searchSolution = () => {
     setFilteredSolutions(
-      solutions.filter((solution) =>
-        solution.title.toLowerCase().includes(search)
+      solutions.filter(
+        (solution) => solution.title.toLowerCase().includes(search) /* ||
+          solution.tags.join().toLowerCase().includes(search) */
       )
     );
   };
 
-  // const searchFound = () => {
-  //   solutions.filter((solution) => {
-  //     const filtered = solution.title.toLowerCase().includes(search);
+  const searchFound = () => {
+    const filtered = solutions.map((solution) =>
+      solution.title.toLowerCase().includes(search)
+    );
+    setIsFound(filtered.some((elem) => elem === true));
 
-  //     if (filtered === true) {
-  //       return setIsFound(true);
-  //       // eslint-disable-next-line no-else-return
-  //     } else {
-  //       setIsFound(false);
-  //     }
-
-  //     return filtered;
-  //   });
-  //   console.log(search);
-  // };
+    return filtered;
+  };
 
   const deleteSolution = () => {
     api
@@ -148,11 +153,10 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
       .then(() => {
         console.log('Solução deletada');
       })
-      .catch((err) => console.log(err.response.data.message));
+      .catch((err) => console.error(err.response.data.message));
   };
 
   const RequestEdit = (item: IDataEdit) => {
-    console.log(item);
     const { title, tag, contentText, contentCode } = item;
     const newContent = {
       text: contentText,
@@ -163,7 +167,6 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
     const month = dateUpdate.getMonth() + 1;
     const year = dateUpdate.getFullYear();
     const newDateSolution = `0${day}/0${month}/${year}`;
-    console.log(dateUpdate, newDateSolution);
 
     api
       .patch(
@@ -202,6 +205,11 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
     setContentTag(item.tags);
   };
 
+  const filterTags = (tag: string) => {
+    const newArr = solutions.filter((item) => item.tags[0] === tag);
+    setFilteredSolutions(newArr);
+  };
+
   /*   EditSolution({
     title: 'Como tipar um useState?',
     content: {
@@ -226,6 +234,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
         search,
         setSearch,
         searchSolution,
+        searchFound,
         filteredSolutions,
         setFilteredSolutions,
         visibilityDeleteSolution,
@@ -243,7 +252,11 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
         visibilityEditSolution,
         setSolutions,
         isFound,
+<<<<<<< HEAD
         OpenSolution
+=======
+        filterTags,
+>>>>>>> develop
       }}
     >
       {children}

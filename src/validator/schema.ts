@@ -25,10 +25,7 @@ export const formRegisterSchema = yup.object().shape({
     .string()
     .required('Contato obrigatório!')
     .min(11, 'Número com 11 digitos')
-    .matches(
-      /[1-9]{2}9[1-9]\d{4}/,
-      'Insira um DDD sem parenteses e um número com 9 digitos sem espaços ou traço!'
-    ),
+    .matches(/[1-9]{2}9[1-9]\d{4}/, 'Somente numeros com DDD'),
   github: yup.string().required('Necessário inserir a URL!'),
   password: yup
     .string()
@@ -54,9 +51,9 @@ export const formEditSolution = yup.object().shape({
 export const newPostSchema = yup.object().shape({
   title: yup
     .string()
-    .required('Titulo obrigatório!')
-    .min(8, 'No minimo 8 caracteres'),
-  tags: yup.string().required('Titulo obrigatório!'),
-  text: yup.string().required('Campo obrigatório'),
-  code: yup.string(),
+    .required('Necessário estar preenchido')
+    .min(6, 'No minimo 6 caracteres'),
+  tags: yup.string().required('Necessário estar selecionado'),
+  text: yup.string().required('Necessário estar preenchido'),
+  code: yup.string().required('Necessário estar preenchido'),
 });

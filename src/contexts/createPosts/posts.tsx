@@ -1,7 +1,15 @@
 /* eslint-disable camelcase */
-import { createContext, useContext, useState, ReactNode } from 'react';
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import api from '../../services/api';
-import { UserContext } from '../user/user';
+import { useSolutionsContext } from '../solutions/solutions';
 
 interface IPostProps {
   children: ReactNode;
@@ -22,7 +30,7 @@ interface IPostFull {
   };
   created_at?: string;
   updated_at?: string;
-  tags: string;
+  tags: string[];
   likes: number;
   userId: string | null;
 }
@@ -35,18 +43,35 @@ interface IPostData {
   title: string;
   setTitle: React.Dispatch<React.SetStateAction<string>>;
   newSolution: (data: IPost) => void;
+  getDate: () => string;
 }
 
 const PostContext = createContext<IPostData>({} as IPostData);
 
 const PostProvider = ({ children }: IPostProps) => {
-  const { user } = useContext(UserContext);
+  const { solutions, setSolutions, filteredSolutions, setFilteredSolutions } =
+    useSolutionsContext();
 
   const [textcode, setTextcode] = useState('');
   const [texts, setTexts] = useState('');
-  const [title, setTitle] = useState('Titulo');
+  const [title, setTitle] = useState('');
 
-  const newSolution = async (data: IPost) => {
+  const navigate = useNavigate();
+
+  const getDate = () => {
+    const dateUpdate = new Date();
+    const day = dateUpdate.getDate();
+    const month = dateUpdate.getMonth() + 1;
+    const year = dateUpdate.getFullYear();
+
+    return `0${day}/0${month}/${year}`;
+  };
+
+  useEffect(() => {
+    getDate();
+  }, []);
+
+  const newSolution = async (post: IPost) => {
     const dateUpdate = new Date();
     const day = dateUpdate.getDate();
     const month = dateUpdate.getMonth() + 1;
@@ -56,29 +81,46 @@ const PostProvider = ({ children }: IPostProps) => {
     const idUser = localStorage.getItem('userId');
     const token = localStorage.getItem('token');
 
-    console.log(user);
-
     const solution: IPostFull = {
-      title: data.title,
+      title: post.title,
       content: {
-        text: data.text,
-        code: data.code,
+        text: post.text,
+        code: post.code,
       },
       created_at: newDateSolution,
       updated_at: newDateSolution,
-      tags: data.tags,
+      tags: [post.tags],
       likes: 0,
       userId: idUser,
     };
-    console.log(solution);
 
     try {
-      await api.post('/solutions', solution, {
+      const { data } = await api.post('/solutions', solution, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      console.log('funcionou');
+      setFilteredSolutions([...filteredSolutions, data]);
+      setSolutions([...solutions, data]);
+      navigate('/posts', { replace: true });
+      toast('✅ Solução criada com sucesso!', {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     } catch (error) {
       console.error(error);
+      toast('❌ Tente novamente!', {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
@@ -92,6 +134,7 @@ const PostProvider = ({ children }: IPostProps) => {
         newSolution,
         title,
         setTitle,
+        getDate,
       }}
     >
       {children}

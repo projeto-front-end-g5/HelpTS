@@ -1,4 +1,6 @@
+/* eslint-disable react/no-array-index-key */
 import { FaRegThumbsUp, FaThumbsUp } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 import {
   ISolutionCardProps,
   useDashboardContext,
@@ -6,15 +8,20 @@ import {
 import { DivSolutionCard } from './style';
 
 const SolutionCard = ({ item }: ISolutionCardProps) => {
-  const { buttonClick, Like } = useDashboardContext();
+  const { buttonClick, Like, postId } = useDashboardContext();
   const { title, tags, likes } = item;
+
+  const navigate = useNavigate();
+
   return (
     <DivSolutionCard>
       <div className='card1'>
         <h3 className='title--card'>{title}</h3>
         <span className='span--tags'>
-          {tags.map((tag: string) => (
-            <p className='tag--card'>#{tag}</p>
+          {tags.map((tag: string, index) => (
+            <p key={index} className='tag--card'>
+              #{tag}
+            </p>
           ))}
         </span>
       </div>
@@ -25,14 +32,17 @@ const SolutionCard = ({ item }: ISolutionCardProps) => {
             type='button'
             onClick={() => Like(item)}
           >
-            {buttonClick ? <FaThumbsUp /> : <FaRegThumbsUp />}
+            {postId === item.id && buttonClick ? (
+              <FaThumbsUp />
+            ) : (
+              <FaRegThumbsUp />
+            )}
           </button>
           <p className='countLike--card'>{likes} likes</p>
         </div>
-        <span className='span--tags'>
-          <p className='hash--card'>Comentários</p>
-          <p className='hash--card'>Dúvidas</p>
-        </span>
+
+        <p className='hash--card'>Comentários</p>
+
       </div>
     </DivSolutionCard>
   );

@@ -19,9 +19,20 @@ interface INewPost {
 }
 
 const CreatePostCard = () => {
-  const { texts, setTexts, newSolution, textcode, setTextcode, setTitle } =
-    usePostContext();
+  const {
+    texts,
+    setTexts,
+    newSolution,
+    textcode,
+    setTextcode,
+    setTitle,
+    getDate,
+  } = usePostContext();
+
   const [iconcode, setIconcode] = useState(false);
+  const [teste, setTeste] = useState('');
+
+  const nomeUsuario = localStorage.getItem('userName');
 
   const {
     register,
@@ -34,9 +45,9 @@ const CreatePostCard = () => {
       <ContainerCommentTitle>
         <div className='cardComment--name'>
           <strong>B</strong>
-          <p>Bruna</p>
+          <p>{nomeUsuario}</p>
         </div>
-        <span>30/08/2022</span>
+        <span>{getDate()}</span>
       </ContainerCommentTitle>
       <form
         className='divInput--newpost'
@@ -53,9 +64,19 @@ const CreatePostCard = () => {
           {errors && <p>{errors.title?.message}</p>}
         </label>
 
-        <label className='label--newPost'>
+        <label htmlFor='tag' className='label--select'>
           Tag
-          <input className='input--newPost' type='text' {...register('tags')} />
+          <select id='tag' {...register('tags')}>
+            <option value={teste}>Escolha uma tag</option>
+            <option value='state'>state</option>
+            <option value='function'>function</option>
+            <option value='png'>png</option>
+            <option value='axios'>axios</option>
+            <option value='props'>props</option>
+            <option value='contextApi'>contextApi</option>
+            <option value='parameter'>parameter</option>
+          </select>
+          {errors && <p>{errors.tags?.message}</p>}
         </label>
 
         {iconcode === false ? (
@@ -65,7 +86,7 @@ const CreatePostCard = () => {
               <div className='div--icon'>
                 <textarea
                   {...register('text')}
-                  className='input--newPost'
+                  className='input--newText'
                   value={texts}
                   onChange={(e) => setTexts(e.target.value)}
                 />
@@ -90,9 +111,10 @@ const CreatePostCard = () => {
                     onChange={(e) => setTextcode(e.target.value)}
                     padding={5}
                     style={{
+                      overflow: 'auto',
                       border: '1px solid var(--blue)',
                       borderRadius: 5,
-                      height: 60,
+                      height: 70,
                       fontSize: 12,
                       backgroundColor: 'rgb(42, 39, 52)',
                       fontFamily:
@@ -115,7 +137,10 @@ const CreatePostCard = () => {
               className='btn--newPost'
               type='reset'
               value='Limpar tudo'
-              onClick={() => setTexts('')}
+              onClick={() => {
+                setTexts('');
+                setTitle('');
+              }}
             />
           </section>
 

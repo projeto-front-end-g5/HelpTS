@@ -13,4 +13,11 @@ export const Container = styled.section`
     width: 70%;
     margin: 20px;
   }
+
+  @media screen and (max-width: 700px) {
+    .main--posts {
+      width: 90%;
+      margin: 20px;
+    }
+  }
 `;
