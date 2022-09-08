@@ -27,6 +27,12 @@ export const ButtonAll = styled.button`
   font-family: 'Tajawal';
   align-self: center;
   margin: 20px;
+  cursor: pointer;
+
+  &:hover {
+    transition: 0.5s;
+    opacity: 0.8;
+  }
 `;
 
 export const DivCardDash = styled.div`
