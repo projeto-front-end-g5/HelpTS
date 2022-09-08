@@ -74,7 +74,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
   const { setLoading } = useDashboardContext();
   const token = localStorage.getItem('token');
 
-  const = useNavigate();
+  const navigate = useNavigate();
 
   const [solutions, setSolutions] = useState<SolutionType[]>([]);
   const [filteredSolutions, setFilteredSolutions] = useState<SolutionType[]>(
@@ -152,6 +152,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
 
   const deleteSolution = () => {
     console.log('foi?');
+    console.log('foi2?');
     api
       .delete(`/solutions/${idSolution}`, {
         headers: { Authorization: `Bearer ${token}` },
