@@ -29,11 +29,6 @@ export const BtnHomeLogoHelpTSContainer = styled.div`
       color: var(--blue-dark);
 
       font-size: 15px;
-
-      :hover {
-        transition: 0.5s;
-        background: #00207c30;
-      }
     }
   }
 `;

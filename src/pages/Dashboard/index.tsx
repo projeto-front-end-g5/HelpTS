@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import DashboardDescription from '../../components/DashboardDescription';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
@@ -10,8 +10,6 @@ import { ButtonAll, DashboardContainer, DivCardDash } from './styles';
 
 const Dashboard = () => {
   const { setLimit } = useDashboardContext();
-
-  const navigate = useNavigate();
 
   return (
     <motion.div
@@ -27,14 +25,15 @@ const Dashboard = () => {
           <NavCard />
           <DivCardDash />
           <SolutionList />
-          <ButtonAll
-            onClick={() => {
-              navigate('/posts');
-              setLimit(10);
-            }}
-          >
-            Mostrar todos
-          </ButtonAll>
+          <Link to='/posts'>
+            <ButtonAll
+              onClick={() => {
+                setLimit(10);
+              }}
+            >
+              Mostrar todos
+            </ButtonAll>
+          </Link>
         </section>
         <Footer targetType='_blank' />
       </DashboardContainer>

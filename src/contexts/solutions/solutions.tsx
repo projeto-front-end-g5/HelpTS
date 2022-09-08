@@ -81,7 +81,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
   const [search, setSearch] = useState('');
   const [isFound, setIsFound] = useState(true);
   const [visibilityDeleteSolution, setVisibilityDeleteSolution] =
-    useState(true);
+    useState(false);
   const [visibilityEditSolution, setVisibilityEditSolution] = useState(true);
   const [idSolution, setIdSolution] = useState(0);
   const [titleSolution, setTitleSolution] = useState('');
