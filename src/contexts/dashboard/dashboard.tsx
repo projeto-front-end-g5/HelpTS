@@ -48,7 +48,6 @@ interface IDashboardData {
   DarkLight(): void;
   increase(): void;
   decrease(): void;
-  /* troca(): void; */
   changeTheme(): void;
   setBackgroundColorLight: (backGroundColorLight: string) => void;
   setBackgroundColorDark: (backGroundColorDark: string) => void;
@@ -68,6 +67,8 @@ interface IDashboardData {
   setTags: React.Dispatch<React.SetStateAction<ITags[]>>;
   setButtonClick: (buttonClick: boolean) => void;
   filteredSolutions: SolutionType[];
+  postId: number;
+  setPostId: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const DashboardContext = createContext<IDashboardData>({} as IDashboardData);
@@ -79,6 +80,13 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
   const [counter, setCounter] = useState(1);
   const [limit, setLimit] = useState(4);
   const [buttonClick, setButtonClick] = useState(false);
+  const [postId, setPostId] = useState(0);
+  const [currentTheme, setCurrentTheme] = useState('light');
+  const [backGroundColorLight, setBackgroundColorLight] = useState('#E4E4C8');
+  const [backGroundColorDark, setBackgroundColorDark] = useState('#1C1C1C');
+  const [backGroundColorHeader, setBackGroundColorHeader] = useState('#EEB73F');
+  const [backGroundColorContainerBlue, setBackGroundColorContainerBlue] =
+    useState('#4087D7');
 
   const [tags, setTags] = useState<ITags[]>([
     { id: uuidv4(), tag: 'state' },
@@ -91,13 +99,6 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
     { id: uuidv4(), tag: 'parameter' },
     { id: uuidv4(), tag: 'string' },
   ]);
-
-  const [currentTheme, setCurrentTheme] = useState('light');
-  const [backGroundColorLight, setBackgroundColorLight] = useState('#E4E4C8');
-  const [backGroundColorDark, setBackgroundColorDark] = useState('#1C1C1C');
-  const [backGroundColorHeader, setBackGroundColorHeader] = useState('#EEB73F');
-  const [backGroundColorContainerBlue, setBackGroundColorContainerBlue] =
-    useState('#4087D7');
 
   const { setFilteredSolutions, filteredSolutions, solutions } =
     useSolutionsContext();
@@ -124,7 +125,7 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
       .then((response) => {
         setFilteredSolutions(response.data);
       })
-      .catch((err) => console.log(err.response.data.message));
+      .catch((err) => console.error(err.response.data.message));
   }, [counter, limit]);
 
   const showAll = () => {
@@ -134,17 +135,11 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
 
   const showMine = () => {
     const idUser = localStorage.getItem('userId');
-    console.log(idUser);
 
-    // const filtered = solutions.filter((solution) =>
-    //   console.log(solution.userId)
-    // );
-    console.log(solutions);
     const filtered = solutions.filter(
       (solution) => solution.userId === Number(idUser)
     );
 
-    console.log(filtered);
     setFilteredSolutions(filtered);
   };
 
@@ -159,7 +154,6 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
   }
 
   function IncreaseLike(like: number) {
-    console.log(like);
     return like + 1;
   }
 
@@ -173,29 +167,27 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
   };
 
   function Like(item: SolutionsCard) {
-    setButtonClick(!buttonClick);
-    if (!buttonClick) {
+    setButtonClick(true);
+    if (buttonClick) {
+      setPostId(item.id);
+
       const newLike = IncreaseLike(item.likes);
+
       // eslint-disable-next-line camelcase, no-shadow
       const { content, created_at, id, tags, title, updated_at, userId } = item;
       api
         .patch(
           `/solutions/${item.id}`,
           {
-            // eslint-disable-next-line object-shorthand
-            title: title,
-            // eslint-disable-next-line object-shorthand
-            content: content,
+            title,
+            content,
             // eslint-disable-next-line object-shorthand, camelcase
             created_at: created_at,
             // eslint-disable-next-line object-shorthand, camelcase
             updated_at: updated_at,
-            // eslint-disable-next-line object-shorthand
-            tags: tags,
-            // eslint-disable-next-line object-shorthand
-            userId: userId,
-            // eslint-disable-next-line object-shorthand
-            id: id,
+            tags,
+            userId,
+            id,
             likes: newLike,
           },
           {
@@ -244,6 +236,8 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
         showAll,
         showMine,
         filteredSolutions,
+        postId,
+        setPostId,
       }}
     >
       {children}
