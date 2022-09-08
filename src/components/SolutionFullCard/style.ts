@@ -271,18 +271,23 @@ export const Container = styled.div `
         display: flex;
         align-items: center;
         height: 50%;
-        gap: 0.3rem;
+        gap: 1.3rem;
+        border-left: 0.5rem  ;
     }
     .bottom-down-second{
         display: flex;
         align-items: center;
         height: 50%;
+        gap: 0.3rem;
+        border-left: 0.5rem  ;
     }
 
     .Avatar{
         width: 1.9rem;
         height: 1.9rem;
         background-color: #35beff;
+        margin-left: 0.5rem;
+        margin-top: 0.2rem;
     }
 `
 
