@@ -10,6 +10,7 @@ import { DivSolutionCard } from './style';
 const SolutionCard = ({ item }: ISolutionCardProps) => {
   const { buttonClick, Like, postId } = useDashboardContext();
   const { title, tags, likes } = item;
+  const token = localStorage.getItem('token');
 
   return (
     <DivSolutionCard>
@@ -30,10 +31,10 @@ const SolutionCard = ({ item }: ISolutionCardProps) => {
             type='button'
             onClick={() => Like(item)}
           >
-            {postId === item.id && buttonClick ? (
+            {postId === item.id && buttonClick && token ? (
               <FaThumbsUp />
             ) : (
-              <FaRegThumbsUp />
+              token && <FaRegThumbsUp />
             )}
           </button>
           <p className='countLike--card'>{likes} likes</p>
