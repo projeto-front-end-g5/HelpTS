@@ -64,8 +64,8 @@ interface ISolutionsData {
   /* getSolution: (data: ISolutionsData) => void; */
   createSolution: (data: ISolutionsData) => void;
   setVisibilityDeleteSolution: (visibilityDeleteSolution: boolean) => void;
-  setVisibilityEditSolution:(visibilityEditSolution: boolean) => void;
-  OpenSolution: (id:number) => void;
+  setVisibilityEditSolution: (visibilityEditSolution: boolean) => void;
+  OpenSolution: (id: number) => void;
 }
 
 const SolutionsContext = createContext<ISolutionsData>({} as ISolutionsData);
@@ -93,12 +93,10 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
     {} as SolutionType
   );
 
-  const navigate = useNavigate();
-
-  const OpenSolution = (id:number) => {
-    navigate(`solution/${id}`)
-    setIdSolution(id) 
-  }
+  const OpenSolution = (id: number) => {
+    navigate(`solution/${id}`);
+    setIdSolution(id);
+  };
 
   const createSolution = (data: ISolutionsData) => {
     api
@@ -157,8 +155,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
       .then(() => {
         console.log('Solução deletada');
         navigate('/dashboard', { replace: true });
-        setVisibilityDeleteSolution(false)
-
+        setVisibilityDeleteSolution(false);
       })
       .catch((err) => console.error(err.response.data.message));
   };
@@ -262,7 +259,6 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
         OpenSolution,
         filterTags,
         setVisibilityEditSolution,
-
       }}
     >
       {children}
