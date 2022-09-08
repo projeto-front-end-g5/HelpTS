@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const ContainerCreatePost = styled.div`
-  width: 80%;
+  width: 70%;
   height: fit-content;
   background-color: var(--grey-card);
   margin-top: 0.9375rem;
@@ -9,14 +9,7 @@ export const ContainerCreatePost = styled.div`
   border: 0.125rem solid var(--blue);
   font-family: 'Tajawal';
   padding: 0.75rem;
-
-  .aparece {
-    display: flex;
-  }
-
-  .desaparece {
-    display: none;
-  }
+  max-width: 850px;
 
   .codearea {
     height: 80px;
@@ -27,8 +20,9 @@ export const ContainerCreatePost = styled.div`
     font-family: 'Tajawal';
     display: flex;
     flex-direction: column;
-    gap: 0.2rem;
+    gap: 0.8rem;
     color: var(--blue);
+    margin: 10px 0 10px 0;
   }
 
   .divInput--newpost .label--newPost {
@@ -134,6 +128,7 @@ export const ContainerCreatePost = styled.div`
     color: var(--blue-dark);
     padding: 5px;
     font-size: 1rem;
+    cursor: pointer;
 
     :hover {
       opacity: 0.8;
