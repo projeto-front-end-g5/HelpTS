@@ -40,7 +40,6 @@ export const BtnHomeLogoHelpTSContainer = styled.div`
       @media (min-width: 768px) {
         font-size: 25px;
       }
-
     }
   }
 `;
