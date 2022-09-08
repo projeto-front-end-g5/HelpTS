@@ -73,6 +73,7 @@ body {
 
 button {
 	color: ${({ theme }) => theme.button};
+	cursor: pointer;
 }
 
 svg {
@@ -102,6 +103,27 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
+}
+
+* {
+
+	scrollbar-width: thin;
+	scrollbar-color: var(--blue);
+	scrollbar-base-color: transparent;
+
+	&::-webkit-scrollbar {
+		width: 6px;
+	}
+
+	&::-webkit-scrollbar-track {
+		background: transparent;
+		scrollbar-base-color: transparent;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: var(--blue);
+		border-radius: 5px;
+	}
 }
 
 `;

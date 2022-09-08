@@ -40,6 +40,16 @@ export const Container = styled.div<IContainer>`
     img {
       width: 5.625rem;
       height: 5.625rem;
+      animation: 1s bounceInLeft;
+    }
+
+    h2,
+    h3 {
+      animation: 2s bounceInDown;
+    }
+
+    p {
+      animation: 1s bounceInRight;
     }
 
     @media (min-width: 500px) {

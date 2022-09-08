@@ -1,6 +1,7 @@
 import { MdOutlineDarkMode } from 'react-icons/md';
 import { BiSun } from 'react-icons/bi';
-
+import Avatar from '@mui/material/Avatar';
+import { deepOrange } from '@mui/material/colors';
 import {
   ButtonLogout,
   DarkModeButton,
@@ -23,6 +24,8 @@ function Header() {
   } = useDashboardContext();
   const { token } = useLoginContext();
 
+  const username = localStorage.getItem('userName');
+
   return (
     <HeaderContainer
       theme={currentTheme}
@@ -40,7 +43,9 @@ function Header() {
               {darkMode ? <BiSun /> : <MdOutlineDarkMode />}
             </DarkModeButton>
             <UserImage>
-              <img alt='' />
+              <Avatar sx={{ width: 32, height: 32, bgcolor: deepOrange[500] }}>
+                {username && username[0]}
+              </Avatar>
             </UserImage>
           </DarkModeImgUserContainer>
           <ButtonLogout

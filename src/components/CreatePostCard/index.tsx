@@ -1,6 +1,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
 import CodeEditor from '@uiw/react-textarea-code-editor';
+import { Avatar } from '@mui/material';
+import { deepOrange } from '@mui/material/colors';
 import { useState } from 'react';
 import { useForm, FieldValues, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -44,7 +46,9 @@ const CreatePostCard = () => {
     <ContainerCreatePost>
       <ContainerCommentTitle>
         <div className='cardComment--name'>
-          <strong>B</strong>
+          <Avatar sx={{ width: 28, height: 28, bgcolor: deepOrange[500] }}>
+            {nomeUsuario && nomeUsuario[0]}
+          </Avatar>
           <p>{nomeUsuario}</p>
         </div>
         <span>{getDate()}</span>

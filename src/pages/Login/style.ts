@@ -23,16 +23,22 @@ export const BtnHomeLogoHelpTSContainer = styled.div`
     width: 90%;
 
     button {
+      display: flex;
+      align-items: center;
       background: transparent;
       border: none;
       border-radius: 5px;
       color: var(--blue-dark);
-
-      font-size: 15px;
+      padding: 5px;
+      font-size: 18px;
 
       :hover {
         transition: 0.5s;
         background: #00207c30;
+      }
+
+      @media (min-width: 768px) {
+        font-size: 25px;
       }
     }
   }

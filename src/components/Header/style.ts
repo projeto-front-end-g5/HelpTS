@@ -178,6 +178,10 @@ export const DarkModeButton = styled.button`
   background-color: var(--blue-dark);
   color: var(--yellow);
 
+  svg {
+    animation: 1s rotateInUpRight;
+  }
+
   @media (min-width: 1200px) {
     width: 2.5rem;
     height: 2.5rem;
