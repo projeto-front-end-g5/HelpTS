@@ -151,6 +151,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
   };
 
   const deleteSolution = () => {
+    console.log('foi?');
     api
       .delete(`/solutions/${idSolution}`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -160,7 +161,6 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
         navigate('/dashboard', { replace: true });
         setVisibilityDeleteSolution(false);
         setLoading(false);
-
       })
       .catch((err) => console.error(err.response.data.message));
   };
