@@ -7,6 +7,7 @@ import {
   SetStateAction,
   Dispatch,
 } from 'react';
+import { useNavigate } from 'react-router-dom';
 import api from '../../services/api';
 
 interface ISolutionsProps {
@@ -62,9 +63,12 @@ interface ISolutionsData {
   /* getSolution: (data: ISolutionsData) => void; */
   createSolution: (data: ISolutionsData) => void;
   setVisibilityDeleteSolution: (visibilityDeleteSolution: boolean) => void;
+  OpenSolution: (id:number) => void;
 }
 
 const SolutionsContext = createContext<ISolutionsData>({} as ISolutionsData);
+
+
 
 const SolutionsProvider = ({ children }: ISolutionsProps) => {
   const token = localStorage.getItem('token');
@@ -86,6 +90,13 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
   const [solutionEdit, setSolutionEdit] = useState<SolutionType>(
     {} as SolutionType
   );
+
+
+  const navigate = useNavigate();
+
+  const OpenSolution = (id:number) => {
+    navigate(`solution/${id}`)
+  }
 
   const createSolution = (data: ISolutionsData) => {
     api
@@ -241,6 +252,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
         visibilityEditSolution,
         setSolutions,
         isFound,
+        OpenSolution,
         filterTags,
       }}
     >
@@ -249,6 +261,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
   );
 };
 
+console.log()
 const useSolutionsContext = () => useContext(SolutionsContext);
 
 export { useSolutionsContext, SolutionsProvider };

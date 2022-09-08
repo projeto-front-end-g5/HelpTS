@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+
 export const ContainerSolutions = styled.ul`
   width: 100%;
   display: flex;
