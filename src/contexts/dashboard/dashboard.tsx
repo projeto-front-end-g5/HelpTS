@@ -141,7 +141,9 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
     const idUser = localStorage.getItem('userId');
 
     const filtered = solutions.filter(
-      (solution) => solution.userId === Number(idUser)
+      (solution) =>
+        // eslint-disable-next-line eqeqeq
+        solution.userId == Number(idUser)
     );
 
     setFilteredSolutions(filtered);
