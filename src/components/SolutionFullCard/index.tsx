@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import { FaTrashAlt,FaRegThumbsUp,FaGithubSquare} from 'react-icons/fa';
 import { BsPencilFill} from 'react-icons/bs';
+import { Avatar } from '@mui/material';
+import { deepOrange } from '@mui/material/colors';
 import { AiFillGithub} from 'react-icons/ai';
 import { DivSolutionCard } from "../SolutionCard/style"
 import { Container } from "./style"
@@ -12,6 +14,7 @@ import { useDashboardContext } from '../../contexts/dashboard/dashboard';
 import pc from '../../assets/pc.svg';
 import { useUserContext } from '../../contexts/user/user';
 import api from '../../services/api';
+
 
 
 interface IUser {
@@ -174,6 +177,7 @@ function SolutionFullCard({ id }: ISolutionFullCard): JSX.Element {
                   
                   <div className='bottom-down'>
                      <div className='bottom-down-second'>
+                     <Avatar className='Avatar' sx={{ bgcolor: deepOrange[500] }}>{userById.name[0]}</Avatar>
                          <h1 className='titulo-bottom'>{userById.name}</h1>
                      </div>
                     

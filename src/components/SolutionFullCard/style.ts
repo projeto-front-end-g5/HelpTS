@@ -202,7 +202,7 @@ export const Container = styled.div `
         
     }
     .bottom-up{
-        margin-top: 0.8rem;
+        margin-top: 0.7rem;
         height: 30%;
         display: flex;
         border-bottom: solid 1rem var(--blue-dark);
@@ -250,9 +250,9 @@ export const Container = styled.div `
     .buttonGit{
         background-color: var(--grey-card);
         border: none;
-        width: 2.5rem;
-        height: 2.5rem;
-        font-size: 2rem;
+        width: 1.5000rem;
+        height: 1.5rem;
+        font-size: 2.2rem;
         cursor: pointer;
         color: var(--grey-dark);
         
@@ -271,6 +271,7 @@ export const Container = styled.div `
         display: flex;
         align-items: center;
         height: 50%;
+        gap: 0.3rem;
     }
     .bottom-down-second{
         display: flex;
@@ -278,5 +279,10 @@ export const Container = styled.div `
         height: 50%;
     }
 
+    .Avatar{
+        width: 1.9rem;
+        height: 1.9rem;
+        background-color: #35beff;
+    }
 `
 
