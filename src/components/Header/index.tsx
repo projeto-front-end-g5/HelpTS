@@ -1,6 +1,5 @@
 import { MdOutlineDarkMode } from 'react-icons/md';
 import { BiSun } from 'react-icons/bi';
-
 import {
   ButtonLogout,
   DarkModeButton,

@@ -1,11 +1,13 @@
 import styled from 'styled-components';
 
+
 export const ContainerSolutions = styled.ul`
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 10px;
 `;
+
 export const DivSolutionCard = styled.li`
   width: 100%;
   min-height: 70px;
@@ -16,6 +18,12 @@ export const DivSolutionCard = styled.li`
   border-right: 5px solid var(--blue);
   border-radius: 10px;
   background-color: var(--grey-card);
+  cursor: pointer;
+  transition: 0.4s;
+
+  &:hover {
+    box-shadow: 1px 2px 3px grey;
+  }
 
   @media (min-width: 600px) {
     min-height: 90px;
@@ -84,7 +92,7 @@ export const DivSolutionCard = styled.li`
     color: var(--blue);
     padding-top: 5px;
     word-break: break-all;
-    
+
     @media (min-width: 600px) {
       font-size: 14px;
     }
@@ -96,8 +104,7 @@ export const DivSolutionCard = styled.li`
     @media (min-width: 1200px) {
       font-size: 18px;
     }
-    
-    }
+  }
 
   .card1 {
     font-family: 'Ubuntu';
