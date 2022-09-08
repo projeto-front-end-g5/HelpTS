@@ -72,7 +72,6 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
   const token = localStorage.getItem('token');
 
   const navigate = useNavigate();
-  /* const { searchId } = useParams(); */
 
   const [solutions, setSolutions] = useState<SolutionType[]>([]);
   const [filteredSolutions, setFilteredSolutions] = useState<SolutionType[]>(
@@ -91,8 +90,6 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
   const [solutionEdit, setSolutionEdit] = useState<SolutionType>(
     {} as SolutionType
   );
-
-  const navigate = useNavigate();
 
   const OpenSolution = (id: number) => {
     navigate(`solution/${id}`);
