@@ -88,6 +88,7 @@ function getUser(id:number, setUserById:any) {
 
   
 function SolutionFullCard({ id }: ISolutionFullCard): JSX.Element {
+   const { buttonClick,  postId } = useDashboardContext();
 
    const [userById, setUserById] = useState<IUser>({} as IUser);
 
@@ -104,6 +105,7 @@ function SolutionFullCard({ id }: ISolutionFullCard): JSX.Element {
    }
 
    getUser(solution.userId, setUserById)
+   const token = localStorage.getItem('token');
    return (
 
       <Container>
@@ -115,8 +117,20 @@ function SolutionFullCard({ id }: ISolutionFullCard): JSX.Element {
 
             <div className='second-top'>
                  <div>
-                  <button className='botao-modal-edit' type='button' ><BsPencilFill/> </button>
-                  <button className='botao-modal' type='button' onClick={() => setVisibilityDeleteSolution(true)}> <FaTrashAlt/> </button>
+                  <button className='botao-modal-edit' type='button' >
+                     {postId === solution.id && token ? (
+                     <BsPencilFill/>
+                     ) : (
+                     token && <BsPencilFill/>
+                     )}
+                  </button>
+                  <button className='botao-modal' type='button' onClick={() => setVisibilityDeleteSolution(true)}> 
+                     {postId === solution.id && buttonClick && token ? (
+                     <FaTrashAlt/>
+                     ) : (
+                     token && <FaTrashAlt/>
+                     )}
+                   </button>
                   
                   </div> 
 
@@ -177,7 +191,7 @@ function SolutionFullCard({ id }: ISolutionFullCard): JSX.Element {
                   
                   <div className='bottom-down'>
                      <div className='bottom-down-second'>
-                     <Avatar className='Avatar' sx={{ bgcolor: deepOrange[500] }}>{userById.name[0]}</Avatar>
+                     {userById.name !== undefined ? <Avatar className='Avatar' sx={{ bgcolor: deepOrange[500] }}>{userById.name[0]}</Avatar> : null}
                          <h1 className='titulo-bottom'>{userById.name}</h1>
                      </div>
                     
