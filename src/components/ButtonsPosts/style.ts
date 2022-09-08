@@ -9,5 +9,11 @@ export const Container = styled.div`
     border-radius: 22px;
     width: 100px;
     color: var(--white);
+
+    &:hover {
+      transition: 0.5s;
+      opacity: 0.8;
+      cursor: pointer;
+    }
   }
 `;

@@ -71,7 +71,7 @@ const SolutionsContext = createContext<ISolutionsData>({} as ISolutionsData);
 const SolutionsProvider = ({ children }: ISolutionsProps) => {
   const token = localStorage.getItem('token');
 
-  /* const { searchId } = useParams(); */
+  const navigate = useNavigate();
 
   const [solutions, setSolutions] = useState<SolutionType[]>([]);
   const [filteredSolutions, setFilteredSolutions] = useState<SolutionType[]>(
@@ -80,7 +80,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
   const [search, setSearch] = useState('');
   const [isFound, setIsFound] = useState(true);
   const [visibilityDeleteSolution, setVisibilityDeleteSolution] =
-    useState(true);
+    useState(false);
   const [visibilityEditSolution, setVisibilityEditSolution] = useState(true);
   const [idSolution, setIdSolution] = useState(0);
   const [titleSolution, setTitleSolution] = useState('');
@@ -90,8 +90,6 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
   const [solutionEdit, setSolutionEdit] = useState<SolutionType>(
     {} as SolutionType
   );
-
-  const navigate = useNavigate();
 
   const OpenSolution = (id: number) => {
     navigate(`solution/${id}`);

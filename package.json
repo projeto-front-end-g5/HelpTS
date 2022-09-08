@@ -17,6 +17,7 @@
     "@types/react-modal": "^3.13.1",
     "@types/uuid": "^8.3.4",
     "@uiw/react-textarea-code-editor": "^2.0.3",
+    "animate.css": "^4.1.1",
     "axios": "^0.27.2",
     "eslint-config-airbnb": "^19.0.4",
     "indent-string": "^5.0.0",

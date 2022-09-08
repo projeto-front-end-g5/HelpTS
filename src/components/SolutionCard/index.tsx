@@ -1,6 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 import { FaRegThumbsUp, FaThumbsUp } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+
 import {
   ISolutionCardProps,
   useDashboardContext,
@@ -10,8 +10,6 @@ import { DivSolutionCard } from './style';
 const SolutionCard = ({ item }: ISolutionCardProps) => {
   const { buttonClick, Like, postId } = useDashboardContext();
   const { title, tags, likes } = item;
-
-  const navigate = useNavigate();
 
   return (
     <DivSolutionCard>
@@ -42,7 +40,6 @@ const SolutionCard = ({ item }: ISolutionCardProps) => {
         </div>
 
         <p className='hash--card'>Comentários</p>
-
       </div>
     </DivSolutionCard>
   );
