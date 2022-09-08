@@ -8,7 +8,7 @@ import {
   useEffect,
 } from 'react';
 import api from '../../services/api';
-import { useSolutionsContext } from '../solutions/solutions';
+import { SolutionType, useSolutionsContext } from '../solutions/solutions';
 
 interface IDashboardProps {
   children: ReactNode;
@@ -67,6 +67,7 @@ interface IDashboardData {
   setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
   setTags: React.Dispatch<React.SetStateAction<ITags[]>>;
   setButtonClick: (buttonClick: boolean) => void;
+  filteredSolutions: SolutionType[];
 }
 
 const DashboardContext = createContext<IDashboardData>({} as IDashboardData);
@@ -89,16 +90,14 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
     { id: uuidv4(), tag: 'props' },
     { id: uuidv4(), tag: 'parameter' },
     { id: uuidv4(), tag: 'string' },
+  ]);
 
   const [currentTheme, setCurrentTheme] = useState('light');
   const [backGroundColorLight, setBackgroundColorLight] = useState('#E4E4C8');
   const [backGroundColorDark, setBackgroundColorDark] = useState('#1C1C1C');
   const [backGroundColorHeader, setBackGroundColorHeader] = useState('#EEB73F');
   const [backGroundColorContainerBlue, setBackGroundColorContainerBlue] =
-  useState('#4087D7');
-
-
-  ]);
+    useState('#4087D7');
 
   const { setFilteredSolutions, filteredSolutions, solutions } =
     useSolutionsContext();
@@ -152,10 +151,10 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
   function DarkLight() {
     if (darkMode) {
       setDarkMode(false);
-      setCurrentTheme('dark');
+      setCurrentTheme('light');
     } else {
       setDarkMode(true);
-      setCurrentTheme('light');
+      setCurrentTheme('dark');
     }
   }
 
@@ -244,6 +243,7 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
         setBackGroundColorContainerBlue,
         showAll,
         showMine,
+        filteredSolutions,
       }}
     >
       {children}
