@@ -5,10 +5,10 @@ import EmptyList from '../EmptyList';
 import NotFound from '../NotFound';
 import SolutionCard from '../SolutionCard';
 import { ContainerSolutions } from '../SolutionCard/style';
-import { Container, ContainerNotFound } from './style';
+import { Container, ContainerNotFound, SecondContainer } from './style';
 
 const SolutionList = () => {
-  const { filteredSolutions } = useSolutionsContext();
+const { filteredSolutions, isFound, OpenSolution } = useSolutionsContext();
   const { setLimit } = useDashboardContext();
   const rota = useParams();
 
@@ -27,7 +27,11 @@ const SolutionList = () => {
         </ContainerNotFound>
       ) : filteredSolutions.length ? (
         filteredSolutions.map((item) => (
-          <SolutionCard key={item.id} item={item} />
+         <SecondContainer onClick={() => OpenSolution(item.id)}>
+          <SolutionCard 
+          key={item.id} 
+          item={item}/>
+         </SecondContainer> 
         ))
       ) : (
         <Container>

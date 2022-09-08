@@ -24,13 +24,13 @@ const RoutesMain = () => (
     />
     <Routes>
       <Route path='/dashboard' element={<Dashboard />} />
+      <Route path='/search/:searchId' element={<Dashboard />} />
       <Route path='/register' element={<Register />} />
       <Route path='/login' element={<Login />} />
       <Route path='/comments' element={<Comments />} />
-      <Route path='/solution' element={<Solution />} />
+      <Route path='/solution/:id' element={<Solution />} />
       <Route path='/newpost' element={<CreatePost />} />
       <Route path='/:posts' element={<Posts />} />
-      <Route path='/posts/:search' element={<Posts />} />
       <Route path='*' element={<Navigate to='/dashboard' replace />} />
     </Routes>
   </>

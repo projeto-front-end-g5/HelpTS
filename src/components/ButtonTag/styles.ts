@@ -1,21 +1,15 @@
 import styled from 'styled-components';
 
 export const Button = styled.div`
-  
-    >button{
-        text-align: center;
+  > button {
+    text-align: center;
 
-        background-color: var(--grey-light);
-        color:(--black);
+    background-color: var(--grey-light);
 
-        border: none;
-        border-radius: 3.125rem;
+    border: none;
+    border-radius: 3.125rem;
 
-
-        font-family: 'Tajawal';
-        font-size: 0.625rem;
-        
-    }
-  
-  
+    font-family: 'Tajawal';
+    font-size: 0.625rem;
+  }
 `;
