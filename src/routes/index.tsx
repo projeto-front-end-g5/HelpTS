@@ -28,7 +28,7 @@ const RoutesMain = () => (
       <Route path='/register' element={<Register />} />
       <Route path='/login' element={<Login />} />
       <Route path='/comments' element={<Comments />} />
-      <Route path='/solution' element={<Solution />} />
+      <Route path='/solution/:id' element={<Solution />} />
       <Route path='/newpost' element={<CreatePost />} />
       <Route path='/:posts' element={<Posts />} />
       <Route path='*' element={<Navigate to='/dashboard' replace />} />
