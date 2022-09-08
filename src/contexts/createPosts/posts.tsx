@@ -93,7 +93,6 @@ const PostProvider = ({ children }: IPostProps) => {
       likes: 0,
       userId: idUser,
     };
-    console.log(solution);
 
     try {
       const { data } = await api.post('/solutions', solution, {

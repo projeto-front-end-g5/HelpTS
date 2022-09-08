@@ -1,5 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 import { FaRegThumbsUp, FaThumbsUp } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 import {
   ISolutionCardProps,
   useDashboardContext,
@@ -7,8 +8,11 @@ import {
 import { DivSolutionCard } from './style';
 
 const SolutionCard = ({ item }: ISolutionCardProps) => {
-  const { buttonClick, Like } = useDashboardContext();
+  const { buttonClick, Like, postId } = useDashboardContext();
   const { title, tags, likes } = item;
+
+  const navigate = useNavigate();
+
   return (
     <DivSolutionCard>
       <div className='card1'>
@@ -28,11 +32,17 @@ const SolutionCard = ({ item }: ISolutionCardProps) => {
             type='button'
             onClick={() => Like(item)}
           >
-            {buttonClick ? <FaThumbsUp /> : <FaRegThumbsUp />}
+            {postId === item.id && buttonClick ? (
+              <FaThumbsUp />
+            ) : (
+              <FaRegThumbsUp />
+            )}
           </button>
           <p className='countLike--card'>{likes} likes</p>
         </div>
+
         <p className='hash--card'>Comentários</p>
+
       </div>
     </DivSolutionCard>
   );
