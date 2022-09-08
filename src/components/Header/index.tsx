@@ -44,7 +44,7 @@ function Header() {
             </DarkModeButton>
             <UserImage>
               <Avatar sx={{ width: 32, height: 32, bgcolor: deepOrange[500] }}>
-                {username[0]}
+                {username && username[0]}
               </Avatar>
             </UserImage>
           </DarkModeImgUserContainer>
