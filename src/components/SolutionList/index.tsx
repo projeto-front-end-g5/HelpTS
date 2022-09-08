@@ -8,7 +8,7 @@ import { ContainerSolutions } from '../SolutionCard/style';
 import { Container, ContainerNotFound } from './style';
 
 const SolutionList = () => {
-  const { filteredSolutions, isFound } = useSolutionsContext();
+  const { filteredSolutions } = useSolutionsContext();
   const { setLimit } = useDashboardContext();
   const rota = useParams();
 
@@ -20,7 +20,7 @@ const SolutionList = () => {
 
   return (
     <ContainerSolutions>
-      {isFound === false ? (
+      {filteredSolutions.length === 0 ? (
         <ContainerNotFound>
           <div>Não há resultado disponível</div>
           <NotFound />
