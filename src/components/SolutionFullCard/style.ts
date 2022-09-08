@@ -2,7 +2,7 @@ import styled, { StyledComponent} from "styled-components";
 
 
 export const Container = styled.div `
-
+    margin-top: 3rem;
     width:  100%;
     height: 50rem;
     display: flex;
@@ -87,11 +87,13 @@ export const Container = styled.div `
         background-color: var(--grey-card);
         display: flex;
         flex-direction: column;
+        align-items: center;
         
     }
     .up-box{
         display: flex;
         height: 10%;
+        width: 100%;
         align-items: center;
         justify-content: space-between;
        
@@ -195,9 +197,12 @@ export const Container = styled.div `
     .bottom-solutions{
         height: 15%;
         width: 88%;
+        display: flex;
+        flex-direction: column;
         
     }
     .bottom-up{
+        margin-top: 0.8rem;
         height: 30%;
         display: flex;
         border-bottom: solid 1rem var(--blue-dark);
@@ -205,13 +210,14 @@ export const Container = styled.div `
         width: 100%;
         border-bottom: solid 0.18rem var(--blue);
         justify-content: flex-end;
+        align-items: flex-end;
         
     }
     .comments{
             color:var(--grey-dark) ;
-            font-family: 'Ubuntu';
+            font-family: 'ubuntu';
             font-style: normal;
-            font-weight: 500;
+            font-weight: 300;
             font-size: 0.8rem;
             width: 100%;
             display: flex;
@@ -237,15 +243,39 @@ export const Container = styled.div `
         gap:1rem;
     }
     .titulo-bottom{
-
+        font-family:'Tajawal';
+        font-size: 1rem;
+        color: var(--grey-dark);
     }
     .buttonGit{
         background-color: var(--grey-card);
         border: none;
-        width: 3rem;
-        height: 3rem;
+        width: 2.5rem;
+        height: 2.5rem;
         font-size: 2rem;
         cursor: pointer;
+        color: var(--grey-dark);
+        
+    }
+    .comments{
+        background-color: var(--grey-card);
+        border: none;
+        width: 3rem;
+        height: 1rem;
+        cursor: pointer;
+        color: var(--grey-dark);
+    }
+
+
+    .bottom-down-first{
+        display: flex;
+        align-items: center;
+        height: 50%;
+    }
+    .bottom-down-second{
+        display: flex;
+        align-items: center;
+        height: 50%;
     }
 
 `

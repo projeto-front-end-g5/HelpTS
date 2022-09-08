@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Highlight, { defaultProps } from 'prism-react-renderer';
-import { FaTrashAlt,FaRegThumbsUp} from 'react-icons/fa';
+import { FaTrashAlt,FaRegThumbsUp,FaGithubSquare} from 'react-icons/fa';
 import { BsPencilFill} from 'react-icons/bs';
 import { AiFillGithub} from 'react-icons/ai';
 import { DivSolutionCard } from "../SolutionCard/style"
@@ -173,14 +173,17 @@ function SolutionFullCard({ id }: ISolutionFullCard): JSX.Element {
                   
                   
                   <div className='bottom-down'>
-                  
-                     <h1 className='titulo-bottom'>{userById.name}</h1>
-                     
-                     <button className='buttonGit' type='button' onClick={() => {window.open(userById.github)} }>
-                        < AiFillGithub  />
+                     <div className='bottom-down-second'>
+                         <h1 className='titulo-bottom'>{userById.name}</h1>
+                     </div>
+                    
+                     <div className='bottom-down-first'>
+                        <button className='buttonGit' type='button' onClick={() => {window.open(userById.github)} }>
+                        < FaGithubSquare  />
                      </button>                  
-                      
-                     <h1 className='titulo-bottom'>GitHub</h1>
+                     <h1 className='titulo-bottom'>Github</h1>
+                     </div>
+                     
                   </div>
                   
 
