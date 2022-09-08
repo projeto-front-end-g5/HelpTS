@@ -252,11 +252,8 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
         visibilityEditSolution,
         setSolutions,
         isFound,
-<<<<<<< HEAD
-        OpenSolution
-=======
+        OpenSolution,
         filterTags,
->>>>>>> develop
       }}
     >
       {children}

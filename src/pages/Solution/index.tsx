@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 import { useParams } from 'react-router-dom';
-=======
 import { motion } from 'framer-motion';
->>>>>>> develop
 import ContainerBlue from '../../components/ContainerBlue';
 import Header from '../../components/Header';
 import SolutionFullCard from '../../components/SolutionFullCard';
