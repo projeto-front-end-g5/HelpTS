@@ -1,12 +1,15 @@
-import { createContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useState, useEffect, ReactNode, useContext } from 'react';
+import api from '../../services/api';
 
 interface userPoviderProps {
   children: ReactNode;
+
 }
 
 interface IUserData {
   user: string[];
 }
+
 
 export const UserContext = createContext<IUserData>({} as IUserData);
 
@@ -14,10 +17,11 @@ export const UserProvider = ({ children }: userPoviderProps) => {
   const [user, setUser] = useState<string[]>([]);
 
   useEffect(() => {
+    const id = localStorage.getItem('id');
     const token = localStorage.getItem('token');
 
     if (token != null) {
-      fetch('https://kenziehub.herokuapp.com/profile', {
+      api.get(`https://json-server-project-help-ts.herokuapp.com/users/${id}`,{
         method: 'GET',
         headers: {
           Accept: 'application/json',
@@ -25,8 +29,7 @@ export const UserProvider = ({ children }: userPoviderProps) => {
           Authorization: `Bearer ${token}`,
         },
       })
-        .then((response) => response.json())
-        .then((response) => setUser(response))
+        .then((response) => setUser(response.data))
         .catch((error) => {
           console.error(error);
 
@@ -40,3 +43,7 @@ export const UserProvider = ({ children }: userPoviderProps) => {
     <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>
   );
 };
+
+const useUserContext = () => useContext(UserContext);
+
+export { useUserContext };

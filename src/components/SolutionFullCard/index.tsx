@@ -1,4 +1,5 @@
-
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import { FaTrashAlt,FaRegThumbsUp} from 'react-icons/fa';
 import { BsPencilFill} from 'react-icons/bs';
@@ -7,10 +8,19 @@ import { DivSolutionCard } from "../SolutionCard/style"
 import { Container } from "./style"
 import { SolutionType, useSolutionsContext } from '../../contexts/solutions/solutions';
 import { formateCode } from '../../libs/formatCode';
+import { useDashboardContext } from '../../contexts/dashboard/dashboard';
 import pc from '../../assets/pc.svg';
+import { useUserContext } from '../../contexts/user/user';
+import api from '../../services/api';
 
 
-
+interface IUser {
+   email: string;
+   password: string;
+   name: string;
+   github: string;
+   contact: string;
+ }
 
 interface ISolutionFullCard {
    id: number;
@@ -24,6 +34,15 @@ type ContentType = {
    code: string;
 };
 
+interface FooterProps {
+   targetType: string;
+ }
+ 
+ const Footer = ({ targetType }: FooterProps) => {
+   const { backGroundColorContainerBlue, backGroundColorDark, currentTheme } =
+     useDashboardContext();
+ }
+ 
 function getSolution(solutions: SolutionType[], id: number) {
    let solution = {} as SolutionType;
    for (let index = 0; index < solutions.length; index += 1) {
@@ -33,7 +52,7 @@ function getSolution(solutions: SolutionType[], id: number) {
    }
    return solution
 }
-
+ 
    
 
 
@@ -48,17 +67,40 @@ function insert(original:string, index:number, char:string) {
 };
 
 
+function getUser(id:number, setUserById:any) {
+   const token = localStorage.getItem('token');
+   api.get(`https://json-server-project-help-ts.herokuapp.com/users/${id}`, {
+      method: 'GET',
+      headers: {
+         Accept: 'application/json',
+         'Content-Type': 'application/json',
+         Authorization: `Bearer ${token}`,
+      },
+   })
+   .then((response) => setUserById(response.data))
+   .catch((error) => {
+      console.error(error);
+   });
+}
 
+  
 function SolutionFullCard({ id }: ISolutionFullCard): JSX.Element {
 
+   const [userById, setUserById] = useState<IUser>({} as IUser);
+
+   const {
+      setVisibilityDeleteSolution,
+    } = useSolutionsContext();
 
    const { solutions } = useSolutionsContext();
+   const navigate = useNavigate();
 
    let solution = {} as SolutionType;
    if (solutions.length > 0) {
       solution = getSolution(solutions, id)
    }
-  
+
+   getUser(solution.userId, setUserById)
    return (
 
       <Container>
@@ -70,8 +112,9 @@ function SolutionFullCard({ id }: ISolutionFullCard): JSX.Element {
 
             <div className='second-top'>
                  <div>
-                 <BsPencilFill/>
-                  <FaTrashAlt/>
+                  <button className='botao-modal-edit' type='button' ><BsPencilFill/> </button>
+                  <button className='botao-modal' type='button' onClick={() => setVisibilityDeleteSolution(true)}> <FaTrashAlt/> </button>
+                  
                   </div> 
 
                   <div>
@@ -125,16 +168,22 @@ function SolutionFullCard({ id }: ISolutionFullCard): JSX.Element {
 
                <div className='bottom-solutions'>
                   <div className='bottom-up'>
-                     <h1 className='comments'>Comentários</h1>
+                     <button className='comments' type='button' onClick={ () => navigate('/comments', { replace: true })} >Comentários</button>
+                  </div>
+                  
+                  
+                  <div className='bottom-down'>
+                  
+                     <h1 className='titulo-bottom'>{userById.name}</h1>
+                     
+                     <button className='buttonGit' type='button' onClick={() => {window.open(userById.github)} }>
+                        < AiFillGithub  />
+                     </button>                  
+                      
+                     <h1 className='titulo-bottom'>GitHub</h1>
                   </div>
                   
 
-                  <div className='bottom-down'>
-     
-                     <h1>user.name</h1>
-                     
-                     <h1 className='gitHub'>user.github</h1>
-                  </div>
                </div>
                   
             </div>
@@ -142,7 +191,7 @@ function SolutionFullCard({ id }: ISolutionFullCard): JSX.Element {
 
       </Container>
    )
-
-}
+   
+                        }
 
 export default SolutionFullCard

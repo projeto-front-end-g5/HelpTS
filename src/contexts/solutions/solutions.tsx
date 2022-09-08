@@ -9,6 +9,7 @@ import {
 } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../../services/api';
+import { UserContext } from '../user/user';
 
 interface ISolutionsProps {
   children: ReactNode;
@@ -63,6 +64,7 @@ interface ISolutionsData {
   /* getSolution: (data: ISolutionsData) => void; */
   createSolution: (data: ISolutionsData) => void;
   setVisibilityDeleteSolution: (visibilityDeleteSolution: boolean) => void;
+  setVisibilityEditSolution:(visibilityEditSolution: boolean) => void;
   OpenSolution: (id:number) => void;
 }
 
@@ -80,8 +82,8 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
   const [search, setSearch] = useState('');
   const [isFound, setIsFound] = useState(true);
   const [visibilityDeleteSolution, setVisibilityDeleteSolution] =
-    useState(true);
-  const [visibilityEditSolution, setVisibilityEditSolution] = useState(true);
+    useState(false);
+  const [visibilityEditSolution, setVisibilityEditSolution] = useState(false);
   const [idSolution, setIdSolution] = useState(0);
   const [titleSolution, setTitleSolution] = useState('');
   const [contentTextSolution, setContentTextSolution] = useState('');
@@ -91,11 +93,11 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
     {} as SolutionType
   );
 
-
   const navigate = useNavigate();
 
   const OpenSolution = (id:number) => {
     navigate(`solution/${id}`)
+    setIdSolution(id) 
   }
 
   const createSolution = (data: ISolutionsData) => {
@@ -152,6 +154,9 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
       })
       .then(() => {
         console.log('Solução deletada');
+        navigate('/dashboard', { replace: true });
+        setVisibilityDeleteSolution(false)
+
       })
       .catch((err) => console.error(err.response.data.message));
   };
@@ -254,6 +259,8 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
         isFound,
         OpenSolution,
         filterTags,
+        setVisibilityEditSolution,
+
       }}
     >
       {children}

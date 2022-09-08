@@ -56,13 +56,23 @@ export const Container = styled.div `
         justify-content: space-between;
         gap: 0.3rem;
         margin-right: 1rem;
-        >div>svg {
-            width: 1rem;
+        >div>button>svg {
+            width: 1.5rem;
             height: 1rem;
             margin: 0.3rem;
+            color: var(--grey-dark);
         }
     }
-    
+    .botao-modal{
+        background-color: var(--grey-card);
+        border: none;
+        cursor: pointer;
+    }
+    .botao-modal-edit{
+        background-color: var(--grey-card);
+        border: none;
+        cursor: not-allowed;
+    }
     .Icon{
         font-size: 0.2rem;
     }
@@ -117,7 +127,7 @@ export const Container = styled.div `
             font-style: normal;
             font-weight: 400;
             font-size: 1rem;
-            color: var(--blue);
+            color: var(--blue-dark);
         }
     }
 
@@ -175,6 +185,9 @@ export const Container = styled.div `
         font-style: normal;
         font-weight: 500;
         font-size: 0.8rem;
+        >svg{
+            color: var(--green);
+        }
     }
     
     
@@ -222,6 +235,17 @@ export const Container = styled.div `
         flex-direction: column;
         align-items: center;
         gap:1rem;
+    }
+    .titulo-bottom{
+
+    }
+    .buttonGit{
+        background-color: var(--grey-card);
+        border: none;
+        width: 3rem;
+        height: 3rem;
+        font-size: 2rem;
+        cursor: pointer;
     }
 
 `
