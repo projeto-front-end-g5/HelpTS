@@ -69,7 +69,6 @@ interface IDashboardData {
   filteredSolutions: SolutionType[];
   postId: number;
   setPostId: React.Dispatch<React.SetStateAction<number>>;
-
 }
 
 const DashboardContext = createContext<IDashboardData>({} as IDashboardData);
@@ -100,15 +99,9 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
     { id: uuidv4(), tag: 'parameter' },
     { id: uuidv4(), tag: 'string' },
   ]);
-  
-  const [currentTheme, setCurrentTheme] = useState('light');
-  const [backGroundColorLight, setBackgroundColorLight] = useState('#E4E4C8');
-  const [backGroundColorDark, setBackgroundColorDark] = useState('#1C1C1C');
-  const [backGroundColorHeader, setBackGroundColorHeader] = useState('#EEB73F');
-  const [backGroundColorContainerBlue, setBackGroundColorContainerBlue] =
-    useState('#4087D7');
 
-  const { setFilteredSolutions, filteredSolutions, solutions } = useSolutionsContext();
+  const { setFilteredSolutions, filteredSolutions, solutions } =
+    useSolutionsContext();
 
   function increase() {
     if (counter < 5) {
