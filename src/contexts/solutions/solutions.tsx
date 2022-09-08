@@ -7,7 +7,7 @@ import {
   SetStateAction,
   Dispatch,
 } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import api from '../../services/api';
 
 interface ISolutionsProps {
@@ -63,15 +63,16 @@ interface ISolutionsData {
   /* getSolution: (data: ISolutionsData) => void; */
   createSolution: (data: ISolutionsData) => void;
   setVisibilityDeleteSolution: (visibilityDeleteSolution: boolean) => void;
-  OpenSolution: (id:number) => void;
+  OpenSolution: (id: number) => void;
 }
 
 const SolutionsContext = createContext<ISolutionsData>({} as ISolutionsData);
 
-
-
 const SolutionsProvider = ({ children }: ISolutionsProps) => {
   const token = localStorage.getItem('token');
+
+  const navigate = useNavigate();
+  /* const { searchId } = useParams(); */
 
   const [solutions, setSolutions] = useState<SolutionType[]>([]);
   const [filteredSolutions, setFilteredSolutions] = useState<SolutionType[]>(
@@ -91,12 +92,11 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
     {} as SolutionType
   );
 
-
   const navigate = useNavigate();
 
-  const OpenSolution = (id:number) => {
-    navigate(`solution/${id}`)
-  }
+  const OpenSolution = (id: number) => {
+    navigate(`solution/${id}`);
+  };
 
   const createSolution = (data: ISolutionsData) => {
     api
@@ -130,10 +130,12 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
   const searchSolution = () => {
     setFilteredSolutions(
       solutions.filter(
-        (solution) => solution.title.toLowerCase().includes(search) /* ||
-          solution.tags.join().toLowerCase().includes(search) */
+        (solution) =>
+          solution.title.toLowerCase().includes(search) ||
+          solution.tags.join().toLowerCase().includes(search)
       )
     );
+    navigate(`/search/${search}}`, { replace: true });
   };
 
   const searchFound = () => {
@@ -261,7 +263,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
   );
 };
 
-console.log()
+console.log();
 const useSolutionsContext = () => useContext(SolutionsContext);
 
 export { useSolutionsContext, SolutionsProvider };
