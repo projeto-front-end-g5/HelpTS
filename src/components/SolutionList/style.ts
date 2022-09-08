@@ -7,7 +7,7 @@ interface ISecondContainer extends ButtonHTMLAttributes<HTMLButtonElement> {
   
   export const SecondContainer = styled.div<ISecondContainer> `
 
-    
+    cursor: pointer;
   `
 
 export const Container = styled.div`

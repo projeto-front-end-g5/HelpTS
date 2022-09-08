@@ -1,9 +1,16 @@
+
 import Highlight, { defaultProps } from 'prism-react-renderer';
-import { FaTrashAlt } from 'react-icons/fa';
-import LogoRegisterLogin from "../LogoRegisterLogin"
+import { FaTrashAlt,FaRegThumbsUp} from 'react-icons/fa';
+import { BsPencilFill} from 'react-icons/bs';
+import { AiFillGithub} from 'react-icons/ai';
 import { DivSolutionCard } from "../SolutionCard/style"
 import { Container } from "./style"
 import { SolutionType, useSolutionsContext } from '../../contexts/solutions/solutions';
+import { formateCode } from '../../libs/formatCode';
+import pc from '../../assets/pc.svg';
+
+
+
 
 interface ISolutionFullCard {
    id: number;
@@ -27,9 +34,19 @@ function getSolution(solutions: SolutionType[], id: number) {
    return solution
 }
 
+   
 
-     
- 
+
+  
+function insert(original:string, index:number, char:string) {
+   const ln = '\n'
+   const tab = '\t'
+   if (index > 0) {
+      return original.substring(0, index) + ln + tab + original.substring(index);
+   }
+   return char + original;
+};
+
 
 
 function SolutionFullCard({ id }: ISolutionFullCard): JSX.Element {
@@ -41,64 +58,85 @@ function SolutionFullCard({ id }: ISolutionFullCard): JSX.Element {
    if (solutions.length > 0) {
       solution = getSolution(solutions, id)
    }
-console.log(solution.content.code)
+  
    return (
 
       <Container>
          <div className='box-top'>
             <div className='first-top'>
-               <LogoRegisterLogin />
+               <img src= {pc} alt= 'logoHelpTS'/>
                <h1 className='title'>{solution.title}</h1>
             </div>
 
             <div className='second-top'>
+                 <div>
+                 <BsPencilFill/>
+                  <FaTrashAlt/>
+                  </div> 
 
-               <span className='span--tags'>
+                  <div>
+                     <span className='span--tags'>
                   {solution.tags.map((tag) => (
                      <p className='hash--card'>#{tag}</p>
                   ))}
                </span>
+                  </div>
+               
             </div>
          </div>   
             <div className='box-bottom'>
-               <div>
-                  <h1 className='second-title'>{solution.title}</h1>
-                  <h1 className='likes'>{solution.created_at}</h1>
-                  <h1 className='likes'> {solution.likes}</h1>
+               <div className='up-box'>
+                  <div className='up-box-first'>
+                     <h1 className='second-title'>{solution.title}</h1>
+                  </div>
+                  
+                  <div className='up-box-second'>
+                     <h1 className='likes'>{solution.created_at}</h1>
+                  <h1 className='likes'> 
+                  <FaRegThumbsUp/>{solution.likes} Likes</h1>
+                  </div>
                </div>
 
-               <div>
+               <div className='solutions-card'>
                   <div className='solution-box'>
                      <h1>{solution.content.text}</h1>
                   </div>
 
                   <div className='solution-code'>
-                  <Highlight {...defaultProps} code={solution.content.code.toString()} language='tsx'>
+                  <Highlight {...defaultProps} code={formateCode(solution.content.code[0], 0, true)} language='tsx'>
                      {({ className, style, tokens, getLineProps, getTokenProps }) => (
                         <pre className={className} style={style}>
-                           {tokens.map((line, i) => (
-                           <div {...getLineProps({ line, key: i })}>
-                              {line.map((token, key) => (
-                                 <span {...getTokenProps({ token, key })} />
-                              ))}
-                           </div>
+                       {tokens.map((line, i) => (
+                     <div {...getLineProps({ line, key: i })}>
+                        {line.map((token, key) => (
+                     <span {...getTokenProps({ token, key })} />
                            ))}
-                        </pre>
+                     </div>
+                      ))}
+                     </pre>
                      )}
-                  </Highlight>
+                  </Highlight> 
+            
+                   
 
                   </div>
 
                </div>
 
-               <div>
-                  <h1 className='likes'>Comentários</h1>
-               </div>
+               <div className='bottom-solutions'>
+                  <div className='bottom-up'>
+                     <h1 className='comments'>Comentários</h1>
+                  </div>
+                  
 
-               <div>
-                  <h1>Usuário</h1>
-                  <h1 className='gitHub'>Github Usuário</h1>
+                  <div className='bottom-down'>
+     
+                     <h1>user.name</h1>
+                     
+                     <h1 className='gitHub'>user.github</h1>
+                  </div>
                </div>
+                  
             </div>
                    
 

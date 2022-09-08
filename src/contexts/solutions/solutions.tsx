@@ -251,6 +251,7 @@ const SolutionsProvider = ({ children }: ISolutionsProps) => {
   );
 };
 
+console.log()
 const useSolutionsContext = () => useContext(SolutionsContext);
 
 export { useSolutionsContext, SolutionsProvider };
