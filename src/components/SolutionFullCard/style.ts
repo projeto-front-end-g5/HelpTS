@@ -2,7 +2,7 @@ import styled, { StyledComponent} from "styled-components";
 
 
 export const Container = styled.div `
-
+    margin-top: 3rem;
     width:  100%;
     height: 50rem;
     display: flex;
@@ -56,13 +56,23 @@ export const Container = styled.div `
         justify-content: space-between;
         gap: 0.3rem;
         margin-right: 1rem;
-        >div>svg {
-            width: 1rem;
+        >div>button>svg {
+            width: 1.5rem;
             height: 1rem;
             margin: 0.3rem;
+            color: var(--grey-dark);
         }
     }
-    
+    .botao-modal{
+        background-color: var(--grey-card);
+        border: none;
+        cursor: pointer;
+    }
+    .botao-modal-edit{
+        background-color: var(--grey-card);
+        border: none;
+        cursor: not-allowed;
+    }
     .Icon{
         font-size: 0.2rem;
     }
@@ -77,11 +87,13 @@ export const Container = styled.div `
         background-color: var(--grey-card);
         display: flex;
         flex-direction: column;
+        align-items: center;
         
     }
     .up-box{
         display: flex;
         height: 10%;
+        width: 100%;
         align-items: center;
         justify-content: space-between;
        
@@ -117,7 +129,7 @@ export const Container = styled.div `
             font-style: normal;
             font-weight: 400;
             font-size: 1rem;
-            color: var(--blue);
+            color: var(--blue-dark);
         }
     }
 
@@ -175,6 +187,9 @@ export const Container = styled.div `
         font-style: normal;
         font-weight: 500;
         font-size: 0.8rem;
+        >svg{
+            color: var(--green);
+        }
     }
     
     
@@ -182,9 +197,12 @@ export const Container = styled.div `
     .bottom-solutions{
         height: 15%;
         width: 88%;
+        display: flex;
+        flex-direction: column;
         
     }
     .bottom-up{
+        margin-top: 0.7rem;
         height: 30%;
         display: flex;
         border-bottom: solid 1rem var(--blue-dark);
@@ -192,13 +210,14 @@ export const Container = styled.div `
         width: 100%;
         border-bottom: solid 0.18rem var(--blue);
         justify-content: flex-end;
+        align-items: flex-end;
         
     }
     .comments{
             color:var(--grey-dark) ;
-            font-family: 'Ubuntu';
+            font-family: 'ubuntu';
             font-style: normal;
-            font-weight: 500;
+            font-weight: 300;
             font-size: 0.8rem;
             width: 100%;
             display: flex;
@@ -223,6 +242,52 @@ export const Container = styled.div `
         align-items: center;
         gap:1rem;
     }
+    .titulo-bottom{
+        font-family:'Tajawal';
+        font-size: 1rem;
+        color: var(--grey-dark);
+    }
+    .buttonGit{
+        background-color: var(--grey-card);
+        border: none;
+        width: 1.5000rem;
+        height: 1.5rem;
+        font-size: 2.2rem;
+        cursor: pointer;
+        color: var(--grey-dark);
+        
+    }
+    .comments{
+        background-color: var(--grey-card);
+        border: none;
+        width: 3rem;
+        height: 1rem;
+        cursor: pointer;
+        color: var(--grey-dark);
+    }
 
+
+    .bottom-down-first{
+        display: flex;
+        align-items: center;
+        height: 50%;
+        gap: 1.3rem;
+        border-left: 0.5rem  ;
+    }
+    .bottom-down-second{
+        display: flex;
+        align-items: center;
+        height: 50%;
+        gap: 0.3rem;
+        border-left: 0.5rem  ;
+    }
+
+    .Avatar{
+        width: 1.9rem;
+        height: 1.9rem;
+        background-color: #35beff;
+        margin-left: 0.5rem;
+        margin-top: 0.2rem;
+    }
 `
 

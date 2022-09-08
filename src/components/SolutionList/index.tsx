@@ -8,8 +8,8 @@ import { ContainerSolutions } from '../SolutionCard/style';
 import { Container, ContainerNotFound, SecondContainer } from './style';
 
 const SolutionList = () => {
-  const { filteredSolutions, isFound, OpenSolution } = useSolutionsContext();
-  const { setLimit, currentTheme } = useDashboardContext();
+  const { filteredSolutions, OpenSolution } = useSolutionsContext();
+  const { setLimit, currentTheme, loading } = useDashboardContext();
   const rota = useParams();
 
   if (rota.posts === 'posts') {
@@ -20,22 +20,22 @@ const SolutionList = () => {
 
   return (
     <ContainerSolutions>
-      {filteredSolutions.length === 0 ? (
+      {loading ? (
+        <Container>
+          <p>Carregando...</p>
+          <EmptyList />
+        </Container>
+      ) : filteredSolutions.length === 0 ? (
         <ContainerNotFound theme={currentTheme}>
           <div className='notResult'>Não há resultado disponível</div>
           <NotFound />
         </ContainerNotFound>
-      ) : filteredSolutions.length ? (
+      ) : (
         filteredSolutions.map((item) => (
           <SecondContainer onClick={() => OpenSolution(item.id)}>
             <SolutionCard key={item.id} item={item} />
           </SecondContainer>
         ))
-      ) : (
-        <Container>
-          <p>Carregando...</p>
-          <EmptyList />
-        </Container>
       )}
     </ContainerSolutions>
   );

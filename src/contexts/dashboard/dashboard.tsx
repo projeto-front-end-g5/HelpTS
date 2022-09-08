@@ -68,6 +68,8 @@ interface IDashboardData {
   setButtonClick: (buttonClick: boolean) => void;
   filteredSolutions: SolutionType[];
   postId: number;
+  loading: boolean;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setPostId: React.Dispatch<React.SetStateAction<number>>;
 }
 
@@ -85,6 +87,7 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
   const [backGroundColorLight, setBackgroundColorLight] = useState('#E4E4C8');
   const [backGroundColorDark, setBackgroundColorDark] = useState('#1C1C1C');
   const [backGroundColorHeader, setBackGroundColorHeader] = useState('#EEB73F');
+  const [loading, setLoading] = useState(true);
   const [backGroundColorContainerBlue, setBackGroundColorContainerBlue] =
     useState('#4087D7');
 
@@ -124,6 +127,7 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
       .get(`/solutions?_page=${counter}&_limit=${limit}`)
       .then((response) => {
         setFilteredSolutions(response.data);
+        setLoading(false);
       })
       .catch((err) => console.error(err.response.data.message));
   }, [counter, limit]);
@@ -137,7 +141,9 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
     const idUser = localStorage.getItem('userId');
 
     const filtered = solutions.filter(
-      (solution) => solution.userId === Number(idUser)
+      (solution) =>
+        // eslint-disable-next-line eqeqeq
+        solution.userId == Number(idUser)
     );
 
     setFilteredSolutions(filtered);
@@ -238,6 +244,8 @@ const DashboardProvider = ({ children }: IDashboardProps) => {
         filteredSolutions,
         postId,
         setPostId,
+        loading,
+        setLoading,
       }}
     >
       {children}

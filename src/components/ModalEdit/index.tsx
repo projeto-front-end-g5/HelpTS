@@ -14,8 +14,8 @@ Modal.setAppElement(document.getElementById('root')!);
 
 const ModalEdit = () => {
   const {
-    visibilityDeleteSolution,
-    setVisibilityDeleteSolution,
+    visibilityEditSolution,
+    setVisibilityEditSolution,
     RequestEdit,
     contentTextSolution,
     contentTag,
@@ -63,8 +63,8 @@ const ModalEdit = () => {
 
   return (
     <Modal
-      isOpen={visibilityDeleteSolution}
-      onRequestClose={() => setVisibilityDeleteSolution(false)}
+      isOpen={visibilityEditSolution}
+      onRequestClose={() => setVisibilityEditSolution(false)}
       style={styleModal}
       parentSelector={() => document.body}
     >
@@ -111,7 +111,7 @@ const ModalEdit = () => {
             <button type='submit'>Editar</button>
             <button
               type='button'
-              onClick={() => setVisibilityDeleteSolution(false)}
+              onClick={() => setVisibilityEditSolution(false)}
             >
               Cancelar
             </button>
