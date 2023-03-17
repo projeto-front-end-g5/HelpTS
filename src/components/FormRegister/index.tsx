@@ -2,7 +2,6 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { formRegisterSchema } from '../../validator/schema';
 import { useRegisterContext } from '../../contexts/register/register';
-
 import { FormReg, LabelErrors } from './style';
 
 interface IFormRegister {

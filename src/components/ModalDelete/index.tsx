@@ -55,7 +55,7 @@ const ModalDelete = () => {
           <h3>Tem certeza que desejar excluir essa solução?</h3>
         </div>
         <div className='Container-buttons'>
-          <button type='button' onClick={deleteSolution}>
+          <button type='button' onClick={() => deleteSolution()}>
             Sim
           </button>
           <button
