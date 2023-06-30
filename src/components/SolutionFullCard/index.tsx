@@ -66,14 +66,14 @@ function insert(original: string, index: number, char: string) {
 }
 
 function getUser(id: number, setUserById: any) {
-  const token = localStorage.getItem('token');
+  const newToken = localStorage.getItem('token');
   api
     .get(`https://json-server-project-help-ts.herokuapp.com/users/${id}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${newToken}`,
       },
     })
     .then((response) => setUserById(response.data))
@@ -98,7 +98,7 @@ function SolutionFullCard({ id }: ISolutionFullCard): JSX.Element {
   }
 
   getUser(solution.userId, setUserById);
-  const token = localStorage.getItem('token');
+  const newToken = localStorage.getItem('token');
   return (
     <Container>
       <div className='box-top'>
@@ -110,10 +110,10 @@ function SolutionFullCard({ id }: ISolutionFullCard): JSX.Element {
         <div className='second-top'>
           <div>
             <button className='botao-modal-edit' type='button'>
-              {postId === solution.id && token ? (
+              {postId === solution.id && newToken ? (
                 <BsPencilFill />
               ) : (
-                token && <BsPencilFill />
+                newToken && <BsPencilFill />
               )}
             </button>
             <button
@@ -121,10 +121,10 @@ function SolutionFullCard({ id }: ISolutionFullCard): JSX.Element {
               type='button'
               onClick={() => setVisibilityDeleteSolution(true)}
             >
-              {postId === solution.id && buttonClick && token ? (
+              {postId === solution.id && buttonClick && newToken ? (
                 <FaTrashAlt />
               ) : (
-                token && <FaTrashAlt />
+                newToken && <FaTrashAlt />
               )}
             </button>
           </div>
